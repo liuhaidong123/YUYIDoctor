@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">YUYIDoctor</string>
+
+    <string name="information_tv">资讯</string>
+    <string name="academic_circle_tv">学术圈</string>
+    <string name="patient_tv">患者</string>
+    <string name="my_tv">个人</string>
+
+    <string name="today_tv">今日推荐</string>
+    <string name="new_tv">最新</string>
+    <string name="hot_tv">热门</string>
+    <string name="title">清华大学成立临床医学院,这是在放啥信号?</string>
+    <string name="message">2016年12月29日,清华大学医学院在其官网站发布通知:医教研三位一体，清华大学在医学院成立临床</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

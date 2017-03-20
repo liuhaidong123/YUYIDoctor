@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_fragment_btn">#fafcfb</color>
+    <color name="color_press_tv">#5ee708</color>
+    <color name="color_no_press_tv">#000000</color>
+    <color name="color_edit_hint">#aaa9a9</color>
+    <color name="color_drumall">#6a6a6a</color>
+    <color name="color_bg">#cccccc</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_username">#25f368</color>
+    <color name="color_normal">#333333</color>
+    <color name="color_press">#666666</color>
+    <color name="color_mess">#888888</color>
+    <color name="color_red">#ec2e2e</color>
+    <color name="color_blood">#8bfad4</color>
+    <color name="color_scroll_bg">#f2f2f2</color>
+    <color name="color_ee">#eeeeee</color>
+    <color name="color_jia">#686868</color>
+    <color name="color_aa">#aaaaaa</color>
+    <color name="color_dd">#d5d5d5</color>
+    <color name="color_ad">#999999</color>
+    <color name="color_fe">#fefefe</color>
+    <color name="color_g">#e6333333</color>
+    <color name="color_tem">#e80000</color>
+    <color name="color_per">#c7c5c5</color>
+    <color name="color_e">#e2e2e2</color>
+    <color name="color_d">#dddddd</color>
+    <color name="color_gua">#fefbfb</color>
+    <color name="color_cancel">#f1f1f1</color>
+    <color name="color_delete">#e00610</color>
+    <color name="color_fail">#e51b1b</color>
+    <color name="color_price">#f32f25</color>
+    <color name="color_now_price">#f11d18</color>
+</resources>

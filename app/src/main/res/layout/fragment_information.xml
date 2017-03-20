@@ -1,0 +1,211 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
+    tools:context="fragment.InformationFragment">
+
+    <RelativeLayout
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/information_tv"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/equip_title"
+        android:background="@color/color_bg" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/first_page_swiperefesh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/equip_line"
+        android:focusable="false">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:id="@+id/scroll_relative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/viewpager_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:focusable="true" />
+
+                    <LinearLayout
+                        android:id="@+id/viewGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/change_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/viewpager_relative"
+                    android:background="@color/color_white"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="18dp">
+
+                    <RelativeLayout
+                        android:id="@+id/today_relative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp">
+
+                        <TextView
+                            android:id="@+id/today_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:text="@string/today_tv"
+                            android:textColor="@color/color_normal"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:id="@+id/today_line"
+                            android:layout_width="0dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@id/today_tv"
+                            android:background="@color/color_username" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/new_relative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/today_relative"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp">
+
+                        <TextView
+                            android:id="@+id/new_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/new_tv"
+                            android:textColor="@color/color_normal"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:id="@+id/new_line"
+                            android:layout_width="0dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@id/new_tv"
+                            android:background="@color/color_username" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/new_relative"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp">
+
+                        <TextView
+                            android:id="@+id/hot_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hot_tv"
+                            android:textColor="@color/color_normal"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:id="@+id/hot_line"
+                            android:layout_width="0dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@id/hot_tv"
+                            android:background="@color/color_username" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/change_btn"
+                    android:background="@color/color_bg" />
+
+                <com.doctor.yuyi.myview.InformationListView
+                    android:background="@color/color_white"
+                    android:id="@+id/information_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/line"
+                    android:divider="@color/color_bg"
+                    android:dividerHeight="1dp">
+
+                </com.doctor.yuyi.myview.InformationListView>
+
+                <RelativeLayout
+                    android:id="@+id/more_relative"
+                    android:layout_below="@+id/information_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/footer_tv"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="加载更多"
+                        android:textColor="@color/color_normal"
+                        android:textSize="13sp" />
+
+                    <ProgressBar
+                        android:id="@+id/pbLocate"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:paddingTop="15dp"
+                        android:visibility="invisible"
+                        android:layout_toEndOf="@+id/footer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
