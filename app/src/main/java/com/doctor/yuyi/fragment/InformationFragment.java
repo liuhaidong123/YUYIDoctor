@@ -1,6 +1,7 @@
 package com.doctor.yuyi.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.activity.InformationMessageActivity;
 import com.doctor.yuyi.adapter.AdViewPagerAdapter;
 import com.doctor.yuyi.adapter.FirstPageListviewAdapter;
 import com.doctor.yuyi.bean.MyEntity;
@@ -154,7 +156,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent=new Intent(getContext(),InformationMessageActivity.class);
+        startActivity(intent);
 
     }
 

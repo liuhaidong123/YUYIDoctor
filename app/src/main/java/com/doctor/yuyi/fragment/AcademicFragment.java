@@ -6,15 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.adapter.CommentAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AcademicFragment extends Fragment {
-
+    private ListView mListview;
+    private CommentAdapter mAdapter;
 
     public AcademicFragment() {
         // Required empty public constructor
@@ -24,8 +27,11 @@ public class AcademicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_academic, container, false);
+     View view=   inflater.inflate(R.layout.fragment_academic, container, false);
+        mListview = (ListView) view.findViewById(R.id.comment_listview);
+        mAdapter = new CommentAdapter(getContext());
+        mListview.setAdapter(mAdapter);
+        return view;
     }
 
 }

@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_comment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.AcademicFragment">
-
+    android:background="@color/color_cancel"
+    tools:context="com.doctor.yuyi.activity.CommentActivity">
 
     <RelativeLayout
         android:id="@+id/equip_title"
@@ -95,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
+               android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
                 android:text="123"
                 android:textColor="@color/color_ad"
@@ -159,6 +161,8 @@
 
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/comment_ll"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
@@ -191,6 +195,7 @@
             android:text="@string/comment_send"
             />
     </LinearLayout>
+
 
 
 </RelativeLayout>

@@ -12,6 +12,11 @@
     <string name="title">清华大学成立临床医学院,这是在放啥信号?</string>
     <string name="message">2016年12月29日,清华大学医学院在其官网站发布通知:医教研三位一体，清华大学在医学院成立临床</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="information_mess">资讯详情</string>
+    <string name="comment">评论</string>
+    <string name="comment_hint">说点什么吧...</string>
+    <string name="comment_send">发送</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

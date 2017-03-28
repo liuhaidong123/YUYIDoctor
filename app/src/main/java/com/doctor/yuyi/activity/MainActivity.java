@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.fragment.AcademicFragment;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public final String pressColor = "#25f368";
     public final String noPressColor = "#666666";
+
+    private long time = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -265,5 +268,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMy_tv.setTextColor(Color.parseColor(pressColor));
         mMy_img.setImageResource(R.mipmap.my_selected);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (time > 0) {
+            if (System.currentTimeMillis() - time < 2000) {
+                super.onBackPressed();
+            } else {
+                time = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            time = System.currentTimeMillis();
+            Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+
+        }
     }
 }
