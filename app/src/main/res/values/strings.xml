@@ -19,4 +19,10 @@
     <string name="comment_send">发送</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_settings_aboutOurs_msg">宇医app，希望通过网上医疗的形式能够解决用户的一些医疗的基本需求，包括：测量监控自己及家人的健康数据；足不出户解决购药问题；提前预约专家挂号问题；在家与医生面对面交流，解决一些简单的问诊等</string>
+    <string name="my_settings_aboutOurs_versionCode">当前版本号：1.0（wanyu2017）</string>
+    <string name="my_settings_contactOur_phoneNum">0312-3850331</string>
+    <string name="my_message_notifi_title">更新通知：你已经好久没看我了，最近我有很多好玩的新功能哦，快来更新吧～</string>
+    <string name="forumposts_title">还有九天发一些知识点--需要死记硬背的（当年考试做的一点总结，希望能对大家有所帮助）</string>
+    <string name="forumposts_content">呼吸系统：1、呼酸呼碱 代酸代碱：第一步看CO2变化，反映呼吸，CO2高了呼酸，CO2低了呼碱；第二部看HCO3根（正常值为22～27，平均值为24），反映呼吸装状况良好，多注意呼吸道是否感染</string>
 </resources>
