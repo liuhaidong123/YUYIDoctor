@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+
+        android:id="@+id/user_message_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.doctor.yuyi.myview.RoundImageView
+            android:id="@+id/head_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/item02" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/head_img"
+            android:text="LIM"
+            android:textColor="@color/color_drumall"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/head_img"
+            android:text="1小时前"
+            android:textColor="@color/color_bg"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/card_user_praise_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="789"
+            android:layout_marginRight="20dp"
+            android:layout_alignTop="@id/time"
+            android:layout_alignParentEnd="true"
+            />
+
+        <ImageView
+            android:id="@+id/car_user_praise_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/card_user_praise_num"
+            android:layout_alignTop="@id/time"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/like_selected" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name"
+            android:layout_below="@id/time"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/message"
+            android:textColor="@color/color_drumall"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@id/name"
+            android:layout_below="@id/content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/color_cancel" />
+    </RelativeLayout>
+</RelativeLayout>

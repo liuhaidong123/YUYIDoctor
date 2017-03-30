@@ -25,12 +25,6 @@
             android:name=".activity.InformationMessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CommentActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.My_setting_about_Activity"
             android:launchMode="singleTop" />
         <activity
@@ -48,7 +42,22 @@
         <activity android:name=".activity.My_praise_Activity" />
         <activity android:name=".activity.My_patientDataList_Activity" />
         <activity android:name=".activity.My_registration_Activity" />
-        <activity android:name=".activity.My_registration_Info_Activity"></activity>
+        <activity android:name=".activity.My_registration_Info_Activity" />
+        <activity
+            android:name=".activity.PostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CommentInformationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
+        <activity
+            android:name=".activity.CardMessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
     </application>
 
 </manifest>

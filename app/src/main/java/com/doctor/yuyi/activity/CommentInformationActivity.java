@@ -1,10 +1,8 @@
 package com.doctor.yuyi.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +11,7 @@ import android.widget.ListView;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.adapter.CommentAdapter;
 
-public class CommentActivity extends AppCompatActivity implements View.OnClickListener {
+public class CommentInformationActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView mBack;
     private ListView mListview;
     private CommentAdapter mAdapter;
@@ -22,10 +20,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.activity_comment_information);
         initView();
     }
-
     public void initView() {
         //返回
         mBack = (ImageView) findViewById(R.id.comment_back);
@@ -35,7 +32,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         mAdapter = new CommentAdapter(this);
         mListview.setAdapter(mAdapter);
 
-        mEdit= (EditText) findViewById(R.id.edit);
+       mEdit= (EditText) findViewById(R.id.edit);
         mSendBtn= (Button) findViewById(R.id.comment_btn);
         mSendBtn.setOnClickListener(this);
     }
