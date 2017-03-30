@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_edit_hint" />
+            android:background="@color/color_cancel" />
 
         <LinearLayout
             android:id="@+id/firstpage_btn_ll_all"

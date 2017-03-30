@@ -36,14 +36,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
 
     <ScrollView
-        android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/equip_line">
+        android:layout_above="@+id/bottom_relative"
+        android:layout_below="@+id/equip_line"
+        android:background="@color/color_white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -85,23 +86,20 @@
         </RelativeLayout>
     </ScrollView>
 
-
-    <View
-
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/bottom_relative"
-        android:background="@color/color_bg"
-
-        />
-
     <RelativeLayout
+        android:background="@color/color_white"
         android:id="@id/bottom_relative"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_cancel"
 
+            />
         <TextView
             android:id="@+id/comment_num_tv"
             android:layout_width="wrap_content"
@@ -114,7 +112,7 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/comment_img"
+            android:id="@+id/comment_img1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -129,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="25dp"
-            android:layout_toStartOf="@id/comment_img"
+            android:layout_toStartOf="@id/comment_img1"
             android:text="123"
             android:textColor="@color/color_ad"
             android:textSize="12sp" />

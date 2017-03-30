@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/first_page_swiperefesh"
@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@id/change_btn"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
                 <com.doctor.yuyi.myview.InformationListView
                     android:background="@color/color_white"
@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/line"
-                    android:divider="@color/color_bg"
+                    android:divider="@color/color_cancel"
                     android:dividerHeight="1dp">
 
                 </com.doctor.yuyi.myview.InformationListView>
