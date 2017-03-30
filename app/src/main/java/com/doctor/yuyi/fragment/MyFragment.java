@@ -12,12 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.activity.My_forumPosts_Activity;
 import com.doctor.yuyi.activity.My_message_Activity;
 import com.doctor.yuyi.activity.My_patientDataList_Activity;
 import com.doctor.yuyi.activity.My_praise_Activity;
 import com.doctor.yuyi.activity.My_registration_Activity;
 import com.doctor.yuyi.activity.My_setting_Activity;
+import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 
 
@@ -94,6 +96,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         break;
 
                     case R.id.my_image_photo://头像
+                        startActivity(new Intent(getActivity(), UserInfo_Activity.class));
                         break;
 
                     case R.id.my_relative_tiezi://帖子

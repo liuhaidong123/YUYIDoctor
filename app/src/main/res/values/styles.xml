@@ -10,5 +10,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <!--弹窗样式-->
+    <style name="popup3_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop3_in</item>
+        <item name="android:windowExitAnimation">@anim/pop3_out</item>
+    </style>
 </resources>

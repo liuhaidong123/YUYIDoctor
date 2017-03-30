@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.doctor.yuyi">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <application
+        android:name=".mApplication.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,16 +23,13 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activity.InformationMessageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CommentActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.My_setting_about_Activity"
             android:launchMode="singleTop" />
@@ -48,7 +48,10 @@
         <activity android:name=".activity.My_praise_Activity" />
         <activity android:name=".activity.My_patientDataList_Activity" />
         <activity android:name=".activity.My_registration_Activity" />
-        <activity android:name=".activity.My_registration_Info_Activity"></activity>
+        <activity android:name=".activity.My_registration_Info_Activity" />
+        <activity android:name=".activity.Login_Activity" />
+        <activity android:name=".activity.UserInfo_Activity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

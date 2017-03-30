@@ -64,6 +64,8 @@ public class My_forumPosts_Adapter extends BaseAdapter{
             hodler.forumpost_listitem_layout_msg= (LinearLayout) convertView.findViewById(R.id.forumpost_listitem_layout_msg);
 
             hodler.forumpost_listitem_layout_post= (LinearLayout) convertView.findViewById(R.id.forumpost_listitem_layout_post);
+
+            hodler.forumposts_listview_item_photoImage= (ImageView) convertView.findViewById(R.id.forumposts_listview_item_photoImage);
             convertView.setTag(hodler);
         }
         hodler= (ViewHodler) convertView.getTag();
@@ -76,5 +78,6 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         TextView forumposts_listview_item_msgNum,forumposts_listview_item_postNum;//评论代数量，点赞的数量
         ImageView forumposts_listview_item_postImage,forumposts_listview_item_msgImage;//点赞，评论的image
         LinearLayout forumpost_listitem_layout_post,forumpost_listitem_layout_msg;//评论，点赞的layout;
+        ImageView forumposts_listview_item_photoImage;
     }
 }

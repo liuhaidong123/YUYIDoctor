@@ -12,6 +12,22 @@
     <string name="title">清华大学成立临床医学院,这是在放啥信号?</string>
     <string name="message">2016年12月29日,清华大学医学院在其官网站发布通知:医教研三位一体，清华大学在医学院成立临床</string>
 
+    <string name="str_li">李四</string>
+    <string name="str_user_edi">个人编辑</string>
+    <string name="str_save">保存</string>
+    <string name="str_head">头像</string>
+    <string name="str_user_name">用户名</string>
+    <string name="str_user_num">18328887653</string>
+    <string name="str_user_sex">性别</string>
+    <string name="str_user_boy">男</string>
+    <string name="str_user_girl">女</string>
+    <string name="str_user_age">年龄</string>
+    <string name="str_user_nation">民族</string>
+    <string name="str_user_bu">布依族</string>
+    <string name="str_user_id">身份证号码</string>
+    <string name="str_user_id_num">13238829983839280100</string>
+    <string name="str_user_place">籍贯</string>
+    <string name="str_user_place_mess">河南省新乡市</string>
 
     <string name="information_mess">资讯详情</string>
     <string name="comment">评论</string>

@@ -37,65 +37,69 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/setting"/>
             </RelativeLayout>
-                <com.doctor.yuyi.lzh_utils.RoundImageView
-                    android:scaleType="fitCenter"
-                    android:id="@+id/my_image_photo"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/doc"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    />
+
+            <com.doctor.yuyi.lzh_utils.RoundImageView
+                android:scaleType="fitCenter"
+                android:id="@+id/my_image_photo"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/doc"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                />
         </FrameLayout>
-        <LinearLayout
-            android:id="@+id/my_layout_top"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/my_top_fragment"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="赵启平"
-                android:textColor="#6a6a6a"
-                android:id="@+id/my_textV_docName"
+            <LinearLayout
+                android:layout_below="@+id/my_top_fragment"
+                android:id="@+id/my_layout_top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                />
-            <TextView
-                android:id="@+id/my_textV_zhicheng"
-                android:text="主治医师"
-                android:layout_marginLeft="10dp"
-                android:textColor="#6a6a6a"
-                android:textSize="14sp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="赵启平"
+                    android:textColor="#6a6a6a"
+                    android:id="@+id/my_textV_docName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/my_textV_zhicheng"
+                    android:text="主治医师"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#6a6a6a"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/my_layout_top"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/my_layout_top"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="涿州市中医院"
-                android:textColor="#6a6a6a"
-                android:id="@+id/my_textV_hosName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                />
-            <TextView
-                android:text="检验科"
-                android:layout_marginLeft="10dp"
-                android:textColor="#6a6a6a"
-                android:textSize="12sp"
-                android:id="@+id/my_textV_ksName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="涿州市中医院"
+                    android:textColor="#6a6a6a"
+                    android:id="@+id/my_textV_hosName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    />
+
+                <TextView
+                    android:text="检验科"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#6a6a6a"
+                    android:textSize="12sp"
+                    android:id="@+id/my_textV_ksName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
     </RelativeLayout>
 
     <LinearLayout

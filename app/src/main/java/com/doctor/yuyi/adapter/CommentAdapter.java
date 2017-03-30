@@ -18,7 +18,7 @@ public class CommentAdapter extends BaseAdapter {
 
     public CommentAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mInflater=LayoutInflater.from(this.mContext);
+//        this.mInflater=LayoutInflater.from(this.mContext);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CommentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view=mInflater.inflate(R.layout.comment_listview_item,null);
+        View view=LayoutInflater.from(mContext).inflate(R.layout.comment_listview_item,null);
         return view;
     }
 }
