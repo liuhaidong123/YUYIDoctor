@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/usereditor_pop_layout_t"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#00aaeeaa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/usereditor_textv_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:background="@drawable/usereditor_pop_picture"
+            android:text="本地图片"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"/>
+        <TextView
+            android:id="@+id/usereditor_textv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:text="拍照上传"
+            android:background="@drawable/usereditor_pop_camera"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"/>
+        <TextView
+
+            android:id="@+id/usereditor_textv_cancle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:text="取消"
+            android:background="@drawable/usereditor_pop_cancle"/>
+    </LinearLayout>
+
+</LinearLayout>

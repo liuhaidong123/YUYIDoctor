@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:gravity="bottom"
+        android:text="@string/str_user_sex"
+        android:textColor="@color/color_press"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_scroll_bg" />
+
+    <RadioGroup
+        android:id="@+id/user_editor_sex_radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/boy_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="@string/str_user_boy"
+            android:textColor="@color/color_press"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_scroll_bg" />
+
+        <RadioButton
+            android:id="@+id/girl_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="@string/str_user_girl"
+            android:textSize="12sp" />
+    </RadioGroup>
+</LinearLayout>

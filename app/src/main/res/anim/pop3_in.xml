@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:duration="400"
+        android:fromXScale="0"
+        android:fromYScale="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+    <alpha
+        android:duration="400"
+        android:fromAlpha="0"
+        android:toAlpha="1.0" />
+
+
+<!--4         fromXScale：动画在X坐标的初始大小（横向的初始大小）-->
+<!--5         fromYScale：动画在Y坐标的初始大小（垂直方法的初始大小）-->
+<!--6         toXScale：动画在X坐标的最终大小（横向的最终大小）-->
+<!--7         toYScale：动画在Y坐标的最终大小（垂直的最终大小）-->
+<!--8         pivotX：动画在X坐标显示的位置（动画在屏幕上横向显示的位置）-->
+<!--9         pivotY：动画在Y坐标显示的位置（动画在屏幕上垂直显示的位置）-->
+<!--10        &ndash;&gt;-->
+    <!--11     <scale-->
+    <!--12         android:fromXScale="0"-->
+    <!--13         android:fromYScale="0"-->
+    <!--14         android:toXScale="2.0"-->
+    <!--15         android:toYScale="2.0"-->
+    <!--16         android:pivotX="50%"-->
+    <!--17         android:pivotY="50%"-->
+    <!--18         android:duration="2000"-->
+    <!--19         android:repeatCount="3"-->
+    <!--20         />-->
+</set>
