@@ -22,6 +22,8 @@ import com.doctor.yuyi.activity.My_setting_Activity;
 import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 
+import io.rong.imkit.RongIM;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,7 +110,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         break;
 
                     case R.id.my_relative_zixun://咨询
-
+                        RongIM.getInstance().startPrivateChat(getActivity(),"17734862622","聊天");
                         break;
 
                     case R.id.my_relative_shuju://数据

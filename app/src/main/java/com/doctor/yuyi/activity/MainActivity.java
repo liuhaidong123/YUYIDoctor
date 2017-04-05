@@ -14,12 +14,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.RongCloudUtils.RongConnection;
+import com.doctor.yuyi.RongCloudUtils.RongUserInfo;
 import com.doctor.yuyi.fragment.AcademicFragment;
 import com.doctor.yuyi.fragment.InformationFragment;
 import com.doctor.yuyi.fragment.MyFragment;
 import com.doctor.yuyi.fragment.PatientFragment;
+import com.doctor.yuyi.mApplication.MyApplication;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,RongIM.UserInfoProvider{
     private LinearLayout mInformation_ll;
     private LinearLayout mAcademicCircle_ll;
     private LinearLayout mPatient_ll;
@@ -51,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showInformationFragment();
+        RongIM.setUserInfoProvider(this,true);
+        RongConnection.connRong(MainActivity.this, RongUserInfo.RongToken);
     }
 
 
@@ -285,5 +293,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+        for (int i=0;i< MyApplication.li.size();i++){
+            if (s.equals(MyApplication.li.get(i).getUserId())){
+                return MyApplication.li.get(i);
+            }
+        }
+        return null;
     }
 }

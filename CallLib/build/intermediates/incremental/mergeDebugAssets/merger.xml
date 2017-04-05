@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/hcq/Desktop/YUYIDoctor/CallLib/src/main/assets"/><source path="/Users/hcq/Desktop/YUYIDoctor/CallLib/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/hcq/Desktop/YUYIDoctor/CallLib/src/debug/assets"/></dataSet></merger>
