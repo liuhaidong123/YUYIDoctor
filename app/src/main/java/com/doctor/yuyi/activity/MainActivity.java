@@ -1,6 +1,7 @@
 package com.doctor.yuyi.activity;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,10 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.RongCloudUtils.RongConnection;
+import com.doctor.yuyi.RongCloudUtils.RongUserInfo;
 import com.doctor.yuyi.fragment.AcademicFragment;
 import com.doctor.yuyi.fragment.InformationFragment;
 import com.doctor.yuyi.fragment.MyFragment;
 import com.doctor.yuyi.fragment.PatientFragment;
+import com.doctor.yuyi.mApplication.MyApplication;
+
+import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private LinearLayout mInformation_ll;
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showInformationFragment();
+//        RongIM.setUserInfoProvider(this,true);
+        RongConnection.connRong(MainActivity.this, RongUserInfo.RongToken);
     }
 
 
@@ -285,5 +295,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
 
         }
+    }
+//
+//    @Override
+//    public UserInfo getUserInfo(String s) {
+//        for (int i=0;i< MyApplication.li.size();i++){
+//            if (s.equals(MyApplication.li.get(i).getUserId())){
+//                return MyApplication.li.get(i);
+//            }
+//        }
+//        return new UserInfo("未知","姓名未知", Uri.parse("http://upload.jianshu.io/users/upload_avatars/2552094/45eebb79c6cf.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/144/h/144"));
+//    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 }
