@@ -63,16 +63,16 @@ public class CircleAdpater extends BaseAdapter {
             circleHolder = (CircleHolder) convertView.getTag();
         }
 
-        //评论
+//        //评论
         final View finalConvertView = convertView;
-        circleHolder.comment_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                circleHolder.praise_img.setFocusable(false);
-                finalConvertView.setFocusable(false);
-                mContext.startActivity(new Intent(mContext, CommentInformationActivity.class));
-            }
-        });
+//        circleHolder.comment_img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                circleHolder.praise_img.setFocusable(false);
+//                finalConvertView.setFocusable(false);
+//                mContext.startActivity(new Intent(mContext, CommentInformationActivity.class));
+//            }
+//        });
         //点赞
         circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
             @Override

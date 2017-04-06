@@ -82,8 +82,8 @@ public class HttpTools {
      * 广告详情
      */
 
-    public void getADMessageDetial(final Handler handler, long id) {
-        String url = UrlTools.BASE + UrlTools.URL_AD_MESSAGE + "id=" + id;
+    public void getADMessageDetial(final Handler handler, long id,String token) {
+        String url = UrlTools.BASE + UrlTools.URL_AD_MESSAGE + "id=" + id+"&token="+token;
 
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
@@ -220,7 +220,7 @@ public class HttpTools {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("onSuccess", "热门"+s);
+                Log.e("onSuccess", "热门" + s);
                 try {
                     com.doctor.yuyi.bean.TodayRecommendBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.TodayRecommendBean.Root.class);
                     Message m = new Message();
@@ -243,6 +243,49 @@ public class HttpTools {
         });
 
     }
+
+    /**
+     * 获取评论列表
+     */
+    public void getCommendList(final Handler handler, long id, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_COMMEND_LIST + "id=" + id + "&start=" + start + "&limit=" + limit;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "获取评论列表");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "获取评论列表成功" + s);
+                try {
+                    com.doctor.yuyi.bean.CommendListBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CommendListBean.Root.class);
+                    Message m = new Message();
+                    m.what = 4;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(103);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", "获取评论列表失败" + strMsg.toString());
+                handler.sendEmptyMessage(103);
+            }
+        });
+
+    }
+
+
 //    /**
 //     * 获取首页常用药品6条数据
 //     */

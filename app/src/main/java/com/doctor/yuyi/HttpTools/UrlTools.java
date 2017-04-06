@@ -33,9 +33,11 @@ public class UrlTools {
 
     public static final String BASE="http://192.168.1.55:8080/yuyi";
     public static final  String URL_AD="/doctorlyinformation/getall.do";//广告数据
-    public static final  String URL_AD_MESSAGE="/doctorlyinformation/get.do?";//广告数据详情（需传id=）
+    public static final  String URL_AD_MESSAGE="/doctorlyinformation/get.do?";//广告,今日，最新，热门数据详情（需传id=,token）
     public static final  String URL_TODAY_RECOMMEND="/doctorlyinformation/getTodayAll.do?";//今日推荐（需传start，limit）
     public static final  String URL_NEW="/doctorlyinformation/findPage.do?";//最新（需传start，limit）
     public static final  String URL_HOT="/doctorlyinformation/find.do?";//热门（需传start，limit）
+    public static final  String URL_COMMEND_LIST="/comment/getConmentAll.do?";//评论列表（需传：id=4&start=0&limit=6）
+
 }
 
