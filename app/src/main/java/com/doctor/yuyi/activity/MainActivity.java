@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         showInformationFragment();
 //        RongIM.setUserInfoProvider(this,true);
-        RongConnection.connRong(MainActivity.this, RongUserInfo.RongToken);
+        RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken);
     }
 
 

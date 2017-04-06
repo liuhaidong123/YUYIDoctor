@@ -3,15 +3,20 @@ package com.doctor.yuyi.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.activity.My_forumPosts_Activity;
@@ -22,8 +27,16 @@ import com.doctor.yuyi.activity.My_registration_Activity;
 import com.doctor.yuyi.activity.My_setting_Activity;
 import com.doctor.yuyi.activity.RongConversationList_Activity;
 import com.doctor.yuyi.activity.UserInfo_Activity;
+import com.doctor.yuyi.bean.Bean_UserInfo;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
+import com.doctor.yuyi.lzh_utils.okhttp;
+import com.doctor.yuyi.lzh_utils.toast;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +60,70 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     public MyFragment() {
         // Required empty public constructor
     }
+    private String resStr;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(getContext());
+                    break;
+                case 1:
+                    try{
+                        Bean_UserInfo info=okhttp.gson.fromJson(resStr,Bean_UserInfo.class);
+                        if (info!=null&&"0".equals(info.getCode())){
+                            if (!"".equals(info.getPhysician().getTrueName())){
+                                my_textV_docName.setText(info.getPhysician().getTrueName());
+                            }
+                           else {
+                                my_textV_docName.setText("姓名");
+                            }
 
+                            if (!"".equals(info.getPhysician().getTitle())){
+                                my_textV_zhicheng.setText(info.getPhysician().getTitle());
+                            }
+                            else {
+                                my_textV_zhicheng.setText("职称");
+                            }
 
+                            if (!"".equals(info.getPhysician().getHospitalName())){
+                                my_textV_hosName.setText(info.getPhysician().getHospitalName());
+                            }
+                            else {
+                                my_textV_hosName.setText("医院名称");
+                            }
+
+                            if (!"".equals(info.getPhysician().getDepartmentName())){
+                                my_textV_ksName.setText(info.getPhysician().getDepartmentName());
+                            }
+                            else {
+                                my_textV_ksName.setText("科室名称");
+                            }
+
+                            Picasso.with(getContext()).load(Ip.URL+info.getPhysician().getAvatar()).error(R.mipmap.doc).into(my_image_photo);
+                        }
+                        else {
+//                            Toast.makeText(getContext(),"")
+                            Log.e("获取个人信息失败","---MyFragment---");
+
+                        }
+
+                    }
+                    catch (Exception e){
+
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.from(getActivity()).inflate(R.layout.fragment_my,container,false);
         initView(v);
+        getUserInfo();//获取个人信息
         return v;
     }
 
@@ -116,10 +185,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         break;
 
                     case R.id.my_relative_zixun://咨询
-//                        RongIM.getInstance().startPrivateChat(getActivity(),"17734862622","聊天");
                         startActivity(new Intent(getActivity(), RongConversationList_Activity.class));
-//                            Map<String,Boolean> map=new HashMap<>();
-//                            RongIM.getInstance().startConversationList(getActivity());
                         break;
 
                     case R.id.my_relative_shuju://数据
@@ -132,5 +198,24 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
                 }
             }
+    }
+
+    //获取个人信息接口http://192.168.1.55:8080/yuyi/physician/get.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10
+    public void getUserInfo() {
+      Map<String,String>mp=new HashMap<>();
+        mp.put("token",UserInfo.UserToken);
+        okhttp.getCall(Ip.URL+Ip.interface_UserInfo,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resStr=response.body().string();
+                Log.i("获取个人信息---",resStr);
+                handler.sendEmptyMessage(1);
+            }
+        });
     }
 }

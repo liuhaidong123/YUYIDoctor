@@ -64,7 +64,6 @@ public class Login_Activity extends Activity {
                     break;
                 case 2:
                     try{
-
                         Bean_Login login=okhttp.gson.fromJson(resStr,Bean_Login.class);
                         if ("0".equals(login.getCode())){
                             Toast.makeText(Login_Activity.this,"登陆成功",Toast.LENGTH_SHORT).show();
@@ -73,6 +72,8 @@ public class Login_Activity extends Activity {
                     editor.putString(UserInfo.Sname,userName);
                     editor.putString(UserInfo.SToken,login.getResult());//许改动，此处放的是验证码，真实情况需存放服务器返回的token
                     editor.commit();
+                            UserInfo.UserToken=login.getResult();
+                            UserInfo.UserName=userName;
                     startActivity(new Intent(Login_Activity.this,MainActivity.class));
                     finish();
                         }

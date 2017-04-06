@@ -1,16 +1,17 @@
 package com.doctor.yuyi.bean;
 
 /**
- * Created by wanyu on 2017/4/5.
+ * Created by wanyu on 2017/4/6.
  */
+//获取个人信息接口
 
-public class Bean_Login {
+public class Bean_UserInfo {
 
     /**
-     * result : F7BCDDA60BDE24EA86CD1354CBF9799A
+     * result : 55571124891717A9FFDD698F8B2824E9
      * code : 0
      * hasMessage : false
-     * physician : {"clinicName":"","departmentName":"","clinicId":null,"createTimeString":"","updateTimeString":"","departmentId":null,"telephone":17743516301,"avatar":"","hospitalName":"","oid":null,"hospital_id":null,"title":"","token":"YW+QZ4AXr/ysu7xekLaLHzRTlrMKcBRmqIwMgr2ETx+UHB5xsXwMeaUGKMtBhpmWnyrdb1er5taufVF+ftnoZOi6shWMshn9","trueName":"","id":35}
+     * physician : {"clinicName":"","departmentName":"","clinicId":null,"createTimeString":"","updateTimeString":"","departmentId":null,"telephone":17743516301,"avatar":"","hospitalName":"","oid":null,"hospital_id":null,"title":"","token":"","trueName":"","id":35}
      */
 
     private String result;
@@ -64,7 +65,7 @@ public class Bean_Login {
          * oid : null
          * hospital_id : null
          * title :
-         * token : YW+QZ4AXr/ysu7xekLaLHzRTlrMKcBRmqIwMgr2ETx+UHB5xsXwMeaUGKMtBhpmWnyrdb1er5taufVF+ftnoZOi6shWMshn9
+         * token :
          * trueName :
          * id : 35
          */

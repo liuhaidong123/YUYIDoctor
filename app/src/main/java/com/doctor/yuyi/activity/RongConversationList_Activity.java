@@ -5,6 +5,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.doctor.yuyi.R;
 
@@ -33,5 +36,9 @@ public class RongConversationList_Activity extends FragmentActivity {
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")
                 .build();
         fragment.setUri(uri);
+    }
+
+    public void reBack(View view) {
+        finish();
     }
 }
