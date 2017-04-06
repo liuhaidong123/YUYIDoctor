@@ -11,18 +11,18 @@
             android:layout_height="30dp"
             android:src="@mipmap/doc"
             android:layout_centerVertical="true"
-            android:id="@+id/my_patientList_image"
+            android:id="@+id/frag_my_patientList_image"
             />
         <TextView
             android:layout_marginLeft="15dp"
             android:text="张三"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/my_patientList_image"
+            android:layout_toRightOf="@+id/frag_my_patientList_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:id="@+id/my_patientList_textVname"/>
+            android:id="@+id/frag_my_patientList_textVname"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

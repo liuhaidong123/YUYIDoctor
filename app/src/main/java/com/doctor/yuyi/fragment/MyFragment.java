@@ -3,6 +3,7 @@ package com.doctor.yuyi.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,15 @@ import com.doctor.yuyi.activity.My_patientDataList_Activity;
 import com.doctor.yuyi.activity.My_praise_Activity;
 import com.doctor.yuyi.activity.My_registration_Activity;
 import com.doctor.yuyi.activity.My_setting_Activity;
+import com.doctor.yuyi.activity.RongConversationList_Activity;
 import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 
 /**
@@ -110,7 +116,10 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         break;
 
                     case R.id.my_relative_zixun://咨询
-                        RongIM.getInstance().startPrivateChat(getActivity(),"17734862622","聊天");
+//                        RongIM.getInstance().startPrivateChat(getActivity(),"17734862622","聊天");
+                        startActivity(new Intent(getActivity(), RongConversationList_Activity.class));
+//                            Map<String,Boolean> map=new HashMap<>();
+//                            RongIM.getInstance().startConversationList(getActivity());
                         break;
 
                     case R.id.my_relative_shuju://数据
