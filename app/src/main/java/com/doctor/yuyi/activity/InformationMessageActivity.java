@@ -17,6 +17,7 @@ import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.UMShareImp.UMShareListner;
 import com.doctor.yuyi.UMShareImp.UmAuthListener;
+import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.AdMessageDetial.Root;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
@@ -88,7 +89,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
 
     public void initView() {
         mHttpTools = HttpTools.getHttpToolsInstance();
-       // mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1),);//获取广告,今日推荐，最新，热门资讯详情
+        mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);//获取广告,今日推荐，最新，热门资讯详情
 
         mImg = (ImageView) findViewById(R.id.information_img);//图片
         mTitle = (TextView) findViewById(R.id.information_title);//标题
