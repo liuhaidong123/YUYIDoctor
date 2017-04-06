@@ -44,7 +44,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_relative"
         android:layout_below="@+id/equip_line"
-        android:background="@color/color_white">
+        android:background="@color/color_white"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,11 +88,11 @@
     </ScrollView>
 
     <RelativeLayout
-        android:background="@color/color_white"
         android:id="@id/bottom_relative"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white">
 
         <View
             android:layout_width="match_parent"
@@ -100,6 +101,7 @@
             android:background="@color/color_cancel"
 
             />
+
         <TextView
             android:id="@+id/comment_num_tv"
             android:layout_width="wrap_content"

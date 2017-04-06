@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_cancel"
+    android:background="@color/color_white"
     tools:context="fragment.InformationFragment">
 
     <RelativeLayout
@@ -174,11 +174,19 @@
                 </com.doctor.yuyi.myview.InformationListView>
 
                 <RelativeLayout
+                    android:background="@color/color_white"
                     android:id="@+id/more_relative"
                     android:layout_below="@+id/information_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_cancel"
+                        android:layout_alignParentTop="true"
+
+                        />
                     <TextView
                         android:id="@+id/footer_tv"
                         android:paddingTop="15dp"
@@ -202,6 +210,13 @@
                         android:layout_height="wrap_content"
                         />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_cancel"
+                        android:layout_alignParentBottom="true"
+
+                        />
                 </RelativeLayout>
             </RelativeLayout>
 

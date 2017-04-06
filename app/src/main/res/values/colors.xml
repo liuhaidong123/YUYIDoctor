@@ -36,7 +36,7 @@
     <color name="color_price">#f32f25</color>
     <color name="color_now_price">#f11d18</color>
     <color name="color_title">#2b2b2b</color>
-
+    <color name="dialog">#00ffffff</color>
 
 
     <!--色值-->

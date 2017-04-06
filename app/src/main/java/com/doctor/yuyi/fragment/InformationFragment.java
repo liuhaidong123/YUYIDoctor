@@ -19,10 +19,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doctor.yuyi.HttpTools.HttpTools;
+import com.doctor.yuyi.MyUtils.MyDialog;
+import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.activity.InformationMessageActivity;
 import com.doctor.yuyi.adapter.AdViewPagerAdapter;
 import com.doctor.yuyi.adapter.FirstPageListviewAdapter;
+import com.doctor.yuyi.bean.AdBean.Result;
+import com.doctor.yuyi.bean.AdBean.Root;
 import com.doctor.yuyi.bean.MyEntity;
 import com.doctor.yuyi.myview.InformationListView;
 
@@ -44,7 +49,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private FirstPageListviewAdapter mFirstPageAdapter;
     private InformationListView mMyListview;
     private RelativeLayout mScrollRelative;
-    private List<String> mList = new ArrayList<>();
+    private List<com.doctor.yuyi.bean.TodayRecommendBean.Result> mList = new ArrayList<>();
     private SwipeRefreshLayout mRefreshLayout;
 
     private RelativeLayout mRefreshBox;
@@ -52,7 +57,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     private ViewPager mViewPager;
     private AdViewPagerAdapter mImgAapter;
-    private List<MyEntity> mAdList = new ArrayList<>();
+    private List<Result> mAdList = new ArrayList<>();
     private ImageView[] mArrImageView;//存放广告小圆点的数组
     private ImageView mCircleImg;//广告小圆点
     private ViewGroup mGroup;//存放小圆点容器
@@ -73,6 +78,61 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     };
 
 
+    private Handler mHttpHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {//广告数据
+                Object o = msg.obj;
+                if (o != null && o instanceof Root) {
+                    Root root = (Root) o;
+                    if (root.getCode().equals("0")) {
+                        mRefreshLayout.setRefreshing(false);
+                        mAdList = root.getResult();
+                        mImgAapter.setmList(mAdList);
+                        mViewPager.setAdapter(mImgAapter);
+                        mImgAapter.notifyDataSetChanged();
+                        setADCircleImg();
+                    }
+
+                }
+            } else if (msg.what == 100) {
+                mRefreshLayout.setRefreshing(false);
+                ToastUtils.myToast(getContext(), "广告数据错误");
+            } else if (msg.what == 3) {//今日推荐,最新，热门
+                Object o = msg.obj;
+                if (o != null && o instanceof com.doctor.yuyi.bean.TodayRecommendBean.Root) {
+                    com.doctor.yuyi.bean.TodayRecommendBean.Root root = (com.doctor.yuyi.bean.TodayRecommendBean.Root) o;
+                    if (root.getCode().equals("0")) {
+                        MyDialog.stopDia();
+                        mRefreshLayout.setRefreshing(false);
+                        mBar.setVisibility(View.INVISIBLE);
+                        List<com.doctor.yuyi.bean.TodayRecommendBean.Result> list=new ArrayList<>();
+                        list = root.getResult();
+                        mList.addAll(list);
+                        mFirstPageAdapter.setmList(mList);
+                        mFirstPageAdapter.notifyDataSetChanged();
+                        if (list.size()<2){//隐藏加载更多
+                            mRefreshBox.setVisibility(View.GONE);
+                        }else {
+                            mRefreshBox.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+            } else if (msg.what == 102) {
+                mRefreshLayout.setRefreshing(false);
+                ToastUtils.myToast(getContext(), "今日数据错误");
+            }
+        }
+    };
+
+    private HttpTools mHttptools;
+    private int mStart = 0;
+    private int mLimit = 2;
+
+    private int mFlag=0;
+
     public InformationFragment() {
 
     }
@@ -87,21 +147,15 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     //初始化数据
     public void init(View view) {
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getADMessage(mHttpHandler);//获取广告数据
+        mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
         //广告
-        mAdList.add(new MyEntity("图片1", "我的图片1", R.mipmap.item01));
-        mAdList.add(new MyEntity("图片2", "我的图片2", R.mipmap.item02));
-        mAdList.add(new MyEntity("图片3", "我的图片3", R.mipmap.item03));
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_title);
         mImgAapter = new AdViewPagerAdapter(mAdList, getContext());
-        mViewPager.setAdapter(mImgAapter);
         mViewPager.setCurrentItem(0);
-        if (mAdList.size() > 1) {
-            mViewPager.addOnPageChangeListener(this);
-        }
         //初始化存放小圆点的容器与viewpager
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
-        setADCircleImg();
-        mAdHandler.sendEmptyMessageDelayed(1, 3000);
 
         //今日推荐，最新，热门
         mToday_tv = (TextView) view.findViewById(R.id.today_tv);
@@ -114,17 +168,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mToday_tv.setOnClickListener(this);
         mNew_tv.setOnClickListener(this);
         mHot_tv.setOnClickListener(this);
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
-        mList.add("1");
+        //加载更多
         mRefreshBox = (RelativeLayout) view.findViewById(R.id.more_relative);
+        mRefreshBox.setOnClickListener(this);
         mBar = (ProgressBar) view.findViewById(R.id.pbLocate);
         //listview
         mMyListview = (InformationListView) view.findViewById(R.id.information_listview);
@@ -140,23 +186,22 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         //刷新
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
         mRefreshLayout.setColorSchemeResources(R.color.color_delete, R.color.color_username);
+        mRefreshLayout.setRefreshing(true);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
-                        mRefreshLayout.setRefreshing(false);
-                    }
-                }, 3000);
+                mStart=0;
+                mList.clear();
+                showTodayLine();//刷新的时候回到今日推荐
+                mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
             }
         });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent=new Intent(getContext(),InformationMessageActivity.class);
+        Intent intent = new Intent(getContext(), InformationMessageActivity.class);
+        intent.putExtra("id",mList.get(position).getId());
         startActivity(intent);
 
     }
@@ -165,11 +210,37 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     public void onClick(View v) {
         int id = v.getId();
         if (id == mToday_tv.getId()) {//今日推荐
+            mFlag=0;
+            mStart=0;
             showTodayLine();
+            MyDialog.showDialog(this.getContext());
+            mList.clear();
+            mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);
         } else if (id == mNew_tv.getId()) {//最新
+            mFlag=1;
+            mStart=0;
             showNewLine();
+            MyDialog.showDialog(this.getContext());
+            mList.clear();
+            mHttptools.getNew(mHttpHandler,mStart,mLimit);
         } else if (id == mHot_tv.getId()) {//热门
+            mFlag=2;
+            mStart=0;
+            MyDialog.showDialog(this.getContext());
+            mList.clear();
+            mHttptools.getHot(mHttpHandler,mStart,mLimit);
             showHotLine();
+        }else if (id == mRefreshBox.getId()) {//加载更多
+            mBar.setVisibility(View.VISIBLE);
+            mStart+=2;
+            if (mFlag==0){//加载的是今日推荐
+                mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
+            }else if (mFlag==1){//加载的是最新
+                mHttptools.getNew(mHttpHandler,mStart,mLimit);
+            }else if (mFlag==2){//加载的是热门
+                mHttptools.getHot(mHttpHandler,mStart,mLimit);
+            }
+
         }
     }
 
@@ -277,6 +348,10 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 //将每一个小圆点添加到容器中
                 mGroup.addView(mCircleImg);
             }
+        }
+        if (mAdList.size() > 1) {
+            mViewPager.addOnPageChangeListener(this);
+            mAdHandler.sendEmptyMessageDelayed(1, 3000);
         }
     }
 
