@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:gravity="center"
-            android:text="@string/comment"
+            android:text="发帖"
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
 

@@ -4,48 +4,48 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <com.doctor.yuyi.myview.RoundImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/comment_userhead"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/item01" />
 
             <RelativeLayout
                 android:id="@+id/relative_time"
-                android:layout_marginStart="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginStart="15dp"
                 android:layout_toRightOf="@id/comment_userhead">
 
                 <TextView
                     android:id="@+id/comment_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLength="5"
                     android:ellipsize="end"
+                    android:maxLength="5"
                     android:text="上官飞燕"
                     android:textColor="@color/color_drumall"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/comment_time"
-                    android:layout_below="@id/comment_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLength="7"
+                    android:layout_below="@id/comment_username"
                     android:ellipsize="end"
+                    android:maxLength="7"
                     android:text="20个小时前"
                     android:textColor="@color/color_bg"
                     android:textSize="11sp" />
@@ -53,14 +53,13 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="45dp"
-                android:layout_below="@id/relative_time"
                 android:id="@+id/comment_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/message"
-                />
+                android:layout_below="@id/relative_time"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/message" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

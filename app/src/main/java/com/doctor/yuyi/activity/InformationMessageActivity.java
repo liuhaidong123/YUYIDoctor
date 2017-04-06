@@ -88,7 +88,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
 
     public void initView() {
         mHttpTools = HttpTools.getHttpToolsInstance();
-        mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1));//获取广告,今日推荐，最新，热门资讯详情
+       // mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1),);//获取广告,今日推荐，最新，热门资讯详情
 
         mImg = (ImageView) findViewById(R.id.information_img);//图片
         mTitle = (TextView) findViewById(R.id.information_title);//标题
@@ -115,7 +115,15 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         if (id == mBack.getId()) {//返回
             finish();
         } else if (id == mComment_img.getId()) {//评论
-            startActivity(new Intent(InformationMessageActivity.this, CommentInformationActivity.class));
+            Intent intent=new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
+            if (mRoot!=null){
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("root",mRoot);
+                intent.putExtra("root",bundle);
+            }
+            startActivity(intent);
+
+
         } else if (id == mShare_img.getId()) {  //分享
             if (mRoot != null) {
 //                UMImage image = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片

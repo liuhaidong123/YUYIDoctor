@@ -1,11 +1,23 @@
 package com.doctor.yuyi.bean.AdMessageDetial;
 
+import java.io.Serializable;
+
 /**
  * Created by liuhaidong on 2017/4/5.
  */
 
-public class Root {
+public class Root implements Serializable{
+    private boolean state;
+
     private String summary;
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 
     private String smallTitle;
 

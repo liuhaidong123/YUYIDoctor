@@ -121,6 +121,11 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 }
 
             } else if (msg.what == 102) {
+                mRefreshBox.setVisibility(View.GONE);
+                mFirstPageAdapter.setmList(mList);
+                mFirstPageAdapter.notifyDataSetChanged();
+                MyDialog.stopDia();
+                mBar.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setRefreshing(false);
                 ToastUtils.myToast(getContext(), "今日数据错误");
             }

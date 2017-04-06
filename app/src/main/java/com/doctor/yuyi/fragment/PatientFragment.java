@@ -1,16 +1,19 @@
 package com.doctor.yuyi.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.activity.PatientMessageActivity;
 import com.doctor.yuyi.adapter.FragmentMyPatientListAdapter;
 import com.doctor.yuyi.adapter.My_paintDataList_Adapter;
 
@@ -44,6 +47,13 @@ public class PatientFragment extends Fragment {
         activity_include_imageReturn.setVisibility(View.GONE);
         adapter=new FragmentMyPatientListAdapter(getContext(),null);
         my_patient_listview.setAdapter(adapter);
+
+        my_patient_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getContext(), PatientMessageActivity.class));
+            }
+        });
     }
 
 
