@@ -32,7 +32,7 @@
             android:textColor="@color/L_color_titleText"
             android:textSize="17sp"/>
         <TextView
-            android:background="#eeeeee"
+            android:background="#cccccc"
             android:layout_width="match_parent"
             android:layout_height="1dp" />
     </RelativeLayout>
