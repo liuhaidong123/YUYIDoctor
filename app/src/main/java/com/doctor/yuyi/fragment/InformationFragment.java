@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -261,6 +262,10 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mToday_line.setVisibility(View.VISIBLE);
         mHot_line.setVisibility(View.GONE);
         mNew_line.setVisibility(View.GONE);
+
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
     }
 
     //显示最新
@@ -276,6 +281,10 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mNew_line.setVisibility(View.VISIBLE);
         mHot_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
+
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
     }
 
     //显示热门
@@ -291,6 +300,10 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.VISIBLE);
         mNew_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
+
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
     }
 
     //轮播图监听

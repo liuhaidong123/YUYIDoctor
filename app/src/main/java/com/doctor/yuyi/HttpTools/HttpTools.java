@@ -244,6 +244,7 @@ public class HttpTools {
 
     }
 
+
     /**
      * 获取评论列表
      */
@@ -286,6 +287,85 @@ public class HttpTools {
     }
 
 
+    /**
+     * 提交评论
+     */
+    public void submitCommentContent(final Handler handler, long telephone, long content_id, String content) {
+        String url = UrlTools.BASE + UrlTools.URL_COMMEND + "telephone="+telephone+"&content_id="+content_id+"&Content="+content;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "提交评论");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "提交评论" + s);
+                try {
+                   com.doctor.yuyi.bean.SubmitComment.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.SubmitComment.Root.class);
+                    Message m = new Message();
+                    m.what = 5;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(104);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", "提交评论失败" + strMsg.toString());
+                handler.sendEmptyMessage(104);
+            }
+        });
+
+    }
+    /**
+     * 资讯点赞接口
+     */
+    public void informationPraise(final Handler handler, long id,String token) {
+        String url = UrlTools.BASE + UrlTools.URL_PRAISE + "id="+id+"&token="+token;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "资讯点赞开始");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "资讯点赞" + s);
+                try {
+                    com.doctor.yuyi.bean.InformationPraise.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.InformationPraise.Root.class);
+                    Message m = new Message();
+                    m.what = 6;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(105);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", "资讯点赞失败" + strMsg.toString());
+                handler.sendEmptyMessage(105);
+            }
+        });
+
+    }
 //    /**
 //     * 获取首页常用药品6条数据
 //     */

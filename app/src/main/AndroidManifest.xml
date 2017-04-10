@@ -73,13 +73,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.NetWorkError_Activity"
+        <activity
+            android:name=".activity.NetWorkError_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activity.InformationMessageActivity"
             android:screenOrientation="portrait" />
@@ -102,8 +107,24 @@
         <activity android:name=".activity.My_patientDataList_Activity" />
         <activity android:name=".activity.My_registration_Activity" />
         <activity android:name=".activity.My_registration_Info_Activity" />
-        <activity android:name=".activity.Login_Activity" />
-        <activity android:name=".activity.UserInfo_Activity"
+        <activity android:name=".activity.Login_Activity"
+            >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+
+                <!--<data-->
+                    <!--android:scheme="yyys"-->
+                    <!--android:host="test.uri.activity"-->
+                    <!--android:port="666"-->
+                    <!--android:path="/app"-->
+
+                    <!--/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".activity.UserInfo_Activity"
             android:launchMode="singleTop"></activity>
 
         <activity
@@ -119,7 +140,7 @@
             android:name=".activity.CardMessageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-<!--融云相关-->
+        <!--融云相关-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.doctor.yuyi.FileProvider"
@@ -196,7 +217,8 @@
             android:value="58de0afeae1bf87e27001806"></meta-data>
 
         <activity android:name=".activity.PatientMessageActivity"></activity>
-        <receiver android:name=".RongCloudUtils.SealNotificationReceiver"
+        <receiver
+            android:name=".RongCloudUtils.SealNotificationReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
@@ -206,7 +228,8 @@
             </intent-filter>
 
         </receiver>
-        <activity android:name=".activity.RongConversationList_Activity"
+        <activity
+            android:name=".activity.RongConversationList_Activity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -219,7 +242,7 @@
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
-           </activity>
+        </activity>
 
 
         <!--极光推送-->

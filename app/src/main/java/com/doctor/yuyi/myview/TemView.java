@@ -39,37 +39,31 @@ public class TemView extends View {
     public TemView(Context context) {
         super(context);
         this.mContext = context;
-
+        //initData();
     }
 
     public TemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-
+       // initData();
     }
 
     public TemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
-
+        //initData();
     }
 
     public void setTemInfo(ArrayList<Integer> YData, ArrayList<String> XDate, ArrayList<Float> temData) {
         this.YData = YData;
         this.XDate = XDate;
         this.mTemData = temData;
-        initData();
+       initData();
     }
 
     public void initData() {
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
-        mBigCircleRadius = dip2px(4);
-        mSmallCircleRadius = dip2px(2.5f);
-//
-        YEndPoint = getHeight();
-        YScale = YEndPoint / 10.0f;
-       // YEachBlood = YScale / 20.0f;
-        XScale = getWidth() / 8.0f;
+
 
         //y,x轴数据画笔
         YXpaint = new Paint();
@@ -105,6 +99,14 @@ public class TemView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        mBigCircleRadius = dip2px(4);
+        mSmallCircleRadius = dip2px(2.5f);
+
+        YEndPoint = getHeight();
+        YScale = YEndPoint / 10.0f;
+        // YEachBlood = YScale / 20.0f;
+        XScale = getWidth() / 8.0f;
 
         //Y轴体温刻度
         for (int i = 0; i < YData.size(); i++) {

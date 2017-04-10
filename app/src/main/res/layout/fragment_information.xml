@@ -76,31 +76,29 @@
                     android:layout_height="50dp"
                     android:layout_below="@id/viewpager_relative"
                     android:background="@color/color_white"
-                    android:paddingBottom="5dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="18dp">
+
+                    >
 
                     <RelativeLayout
                         android:id="@+id/today_relative"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp">
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp">
 
                         <TextView
                             android:id="@+id/today_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
+                            android:layout_centerVertical="true"
                             android:text="@string/today_tv"
-                            android:textColor="@color/color_normal"
+                            android:textColor="@color/color_username"
                             android:textSize="16sp" />
 
                         <View
                             android:id="@+id/today_line"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
-                            android:layout_below="@id/today_tv"
+                            android:layout_alignParentBottom="true"
                             android:background="@color/color_username" />
                     </RelativeLayout>
 
@@ -108,7 +106,7 @@
                     <RelativeLayout
                         android:id="@+id/new_relative"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/today_relative"
                         android:paddingEnd="10dp"
@@ -118,6 +116,7 @@
                             android:id="@+id/new_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:text="@string/new_tv"
                             android:textColor="@color/color_normal"
                             android:textSize="16sp" />
@@ -126,13 +125,13 @@
                             android:id="@+id/new_line"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
-                            android:layout_below="@id/new_tv"
+                            android:layout_alignParentBottom="true"
                             android:background="@color/color_username" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/new_relative"
                         android:paddingEnd="10dp"
@@ -142,6 +141,7 @@
                             android:id="@+id/hot_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:text="@string/hot_tv"
                             android:textColor="@color/color_normal"
                             android:textSize="16sp" />
@@ -150,7 +150,7 @@
                             android:id="@+id/hot_line"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
-                            android:layout_below="@id/hot_tv"
+                            android:layout_alignParentBottom="true"
                             android:background="@color/color_username" />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -163,39 +163,40 @@
                     android:background="@color/color_cancel" />
 
                 <com.doctor.yuyi.myview.InformationListView
-                    android:background="@color/color_white"
                     android:id="@+id/information_listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/line"
+                    android:background="@color/color_white"
                     android:divider="@color/color_cancel"
                     android:dividerHeight="1dp">
 
                 </com.doctor.yuyi.myview.InformationListView>
 
                 <RelativeLayout
-                    android:background="@color/color_white"
                     android:id="@+id/more_relative"
-                    android:layout_below="@+id/information_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_listview"
+                    android:background="@color/color_white">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/color_cancel"
                         android:layout_alignParentTop="true"
+                        android:background="@color/color_cancel"
 
                         />
+
                     <TextView
                         android:id="@+id/footer_tv"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:paddingBottom="15dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
                         android:text="加载更多"
                         android:textColor="@color/color_normal"
                         android:textSize="13sp" />
@@ -203,18 +204,17 @@
                     <ProgressBar
                         android:id="@+id/pbLocate"
                         style="?android:attr/progressBarStyleSmall"
-                        android:paddingTop="15dp"
-                        android:visibility="invisible"
-                        android:layout_toEndOf="@+id/footer_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_toEndOf="@+id/footer_tv"
+                        android:paddingTop="15dp"
+                        android:visibility="invisible" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/color_cancel"
                         android:layout_alignParentBottom="true"
+                        android:background="@color/color_cancel"
 
                         />
                 </RelativeLayout>

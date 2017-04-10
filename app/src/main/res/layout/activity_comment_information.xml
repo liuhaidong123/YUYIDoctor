@@ -4,7 +4,7 @@
     android:id="@+id/activity_comment_information"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_cancel"
+    android:background="@color/color_white"
     tools:context="com.doctor.yuyi.activity.CommentInformationActivity">
 
     <RelativeLayout
@@ -145,51 +145,111 @@
 
     </RelativeLayout>
 
-
-    <ListView
-        android:id="@+id/comment_listview"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/comment_ll"
+        android:layout_above="@+id/card_comment_box"
         android:layout_below="@id/title_relative"
+        android:layout_marginBottom="20dp"
         android:background="@color/color_white"
-        android:divider="@color/color_cancel"
-        android:dividerHeight="1dp">
+        android:scrollbars="none">
 
-    </ListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <com.doctor.yuyi.myview.InformationListView
+                android:id="@+id/comment_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                android:divider="@color/color_cancel"
+                android:dividerHeight="1dp"
+                android:scrollbars="none">
 
-    <LinearLayout
-        android:id="@+id/comment_ll"
+            </com.doctor.yuyi.myview.InformationListView>
+
+            <View
+                android:id="@+id/box_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/comment_listview"
+                android:background="@color/color_cancel" />
+
+            <RelativeLayout
+                android:id="@+id/many_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/box_line"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/footer_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="15dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="15dp"
+                    android:text="加载更多"
+                    android:textColor="@color/color_normal"
+                    android:textSize="13sp" />
+
+                <ProgressBar
+                    android:id="@+id/pbLocate"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/footer_tv"
+                    android:paddingTop="15dp"
+                    android:visibility="invisible" />
+
+                <View
+                    android:id="@+id/box_line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_cancel" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@id/card_comment_box"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:orientation="horizontal">
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/comment_bg">
+
+        <ImageView
+            android:id="@+id/writing_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/writing" />
 
         <EditText
             android:id="@+id/edit"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="6"
-            android:background="@color/color_white"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/writing_img"
+            android:background="@null"
             android:hint="@string/comment_hint"
-            android:paddingStart="10dp"
-            android:textColor="@color/color_ad"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/comment_btn"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:background="@color/color_username"
-            android:text="@string/comment_send"
-            android:textColor="@color/color_white"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/color_bg"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

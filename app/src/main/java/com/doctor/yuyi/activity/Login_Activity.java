@@ -3,6 +3,7 @@ package com.doctor.yuyi.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -125,6 +126,24 @@ public class Login_Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_);
+        Intent intent = getIntent();
+        String scheme = intent.getScheme();
+        Uri uri = intent.getData();
+        if (uri != null) {
+            String host = uri.getHost();
+            String dataString = intent.getDataString();
+            String id = uri.getQueryParameter("id");
+            String path = uri.getPath();
+            String path1 = uri.getEncodedPath();
+            String queryString = uri.getQuery();
+            Log.e("scheme",scheme);
+            Log.e("host",host);
+            Log.e("dataString",host);
+            Log.e("id",host);
+            Log.e("path",host);
+            Log.e("path1",host);
+            Log.e("queryString",host);
+        }
         initView();
     }
 

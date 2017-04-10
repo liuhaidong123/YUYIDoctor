@@ -38,6 +38,9 @@ public class UrlTools {
     public static final  String URL_NEW="/doctorlyinformation/findPage.do?";//最新（需传start，limit）
     public static final  String URL_HOT="/doctorlyinformation/find.do?";//热门（需传start，limit）
     public static final  String URL_COMMEND_LIST="/comment/getConmentAll.do?";//评论列表（需传：id=4&start=0&limit=6）
+    public static final  String URL_COMMEND="/comment/AddConment.do?";//评论(需telephone=18782931355&content_id=1&Content=haha)
+    public static final  String URL_PRAISE="/likes/UpdateLikeNum.do?";//点赞接口（需：id=&token=）
+
 
 }
 

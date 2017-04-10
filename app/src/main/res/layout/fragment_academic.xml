@@ -115,6 +115,7 @@
         android:layout_below="@id/equip_line">
 
         <ListView
+            android:scrollbars="none"
             android:id="@+id/circle_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

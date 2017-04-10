@@ -31,14 +31,16 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
     private ImageView mBack;
     private ImageView mComment_img;
     private ImageView mShare_img;
+    private ImageView mPraise_img;
+    private TextView mShare_tv;
+    private TextView mPraise_tv;
+    private TextView mCommend_tv;
+
 
     private ImageView mImg;
     private TextView mTitle;
     private TextView mContent;
 
-    private TextView mShare_tv;
-    private TextView mPraise_tv;
-    private TextView mCommend_tv;
 
     private Root mRoot;
 
@@ -72,8 +74,44 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     } else {
                         mCommend_tv.setText(root.getCommentNum() + "");
                     }
+
+                    if (root.isState()) {
+                        mPraise_img.setImageResource(R.mipmap.like_selected);
+                        mPraise_img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mHttpTools.informationPraise(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);
+                            }
+                        });
+                    } else {
+                        mPraise_img.setImageResource(R.mipmap.like);
+                        mPraise_img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mHttpTools.informationPraise(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);
+                            }
+                        });
+                    }
                 }
             } else if (msg.what == 101) {
+                ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
+            } else if (msg.what == 6) {//点赞
+                Object o = msg.obj;
+                if (o != null && o instanceof com.doctor.yuyi.bean.InformationPraise.Root) {
+                    com.doctor.yuyi.bean.InformationPraise.Root root = (com.doctor.yuyi.bean.InformationPraise.Root) o;
+                    if (root.getCode().equals("0")) {
+                        if (root.getResult().equals("点赞成功")) {
+                            mPraise_img.setImageResource(R.mipmap.like_selected);
+                            mPraise_tv.setText(Integer.valueOf(mPraise_tv.getText().toString()) + 1 + "");
+                        } else if (root.getResult().equals("撤销点赞成功")) {
+                            mPraise_img.setImageResource(R.mipmap.like);
+                            mPraise_tv.setText(Integer.valueOf(mPraise_tv.getText().toString()) - 1 + "");
+                        }
+                    }else {
+                        ToastUtils.myToast(InformationMessageActivity.this, "点赞失败");
+                    }
+                }
+            }else if (msg.what==105){
                 ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
             }
         }
@@ -107,6 +145,9 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         //分享
         mShare_img = (ImageView) findViewById(R.id.share_img);
         mShare_img.setOnClickListener(this);
+        //点赞
+        mPraise_img = (ImageView) findViewById(R.id.praise);
+        mPraise_img.setOnClickListener(this);
 
     }
 
@@ -116,14 +157,16 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         if (id == mBack.getId()) {//返回
             finish();
         } else if (id == mComment_img.getId()) {//评论
-            Intent intent=new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
-            if (mRoot!=null){
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("root",mRoot);
-                intent.putExtra("root",bundle);
+            Intent intent = new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
+            if (mRoot != null) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("root", mRoot);
+                intent.putExtra("root", bundle);
             }
             startActivity(intent);
 
+
+        } else if (id == mPraise_img.getId()) {//点赞
 
         } else if (id == mShare_img.getId()) {  //分享
             if (mRoot != null) {
@@ -133,7 +176,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
 //                image.compressStyle = UMImage.CompressStyle.SCALE;
                 String title = mRoot.getTitle();
                 String content = mRoot.getContent();
-                UMWeb web = new UMWeb("http://www.baidu.com");
+                UMWeb web = new UMWeb("http://www.bai.com");
                 web.setTitle(title);
                 web.setThumb(thumb);
                 web.setDescription(content);
