@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:gravity="center"
             android:text="@string/forumposts_title"
             android:textSize="@dimen/textSize14"
             android:maxLines="2"
@@ -89,12 +90,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true">
+
                 <ImageView
                     android:layout_marginRight="7dp"
-                    android:src="@mipmap/like_selected"
+                    android:background="@drawable/postdate"
                     android:id="@+id/forumposts_listview_item_postImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/forumposts_listview_item_postNum"
                     android:layout_width="wrap_content"

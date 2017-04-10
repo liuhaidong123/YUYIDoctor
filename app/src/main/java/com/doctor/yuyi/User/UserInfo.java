@@ -15,6 +15,7 @@ public class UserInfo {
     public static final String SToken="userToken";
     public static final String SRongToken="rongToken";//融云的token
 
+    public static final String testToken="EA62E69E02FABA4E4C9A0FDC1C7CAE10";//测试用token
     public static String UserName="";//用户名（电话号ma）
     public static String UserToken="";//服务器返回的token
     public static String RongToken= RongUserInfo.RongToken;//融云token
@@ -49,7 +50,6 @@ public class UserInfo {
     //判断当前用户的融云信息是否存在，token，id,touxiang
     public static Boolean isRongInfoExit(Context context){
         SharedPreferences preferences=context.getSharedPreferences(SharedPreName,Context.MODE_APPEND);
-
         return false;
     }
 }

@@ -48,10 +48,52 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
-    <ListView
-        android:divider="#eeeeee"
-        android:dividerHeight="1dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/my_forum_posts_listview"></ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:layout_above="@+id/my_forum_post_loadinglayout"
+            android:divider="#eeeeee"
+            android:dividerHeight="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/my_forum_posts_listview"></ListView>
+
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/my_forum_post_loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/fg2"
+                android:background="#f1f1f1"/>
+            <LinearLayout
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/fg2"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <ProgressBar
+                    android:id="@+id/my_forum_post_progress"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+                <TextView
+                    android:id="@+id/my_forum_post_loading_textv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="加载更多"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 </LinearLayout>

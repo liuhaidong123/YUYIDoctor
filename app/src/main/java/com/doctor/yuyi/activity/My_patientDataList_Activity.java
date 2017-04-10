@@ -11,7 +11,7 @@ import com.doctor.yuyi.lzh_utils.MyActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
-
+//患者数据
 public class My_patientDataList_Activity extends MyActivity {
     private ListView my_patientList_listview;
     private My_paintDataList_Adapter adapter;
