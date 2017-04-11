@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.bean.Bean_MyMessage;
+import com.doctor.yuyi.bean.Bean_MyMessage_Notifi;
 import com.doctor.yuyi.bean.Bean_Test_My_message;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.squareup.picasso.Picasso;
@@ -20,8 +22,8 @@ import java.util.List;
 
 public class My_message_notifi_listAdapter extends BaseAdapter {
     private Context context;
-    private List<Bean_Test_My_message> list;
-    public My_message_notifi_listAdapter( Context context,List<Bean_Test_My_message> list){
+    private List<Bean_MyMessage_Notifi.RowsBean> list;
+    public My_message_notifi_listAdapter( Context context,List<Bean_MyMessage_Notifi.RowsBean> list){
         this.context=context;
         this.list=list;
     }
@@ -51,10 +53,12 @@ public class My_message_notifi_listAdapter extends BaseAdapter {
             hodler.my_message_notifi_list_msg= (TextView) convertView.findViewById(R.id.my_message_notifi_list_msg);
             convertView.setTag(hodler);
         }
-        hodler= (ViewHodler) convertView.getTag();
-        hodler.my_message_notifi_list_msg.setText(list.get(position).getMsg());
+        else {
+            hodler= (ViewHodler) convertView.getTag();
+        }
+        hodler.my_message_notifi_list_msg.setText(list.get(position).getContent());
         hodler.my_message_notifi_list_title.setText(list.get(position).getTitle());
-        hodler.my_message_notifi_list_time.setText(list.get(position).getTime());
+        hodler.my_message_notifi_list_time.setText(list.get(position).getCreateTimeString());
         return convertView;
     }
     class ViewHodler{;

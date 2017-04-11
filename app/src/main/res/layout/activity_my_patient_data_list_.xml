@@ -47,10 +47,51 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
-    <ListView
-        android:dividerHeight="1dp"
-        android:divider="#eeeeee"
-        android:id="@+id/my_patientList_listview"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <com.doctor.yuyi.myview.MyListView
+                android:dividerHeight="1dp"
+                android:divider="#eeeeee"
+                android:id="@+id/my_patientList_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.doctor.yuyi.myview.MyListView>
+            <RelativeLayout
+                android:background="#f2f2f2"
+                android:id="@+id/my_paintlist_loading_laout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ProgressBar
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/my_paintlist_loading_progress"/>
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/my_paintlist_loading_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="正在加载。。。"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>

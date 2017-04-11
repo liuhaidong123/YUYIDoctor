@@ -7,10 +7,11 @@
         android:id="@+id/my_message_notifi_item"
         android:layout_width="match_parent"
         android:layout_height="70dp">
-        <com.doctor.yuyi.lzh_utils.RoundImageView
+        <com.doctor.yuyi.myview.MyImageView
             android:id="@+id/my_message_titleImage_item"
             android:layout_width="40dp"
             android:src="@mipmap/inform"
+            android:scaleType="fitCenter"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
