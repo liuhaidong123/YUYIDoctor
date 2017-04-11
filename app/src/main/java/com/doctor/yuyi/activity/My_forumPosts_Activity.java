@@ -20,6 +20,7 @@ import com.doctor.yuyi.bean.Bean_MyPostData;
 import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
+import com.doctor.yuyi.myview.MyListView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -33,11 +34,11 @@ import java.util.Map;
 //我的帖子
 public class My_forumPosts_Activity extends MyActivity {
     private final Context con=My_forumPosts_Activity.this;
-    private ListView my_forum_posts_listview;
+    private MyListView my_forum_posts_listview;
     private My_forumPosts_Adapter adapter;
     private   List<Bean_MyPostData.RowsBean> list;
     private int start=0;
-    private int limit=2;
+    private int limit=10;
     private boolean isEnd;//查询结束（已经不能加载更多的帖子）
     private String resStr;
     //---------
@@ -104,7 +105,7 @@ public class My_forumPosts_Activity extends MyActivity {
 
     private void initView() {
         list=new ArrayList<>();
-        my_forum_posts_listview= (ListView) findViewById(R.id.my_forum_posts_listview);
+        my_forum_posts_listview= (MyListView) findViewById(R.id.my_forum_posts_listview);
         my_forum_post_loadinglayout= (RelativeLayout) findViewById(R.id.my_forum_post_loadinglayout);
         my_forum_post_loading_textv= (TextView) findViewById(R.id.my_forum_post_loading_textv);
         my_forum_post_progress= (ProgressBar) findViewById(R.id.my_forum_post_progress);
@@ -125,7 +126,7 @@ public class My_forumPosts_Activity extends MyActivity {
         my_forum_post_loadinglayout.setClickable(false);
         setPro(0);
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", UserInfo.testToken);
+        mp.put("token", UserInfo.UserToken);
         mp.put("start",st+"");
         mp.put("limit",""+limit);
         okhttp.getCall(Ip.URL+Ip.interface_MyPostData,mp,okhttp.OK_GET).enqueue(new Callback() {

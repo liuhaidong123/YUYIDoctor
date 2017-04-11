@@ -21,6 +21,7 @@ import com.doctor.yuyi.bean.Bean_MyPraise;
 import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
+import com.doctor.yuyi.myview.MyListView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -33,11 +34,11 @@ import java.util.Map;
 
 public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.notifi {
     private final Context con=My_praise_Activity.this;
-    private ListView my_praise_listview;
+    private MyListView my_praise_listview;
     private My_PraiseAdapter adapter;
     private String resStr;
     public  int start=0;
-    private final int limit=2;
+    private final int limit=10;
     private boolean isEnd;
     private List<Bean_MyPraise.RowsBean> list;
     //-------
@@ -111,7 +112,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         list=new ArrayList<>();
         titleTextView= (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("我的点赞");
-        my_praise_listview= (ListView) findViewById(R.id.my_praise_listview);
+        my_praise_listview= (MyListView) findViewById(R.id.my_praise_listview);
         adapter=new My_PraiseAdapter(list,this,this);
         my_praise_listview.setAdapter(adapter);
     }
@@ -121,7 +122,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         my_praise_loading_layout.setClickable(false);
         setLoading(0);
         Map<String,String> m=new HashMap<>();
-        m.put("token", UserInfo.testToken);
+        m.put("token", UserInfo.UserToken);
         m.put("start",star+"");
         m.put("limit",limit+"");
         okhttp.getCall(Ip.URL+Ip.interface_MyPraise,m,okhttp.OK_GET).enqueue(new Callback() {

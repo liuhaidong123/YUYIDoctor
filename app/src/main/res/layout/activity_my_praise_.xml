@@ -13,50 +13,58 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
-            android:layout_above="@+id/my_praise_loading_layout"
-            android:dividerHeight="1dp"
-            android:divider="#eeeeee"
+        <LinearLayout
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/my_praise_listview"></ListView>
-        <RelativeLayout
-            android:id="@+id/my_praise_loading_layout"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/fg3"
+            android:layout_height="match_parent">
+            <com.doctor.yuyi.myview.MyListView
+                android:dividerHeight="1dp"
+                android:divider="#eeeeee"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f1f1f1"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:orientation="horizontal"
-                android:layout_centerInParent="true"
-                android:layout_below="@+id/fg3">
-                <ProgressBar
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:id="@+id/my_praise_loading_progress"/>
-                <TextView
-                    android:id="@+id/my_praise_loding_text"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:id="@+id/my_praise_listview">
+            </com.doctor.yuyi.myview.MyListView>
+            <RelativeLayout
+                android:background="#f2f2f2"
+                android:id="@+id/my_praise_loading_layout"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--<TextView-->
+                    <!--android:id="@+id/fg3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#f1f1f1"/>-->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="加载更多"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_centerInParent="true"
+                    >
+                    <ProgressBar
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/my_praise_loading_progress"/>
+                    <TextView
+                        android:id="@+id/my_praise_loding_text"
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="加载更多"
+                        android:textSize="15sp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

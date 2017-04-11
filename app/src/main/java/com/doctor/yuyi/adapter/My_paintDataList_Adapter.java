@@ -1,6 +1,7 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.bean.Bean_MyPaintList;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
@@ -19,15 +23,15 @@ import java.util.Map;
 
 public class My_paintDataList_Adapter  extends BaseAdapter{
     private Context context;
-    private List<Map<String,String>> list;
-    public  My_paintDataList_Adapter(Context context,List<Map<String,String>> list){
+    private  List<Bean_MyPaintList.RowsBean> list;
+    public  My_paintDataList_Adapter(Context context, List<Bean_MyPaintList.RowsBean> list){
         this.context=context;
         this.list=list;
     }
     @Override
     public int getCount() {
         //-------------------------许改动--------------------------
-        return list==null?5:list.size();
+        return list==null?0:list.size();
     }
 
     @Override
@@ -52,7 +56,13 @@ public class My_paintDataList_Adapter  extends BaseAdapter{
         }
         else {
             hodler= (ViewHodler) convertView.getTag();
+            }
+        Picasso.with(context).load(Ip.URL+list.get(position).getAvatar()).error(R.mipmap.usererr).into(hodler.my_patientList_image);
+        String trueName=list.get(position).getTrueName();
+        if ("".equals(trueName)&&TextUtils.isEmpty(trueName)){
+            trueName="匿名";
         }
+        hodler.my_patientList_textVname.setText(trueName);
         return convertView;
     }
     class ViewHodler{
