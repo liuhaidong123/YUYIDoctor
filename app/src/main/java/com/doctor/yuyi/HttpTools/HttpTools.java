@@ -364,8 +364,162 @@ public class HttpTools {
                 handler.sendEmptyMessage(105);
             }
         });
-
     }
+
+    /**
+     * 学术圈热门
+     */
+    public void circleHot(final Handler handler, int start,int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_CIRCLE_HOT +"start="+start+"&limit="+limit;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", " 学术圈热门开始");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", " 学术圈热门" + s);
+                try {
+                    com.doctor.yuyi.bean.CircleBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CircleBean.Root.class);
+                    Message m = new Message();
+                    m.what = 7;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(106);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", " 学术圈热门失败" + strMsg.toString());
+                handler.sendEmptyMessage(106);
+            }
+        });
+    }
+
+    /**
+     * 学术圈精选
+     */
+    public void circleSelect(final Handler handler, int start,int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_CIRCLE_SELECT +"start="+start+"&limit="+limit;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", " 学术圈精选开始");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", " 学术圈精选" + s);
+                try {
+                    com.doctor.yuyi.bean.CircleBean.SelectBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CircleBean.SelectBean.Root.class);
+                    Message m = new Message();
+                    m.what = 8;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(107);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", " 学术圈精选失败" + strMsg.toString());
+                handler.sendEmptyMessage(107);
+            }
+        });
+    }
+    /**
+     * 学术圈最新
+     */
+    public void circleNew(final Handler handler, int start,int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_CIRCLE_NEW +"start="+start+"&limit="+limit;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", " 学术圈最新开始");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", " 学术圈最新" + s);
+                try {
+                    com.doctor.yuyi.bean.CircleBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CircleBean.Root.class);
+                    Message m = new Message();
+                    m.what = 7;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(106);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", " 学术圈最新失败" + strMsg.toString());
+                handler.sendEmptyMessage(106);
+            }
+        });
+    }
+    /**
+     * 学术圈最新,精选，热门详情
+     */
+    public void getHotSelectNewMessage(final Handler handler, long start,long limit,long id) {
+        String url = UrlTools.BASE + UrlTools.URL_NEW_SELECT_HOT_MESSAGE +"start="+start+"&limit="+limit+"&id="+id;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "  学术圈最新,精选，热门详情");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "  学术圈最新,精选，热门详情" + s);
+                try {
+                    com.doctor.yuyi.bean.CircleMessageBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CircleMessageBean.Root.class);
+                    Message m = new Message();
+                    m.what = 8;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(108);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", "  学术圈最新,精选，热门详情" + strMsg.toString());
+                handler.sendEmptyMessage(108);
+            }
+        });
+    }
+
 //    /**
 //     * 获取首页常用药品6条数据
 //     */

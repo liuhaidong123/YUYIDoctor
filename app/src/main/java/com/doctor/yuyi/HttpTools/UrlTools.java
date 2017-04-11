@@ -42,5 +42,8 @@ public class UrlTools {
     public static final  String URL_PRAISE="/likes/UpdateLikeNum.do?";//点赞接口（需：id=&token=）
 
 
+    public static final  String URL_CIRCLE_HOT="/academicpaper/findhot.do?";//学术圈热门（start=0&limit=6）
+    public static final  String URL_CIRCLE_SELECT="/academicpaper/Selected.do?";//学术圈精选（start=0&limit=6）
+    public static final  String URL_CIRCLE_NEW="/academicpaper/findtime.do?";//学术圈最新（start=0&limit=6）
+    public static final  String URL_NEW_SELECT_HOT_MESSAGE="/academicpaper/academicpaperComment.do?";//start=0&limit=2&id=1
 }
-

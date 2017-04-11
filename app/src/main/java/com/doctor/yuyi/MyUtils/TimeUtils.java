@@ -28,12 +28,12 @@ public class TimeUtils {
             double month = days / 30;
             double hours = days*24;
             double minutes = hours*60;
-            Log.e("diff=", diff + "");
-            Log.e("year=", year + "");
-            Log.e("month=", month + "");
-            Log.e("day=", days + "");
-            Log.e("hours=", hours + "");
-            Log.e("minutes=", minutes + "");
+//            Log.e("diff=", diff + "");
+//            Log.e("year=", year + "");
+//            Log.e("month=", month + "");
+//            Log.e("day=", days + "");
+//            Log.e("hours=", hours + "");
+//            Log.e("minutes=", minutes + "");
             if (year > 1) {
                 return (int)year + "年前";
             }else {
