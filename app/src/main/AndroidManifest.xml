@@ -105,7 +105,8 @@
         <activity android:name=".activity.Login_Activity" />
         <activity android:name=".activity.UserInfo_Activity"
             android:launchMode="singleTop"></activity>
-
+        <activity android:name=".activity.Post_SelectPhotoActivity"
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".activity.PostActivity"
             android:screenOrientation="portrait" />
