@@ -12,7 +12,6 @@ import com.doctor.yuyi.bean.Bean_MyMessage;
 import com.doctor.yuyi.bean.Bean_MyMessage_Notifi;
 import com.doctor.yuyi.bean.Bean_Test_My_message;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

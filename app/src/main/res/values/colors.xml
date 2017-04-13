@@ -48,4 +48,6 @@
     <color name="L_color_exit_back">#e00610</color>
     <color name="background">#f2f2f2</color>
     <color name="color_ms_home_titleclolr">#333333</color>
+    <color name="drawbackground">#791e1e1e</color>
+    <color name="un">#00aaeeaa</color>
 </resources>

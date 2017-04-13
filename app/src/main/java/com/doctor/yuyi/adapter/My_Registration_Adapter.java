@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.bean.Bean_RegistertionList;
+
+import java.util.List;
 
 /**
  * Created by wanyu on 2017/3/28.
@@ -15,17 +18,19 @@ import com.doctor.yuyi.R;
 
 public class My_Registration_Adapter extends BaseAdapter{
     private Context context;
-    public My_Registration_Adapter(Context context){
+    private List<Bean_RegistertionList.RowsBean> lis;
+    public My_Registration_Adapter(Context context,List<Bean_RegistertionList.RowsBean>lis){
         this.context=context;
+        this.lis=lis;
     }
     @Override
     public int getCount() {
-        return 6;
+        return lis==null?0:lis.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return lis.get(position);
     }
 
     @Override
@@ -46,6 +51,8 @@ public class My_Registration_Adapter extends BaseAdapter{
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
+        hodler.my_registration_list_name.setText(lis.get(position).getPhysicianTrueName());
+        hodler.my_registration_list_time.setText(lis.get(position).getCreateTimeString());
         return convertView;
     }
     class ViewHodler{

@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.doctor.yuyi">
 
+    <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 往SDCard读取数据权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -10,12 +12,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- //／／／／／／／／／／／／／／激光推送／／／／／／／／／／／／／／／／／／／／ -->
@@ -47,16 +47,13 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!-- //／／／／／／／／／／／／／／激光推送／／／／／／／／／／／／／／／／／／／／ -->
-
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--融云Call-->
+    <!-- 融云Call -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <!--融云Call-->
+
+    <!-- 融云Call -->
     <application
         android:name=".mApplication.MyApplication"
         android:allowBackup="true"
@@ -73,18 +70,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".activity.NetWorkError_Activity"
+        <activity android:name=".activity.NetWorkError_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.InformationMessageActivity"
             android:screenOrientation="portrait" />
@@ -107,6 +99,13 @@
         <activity android:name=".activity.My_patientDataList_Activity" />
         <activity android:name=".activity.My_registration_Activity" />
         <activity android:name=".activity.My_registration_Info_Activity" />
+        <activity android:name=".activity.Login_Activity" />
+        <activity
+            android:name=".activity.UserInfo_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.Post_SelectPhotoActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".activity.Login_Activity"
             >
             <!--<intent-filter>-->
@@ -133,14 +132,12 @@
         <activity
             android:name=".activity.CommentInformationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
             android:name=".activity.CardMessageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <!--融云相关-->
+<!--融云相关-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.doctor.yuyi.FileProvider"
@@ -209,6 +206,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
@@ -229,7 +227,8 @@
 
 
 
-        <activity android:name=".activity.PatientMessageActivity"></activity>
+        <activity android:name=".activity.PatientMessageActivity" />
+
         <receiver
             android:name=".RongCloudUtils.SealNotificationReceiver"
             android:exported="true">
@@ -241,8 +240,7 @@
             </intent-filter>
 
         </receiver>
-        <activity
-            android:name=".activity.RongConversationList_Activity"
+        <activity android:name=".activity.RongConversationList_Activity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -255,7 +253,7 @@
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
-        </activity>
+           </activity>
 
 
         <!--极光推送-->
@@ -376,7 +374,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <!--网络改变监听-->
+        <!-- 网络改变监听 -->
+        <activity android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

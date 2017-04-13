@@ -31,11 +31,17 @@
             android:textSize="17sp" />
 
         <TextView
+            android:id="@+id/post_submit"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:text="@string/post_tv"
             android:textColor="@color/color_username"
             android:textSize="17sp" />
@@ -55,6 +61,7 @@
         android:layout_below="@id/equip_line">
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -74,6 +81,7 @@
                     android:src="@mipmap/title" />
 
                 <EditText
+                    android:id="@+id/post_Edi_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -95,6 +103,8 @@
 
 
             <RelativeLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:id="@+id/content_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,6 +127,7 @@
                     android:src="@mipmap/content" />
 
                 <EditText
+                    android:id="@+id/post_Edi_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -129,42 +140,50 @@
                     android:textSize="15sp" />
 
             </RelativeLayout>
-
-            <com.doctor.yuyi.myview.InformationListView
-                android:scrollbars="none"
-                android:id="@+id/img_listview"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+            <LinearLayout
+                android:layout_below="@id/content_rl"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/content_rl">
-
-            </com.doctor.yuyi.myview.InformationListView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_listview"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-
-                <ImageView
-                    android:id="@+id/add_img"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@mipmap/add_img" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+                <com.doctor.yuyi.myview.MyListView
+                    android:scrollbars="none"
+                    android:dividerHeight="5dp"
+                    android:id="@+id/img_listview"
                     android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@id/add_img"
-                    android:text="@string/add_img"
-                    android:textColor="@color/color_bg"
-                    android:textSize="15sp" />
-            </RelativeLayout>
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                </com.doctor.yuyi.myview.MyListView>
+
+                <RelativeLayout
+                    android:clickable="true"
+                    android:onClick="SelectImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_listview"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:id="@+id/add_img"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@mipmap/add_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/add_img"
+                        android:text="@string/add_img"
+                        android:textColor="@color/color_bg"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 

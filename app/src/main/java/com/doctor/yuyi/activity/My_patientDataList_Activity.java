@@ -1,6 +1,7 @@
 package com.doctor.yuyi.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
@@ -121,7 +122,7 @@ public class My_patientDataList_Activity extends MyActivity {
     //搜索按钮的点击事件
     public void Search(View view) {
         if (view!=null){
-
+            startActivity(new Intent(My_patientDataList_Activity.this,SearchActivity.class));
         }
     }
     //获取混着列表http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5

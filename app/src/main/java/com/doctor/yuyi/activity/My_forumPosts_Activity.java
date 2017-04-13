@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -34,7 +36,7 @@ import java.util.Map;
 //我的帖子
 public class My_forumPosts_Activity extends MyActivity {
     private final Context con=My_forumPosts_Activity.this;
-    private MyListView my_forum_posts_listview;
+    private ListView my_forum_posts_listview;
     private My_forumPosts_Adapter adapter;
     private   List<Bean_MyPostData.RowsBean> list;
     private int start=0;
@@ -64,6 +66,8 @@ public class My_forumPosts_Activity extends MyActivity {
                     if (postData!=null&&postData.getRows()!=null&&postData.getRows().size()>0){
                         list.addAll(postData.getRows());
                         start+=postData.getRows().size();
+                        adapter.notifyDataSetChanged();
+                        setListViewHeightBasedOnChildren(my_forum_posts_listview);
                         if (postData.getRows().size()!=limit){//返回的不够10条时，说明数据库已经查询到了所有的数据，不能再次请求
                             isEnd=true;
                             my_forum_post_loadinglayout.setVisibility(View.GONE);
@@ -71,21 +75,13 @@ public class My_forumPosts_Activity extends MyActivity {
                         else {
                             isEnd=false;
                             my_forum_post_loadinglayout.setVisibility(View.VISIBLE);
-
-                        }
-                        if (list!=null&&list.size()>0){
-                            adapter=new My_forumPosts_Adapter(list,con);
-                            my_forum_posts_listview.setAdapter(adapter);
-                        }
-                        else {
-                            toast.toast_gsonEmpty(con);
-                            my_forum_post_loadinglayout.setVisibility(View.GONE);
                         }
                     }
                     else {
                         toast.toast_gsonEmpty(con);
                         my_forum_post_loadinglayout.setVisibility(View.GONE);
                     }
+
                         }
                     catch (Exception e){
                             toast.toast_gsonFaild(con);
@@ -105,7 +101,12 @@ public class My_forumPosts_Activity extends MyActivity {
 
     private void initView() {
         list=new ArrayList<>();
-        my_forum_posts_listview= (MyListView) findViewById(R.id.my_forum_posts_listview);
+        my_forum_posts_listview= (ListView) findViewById(R.id.my_forum_posts_listview);
+        adapter=new My_forumPosts_Adapter(list,con);
+        my_forum_posts_listview.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(my_forum_posts_listview);
+
+
         my_forum_post_loadinglayout= (RelativeLayout) findViewById(R.id.my_forum_post_loadinglayout);
         my_forum_post_loading_textv= (TextView) findViewById(R.id.my_forum_post_loading_textv);
         my_forum_post_progress= (ProgressBar) findViewById(R.id.my_forum_post_progress);
@@ -126,7 +127,7 @@ public class My_forumPosts_Activity extends MyActivity {
         my_forum_post_loadinglayout.setClickable(false);
         setPro(0);
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", UserInfo.UserToken);
+        mp.put("token", UserInfo.testToken);
         mp.put("start",st+"");
         mp.put("limit",""+limit);
         okhttp.getCall(Ip.URL+Ip.interface_MyPostData,mp,okhttp.OK_GET).enqueue(new Callback() {
@@ -155,5 +156,29 @@ public class My_forumPosts_Activity extends MyActivity {
                 my_forum_post_loading_textv.setText("加载更多");
                 break;
         }
+    }
+
+
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        //获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {   //listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);  //计算子项View 的宽高
+            totalHeight += listItem.getMeasuredHeight();  //统计所有子项的总高度
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        //listView.getDividerHeight()获取子项间分隔符占用的高度
+        //params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 }

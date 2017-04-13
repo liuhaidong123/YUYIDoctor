@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/color_white"
     tools:context="com.doctor.yuyi.activity.My_registration_Activity">
     <include android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,10 +14,95 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
-    <ListView
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/my_registration_listview"
-        android:dividerHeight="1dp"
-        android:divider="#eeeeee"></ListView>
+        android:layout_height="60dp"
+        android:background="#eeeeee">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="科室"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:id="@+id/my_registration_relayout"
+            android:clickable="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/layoutba">
+            <TextView
+                android:id="@+id/my_registration_ks"
+                android:layout_centerVertical="true"
+                android:text="全部"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/my_registration_image"
+                android:src="@drawable/imgselect"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.doctor.yuyi.myview.MyListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/my_registration_listview"
+                android:dividerHeight="1dp"
+                android:divider="#eeeeee">
+            </com.doctor.yuyi.myview.MyListView>
+            <RelativeLayout
+                android:background="#f2f2f2"
+                android:id="@+id/my_registration_loadingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    >
+                    <ProgressBar
+                        android:id="@+id/my_registration_loadingprogress"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:id="@+id/my_registration_loadingtext"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>
