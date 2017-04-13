@@ -1,6 +1,12 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +16,12 @@ import android.widget.Toast;
 
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.lzh_utils.BitMapUtils;
-import com.sina.weibo.sdk.api.share.Base;
-import com.squareup.picasso.Picasso;
+import com.doctor.yuyi.myview.SelectImageVIew;
 
 import java.util.List;
 import java.util.Map;
+
+import it.sephiroth.android.library.picasso.Picasso;
 
 /**
  * Created by wanyu on 2017/4/11.
@@ -51,21 +58,26 @@ public class PostPhotoGridviewAdapter extends BaseAdapter{
         if (convertView==null){
             hodler=new ViewHodler();
             convertView= LayoutInflater.from(context).inflate(R.layout.item,null);
-            hodler.image= (ImageView) convertView.findViewById(R.id.image);
+            hodler.image= (SelectImageVIew) convertView.findViewById(R.id.itemImage);
             hodler.CheckBox= (ImageView) convertView.findViewById(R.id.img2);
             convertView.setTag(hodler);
         }
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
-
-        Picasso.with(context).load(list.get(position).get("url")).centerCrop().resize(BitMapUtils.getWindowWidth(context)/3,BitMapUtils.getWindowWidth(context)/3).error(R.mipmap.ic_launcher).into(hodler.image);
+        Log.i("uri--",list.get(position).get("url"));
+        String url=list.get(position).get("url");
+        Picasso.with(context).load(url).centerCrop().resize(BitMapUtils.getWindowWidth(context)/3,
+                BitMapUtils.getWindowWidth(context)/3).error(R.mipmap.logo).into(hodler.image);
+//        hodler.image.setImageBitmap(getBitmapFromUri(Uri.parse(list.get(position).get("url"))));
         String type=list.get(position).get("select");
         if ("0".equals(type)){//未选中
             hodler.CheckBox.setSelected(false);
+            hodler.image.setState(0);
         }
         else if ("1".equals(type)){
             hodler.CheckBox.setSelected(true);
+            hodler.image.setState(1);
         }
 
         hodler.CheckBox.setTag(position);
@@ -78,14 +90,16 @@ public class PostPhotoGridviewAdapter extends BaseAdapter{
                     if (getSelectCount()<6){//做多6张图
                         list.get(pos).put("select","1");
                         v.setSelected(true);
+                        notifyDataSetChanged();
                     }
                     else {
-                        Toast.makeText(context,"最多可用选择6张图",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"最多可以选择6张图",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else if ("1".equals(list.get(pos).get("select"))){//选中状态
                     list.get(pos).put("select","0");
                     v.setSelected(false);
+                    notifyDataSetChanged();
                 }
                 selectIn.select(getSelectCount());
             }
@@ -93,7 +107,7 @@ public class PostPhotoGridviewAdapter extends BaseAdapter{
         return convertView;
     }
     class ViewHodler{
-        ImageView image;
+        SelectImageVIew image;
         ImageView CheckBox;
     }
 

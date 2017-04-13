@@ -45,4 +45,24 @@ public interface Ip {
 
     //消息已读标记://192.168.1.55:8080/yuyi/messagePhysicianLog/save.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&messageId=1
     public final static String interface_MyMessageRead="messagePhysicianLog/save.do?";
+
+    //获取挂号中所有科室的列表:http://192.168.1.55:8080/yuyi/department/getallph.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10
+    public final static String interface_MyRegisterKS="department/getallph.do?";
+
+    //获取挂号中所有科室的列表:http://192.168.1.55:8080/yuyi/register/findList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5&departmentId=1&clinicId=1
+    public final static String interface_MyRegisterGH="register/findList.do?";
+
+
+    //获取挂号中所有科室的列表http://192.168.1.55:8080/yuyi/register/get.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&id=1
+    public final static String interface_MyRegisterGH_Msg="register/get.do?";
+
+
+    //获取挂号中所有科室的列表我的帖子点赞接口http://192.168.1.55:8080/yuyi/likes/LikeNum.do?id=1&token=820F140709A478E3358AB5DA911C91E6
+    public final static String interface_MyPostDataPraise="likes/LikeNum.do?";
+
+    //发表帖子的接口
+    public final  static String interface_PostIn="academicpaper/AddAcademicpaper.do?";
+
+    //获取搜索患者的结果http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5&trueName=1
+    public final  static String interface_Searchpaint="homeuser/findAllUserList.do?";
 }

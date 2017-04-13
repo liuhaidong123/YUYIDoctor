@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.doctor.yuyi.myview.SelectImageVIew
         android:alpha="70"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:id="@+id/image"/>
+        android:id="@+id/itemImage"/>
         <ImageView
             android:padding="5dp"
             android:src="@drawable/im"

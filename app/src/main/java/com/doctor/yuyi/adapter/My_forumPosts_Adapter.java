@@ -1,7 +1,10 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +16,20 @@ import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.Bean_MyPostData;
+import com.doctor.yuyi.bean.Bean_MyPostDataPriase;
 import com.doctor.yuyi.lzh_utils.DataUtils;
+import com.doctor.yuyi.lzh_utils.okhttp;
+import com.doctor.yuyi.lzh_utils.toast;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +38,68 @@ import java.util.Map;
  */
 
 public class My_forumPosts_Adapter extends BaseAdapter{
+
     private List<Bean_MyPostData.RowsBean> list;
     private Context context;
+    private Boolean isPraise=false;//是否正在执行点赞操作
+    private int CurrentPosition;
+    private String resStr;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(context);
+                    isPraise=false;
+                    break;
+                case 1:
+                    isPraise=false;
+                    try{
+                        Bean_MyPostDataPriase priase=okhttp.gson.fromJson(resStr,Bean_MyPostDataPriase.class);
+                        if (priase!=null){
+                            if ("0".equals(priase.getCode())){
+                                Log.i("---isLink--",list.get(CurrentPosition).isIsLike()+"");
+                                if (list.get(CurrentPosition).isIsLike()==false){
+                                    Toast.makeText(context,"点赞成功",Toast.LENGTH_SHORT).show();
+                                    list.get(CurrentPosition).setIsLike(true);
+                                    Long isLinkNum=list.get(CurrentPosition).getLikeNum();
+                                    if (isLinkNum==null){
+                                        isLinkNum=0L;
+                                    }
+                                    list.get(CurrentPosition).setLikeNum(isLinkNum+1);
+                                }
+                                else {
+                                    Toast.makeText(context,"取消点赞成功",Toast.LENGTH_SHORT).show();
+                                    list.get(CurrentPosition).setIsLike(false);
+                                    Long isLinkNum=list.get(CurrentPosition).getLikeNum();
+                                    if (isLinkNum!=null&&isLinkNum>0){
+                                        list.get(CurrentPosition).setLikeNum(isLinkNum-1);
+                                    }
+                                    else {
+                                        return;
+                                    }
+                                }
+                                notifyDataSetChanged();
+                            }
+                            else {
+                                if (list.get(CurrentPosition).isIsLike()){
+                                    Toast.makeText(context,"点赞失败",Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(context,"取消点赞失败",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        toast.toast_gsonFaild(context);
+                    }
+                    break;
+            }
+        }
+    };
     public My_forumPosts_Adapter(List<Bean_MyPostData.RowsBean> list,Context context){
         this.list=list;
         this.context=context;
@@ -114,19 +186,25 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         else {
             hodler.forumposts_listview_item_photoImage.setVisibility(View.GONE);
         }
-        hodler.forumpost_listitem_layout_post.setTag(hodler);
+        hodler.forumpost_listitem_layout_post.setTag(position);
         hodler.forumpost_listitem_layout_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewHodler ho= (ViewHodler) v.getTag();
-                if (ho.forumposts_listview_item_postImage.isSelected()){
-                    Toast.makeText(context,"取消点赞",Toast.LENGTH_SHORT).show();
-                    ho.forumposts_listview_item_postImage.setSelected(false);
+                int pos= (int) v.getTag();
+                if (isPraise==true){//当前正在执行点赞／取消点赞操作，不能再点击
+                    if (list.get(pos).isIsLike()){
+                        Toast.makeText(context,"正在取消点赞，请等待",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(context,"正在点赞，请等待",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else {
-                    Toast.makeText(context,"点赞",Toast.LENGTH_SHORT).show();
-                    ho.forumposts_listview_item_postImage.setSelected(true);
+                    isPraise=true;
+                    setPraise(pos);
                 }
+
             }
         });
         hodler.forumpost_listitem_layout_msg.setOnClickListener(new View.OnClickListener() {
@@ -151,5 +229,27 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         ImageView forumposts_listview_item_postImage,forumposts_listview_item_msgImage;//点赞，评论的image
         LinearLayout forumpost_listitem_layout_post,forumpost_listitem_layout_msg;//点赞,评论的layout;
         ImageView forumposts_listview_item_photoImage;
+    }
+
+    //点赞的接口http://192.168.1.55:8080/yuyi/likes/LikeNum.do?id=1&token=820F140709A478E3358AB5DA911C91E6
+    public void setPraise(int id){
+        CurrentPosition=id;
+        Map<String,String>mp=new HashMap<>();
+        mp.put("id",list.get(id).getId()+"");
+        mp.put("token", UserInfo.testToken);
+        okhttp.getCall(Ip.URL+Ip.interface_MyPostDataPraise,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+            }
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resStr=response.body().string();
+                Log.i("取消／点赞我的帖子---",resStr);
+                    handler.sendEmptyMessage(1);
+
+            }
+        });
+
     }
 }

@@ -21,6 +21,5 @@ public class MyScrollowView extends ScrollView{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int hei=MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE>>2,MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, hei);
-
     }
 }

@@ -12,10 +12,11 @@ import com.doctor.yuyi.MyUtils.TimeUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.bean.CommendListBean.Result;
 import com.doctor.yuyi.myview.RoundImageView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.sephiroth.android.library.picasso.Picasso;
 
 /**
  * Created by liuhaidong on 2017/3/28.
