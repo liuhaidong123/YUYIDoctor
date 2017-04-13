@@ -8,8 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.bean.PatientList.Root;
+import com.doctor.yuyi.bean.PatientList.Rows;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,15 +24,23 @@ import java.util.Map;
 
 public class FragmentMyPatientListAdapter extends BaseAdapter{
     private Context context;
-    private List<Map<String,String>> list;
-    public  FragmentMyPatientListAdapter(Context context,List<Map<String,String>> list){
+    private List<Rows> list=new ArrayList<>();
+    public  FragmentMyPatientListAdapter(Context context,List<Rows> list){
         this.context=context;
         this.list=list;
     }
+
+    public List<Rows> getList() {
+        return list;
+    }
+
+    public void setList(List<Rows> list) {
+        this.list = list;
+    }
+
     @Override
     public int getCount() {
-        //-------------------------许改动--------------------------
-        return list==null?5:list.size();
+        return list.size();
     }
 
     @Override
@@ -53,6 +66,9 @@ public class FragmentMyPatientListAdapter extends BaseAdapter{
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
+
+        Picasso.with(context).load(UrlTools.BASE+list.get(position).getAvatar()).error(R.mipmap.error_small).into(hodler.frag_my_patientList_image);
+        hodler.frag_my_patientList_textVname.setText(list.get(position).getTrueName());
         return convertView;
     }
     class ViewHodler{

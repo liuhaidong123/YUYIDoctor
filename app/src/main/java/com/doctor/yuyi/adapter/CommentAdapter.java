@@ -14,6 +14,9 @@ import com.doctor.yuyi.bean.CommendListBean.Result;
 import com.doctor.yuyi.myview.RoundImageView;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +72,13 @@ public class CommentAdapter extends BaseAdapter {
 
         Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getAvatar()).error(R.mipmap.error_small).into(commendHolder.img);
         commendHolder.name.setText(mList.get(position).getTrueName());
-        commendHolder.content.setText(mList.get(position).getContent());
+        String str="";
+        try {
+            str =  URLDecoder.decode(mList.get(position).getContent(),"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        commendHolder.content.setText(str);
         commendHolder.time.setText(TimeUtils.getTime(mList.get(position).getCreateTimeString()));
         return convertView;
     }

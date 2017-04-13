@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/item01" />
+               />
 
             <TextView
                 android:id="@+id/information_title"
@@ -68,7 +68,7 @@
                 android:layout_marginTop="25dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/title"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="15sp" />
 
@@ -81,7 +81,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
-                android:text="@string/message"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="13sp" />
         </RelativeLayout>
@@ -109,7 +109,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:text="234"
+            android:text=""
             android:textColor="@color/color_ad"
             android:textSize="12sp" />
 
@@ -130,7 +130,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="25dp"
             android:layout_toStartOf="@id/comment_img1"
-            android:text="123"
+            android:text=""
             android:textColor="@color/color_ad"
             android:textSize="12sp" />
 
@@ -142,7 +142,7 @@
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@id/praise_num_tv"
             android:padding="5dp"
-            android:src="@mipmap/like_selected" />
+             />
 
         <TextView
             android:id="@+id/share_num_tv"
@@ -151,7 +151,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="25dp"
             android:layout_toStartOf="@id/praise"
-            android:text="125"
+            android:text=""
             android:textColor="@color/color_ad"
             android:textSize="12sp" />
 

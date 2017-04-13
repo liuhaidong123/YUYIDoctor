@@ -22,7 +22,7 @@ public class UMShareListner implements UMShareListener {
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-        Log.e("分享错误","===");
+        Log.e("分享错误","==="+throwable.getMessage());
         if(throwable!=null){
             Log.d("throw","throw:"+throwable.getMessage());
         }

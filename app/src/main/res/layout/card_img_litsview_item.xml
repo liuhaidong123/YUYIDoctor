@@ -9,7 +9,6 @@
         android:id="@+id/item_img"
         android:layout_width="335dp"
         android:layout_height="335dp"
-        android:src="@mipmap/item01"
         android:scaleType="centerCrop"
         />
 </LinearLayout>

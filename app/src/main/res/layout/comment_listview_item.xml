@@ -20,7 +20,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/item01" />
+                 />
 
             <RelativeLayout
                 android:id="@+id/relative_time"
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLength="5"
-                    android:text="上官飞燕"
+                    android:text=""
                     android:textColor="@color/color_drumall"
                     android:textSize="12sp" />
 
@@ -46,7 +46,7 @@
                     android:layout_below="@id/comment_username"
                     android:ellipsize="end"
                     android:maxLength="7"
-                    android:text="20个小时前"
+                    android:text=""
                     android:textColor="@color/color_bg"
                     android:textSize="11sp" />
 
@@ -59,7 +59,7 @@
                 android:layout_below="@id/relative_time"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/message" />
+                android:text="" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/forumposts_title"
+            android:text=""
             android:textColor="#2b2b2b"
             android:textSize="@dimen/textSize14" />
 
@@ -32,7 +32,7 @@
                 android:layout_height="55dp"
                 android:layout_marginRight="10dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/doc" />
+                />
 
             <TextView
                 android:id="@+id/forumpost_listitem_content"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@string/forumposts_content"
+                android:text=""
                 android:textColor="#6a6a6a"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="3小时前"
+                android:text=""
                 android:textColor="#cccccc"
                 android:textSize="11sp" />
 
@@ -80,7 +80,7 @@
                     android:id="@+id/forumposts_listview_item_msgNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="231"
+                    android:text=""
                     android:textColor="#cccccc"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -100,14 +100,15 @@
                     android:id="@+id/forumposts_listview_item_postImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                   android:padding="10dp"
                     android:layout_marginRight="7dp"
-                    android:src="@mipmap/like_selected" />
+                   />
 
                 <TextView
                     android:id="@+id/forumposts_listview_item_postNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2112"
+                    android:text=""
                     android:textColor="#cccccc"
                     android:textSize="11sp" />
             </LinearLayout>

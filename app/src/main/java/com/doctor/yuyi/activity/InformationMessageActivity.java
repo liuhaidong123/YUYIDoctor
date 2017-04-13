@@ -22,11 +22,14 @@ import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.AdMessageDetial.Root;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+
+import java.util.Map;
 
 public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
@@ -133,6 +136,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_information_message);
         initView();
 
+
     }
 
     public void initView() {
@@ -207,4 +211,5 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         Log.e("onResume", "onResume");
         mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);//获取广告,今日推荐，最新，热门资讯详情
     }
+
 }

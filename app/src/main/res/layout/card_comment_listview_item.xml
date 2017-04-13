@@ -15,7 +15,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/item02" />
+             />
 
         <TextView
             android:id="@+id/name"
@@ -24,7 +24,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/head_img"
-            android:text="LIM"
+            android:text=""
             android:textColor="@color/color_drumall"
             android:textSize="12sp" />
 
@@ -35,7 +35,7 @@
             android:layout_below="@id/name"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/head_img"
-            android:text="1小时前"
+            android:text=""
             android:textColor="@color/color_bg"
             android:textSize="11sp" />
 
@@ -43,10 +43,12 @@
             android:id="@+id/card_user_praise_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="789"
+            android:text=""
+            android:paddingTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_alignTop="@id/time"
+            android:layout_alignTop="@id/name"
             android:layout_alignParentEnd="true"
+            android:textSize="11sp"
             />
 
         <ImageView
@@ -54,9 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/card_user_praise_num"
-            android:layout_alignTop="@id/time"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/like_selected" />
+            android:layout_alignTop="@id/name"
+            android:padding="5dp"
+             />
 
         <TextView
             android:id="@+id/content"
@@ -66,7 +68,7 @@
             android:layout_below="@id/time"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/message"
+            android:text=""
             android:textColor="@color/color_drumall"
             android:textSize="12sp" />
 

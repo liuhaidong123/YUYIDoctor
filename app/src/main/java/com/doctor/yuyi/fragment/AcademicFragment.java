@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.User.UserInfo;
+import com.doctor.yuyi.activity.My_message_Activity;
 import com.doctor.yuyi.activity.PostActivity;
 import com.doctor.yuyi.adapter.CircleAdpater;
 import com.doctor.yuyi.adapter.CircleSelectAda;
@@ -38,6 +41,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class AcademicFragment extends Fragment implements View.OnClickListener {
+    private ImageView mMessage_img;
+
     private TextView mHot_tv, mSelect_tv, mNew_tv;//热门，精选，最新
     private View mHot_line, mSelect_line, mNew_line;//线
     private String mColorSelect = "#25f368";
@@ -53,11 +58,12 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mMany_Box;//加载更多
     private ProgressBar mBar;
     private int mFlag=0;
+    private boolean isFlag=true;
     private ImageView mPostImg;//发帖
 
     private HttpTools mHttptools;
     private int mStart = 0;
-    private int mLimit = 2;
+    private int mLimit = 10;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -70,6 +76,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                     mRefresh.setRefreshing(false);
                     mRefresh.setEnabled(false);
                     mBar.setVisibility(View.INVISIBLE);
+
                     Root root = (Root) o;
                     List<Rows> list = new ArrayList<>();
                     list = root.getRows();
@@ -77,7 +84,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                     mAdapter.setList(mList);
                     mListview.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
-                    if (list.size() != 2) {
+                    if (list.size() != 10) {
                         mMany_Box.setVisibility(View.GONE);
                     } else {
                         mMany_Box.setVisibility(View.VISIBLE);
@@ -87,6 +94,8 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 MyDialog.stopDia();
                 mRefresh.setRefreshing(false);
                 mRefresh.setEnabled(false);
+                mMany_Box.setVisibility(View.GONE);
+                mBar.setVisibility(View.INVISIBLE);
                 ToastUtils.myToast(getContext(), "数据错误");
             } else if (msg.what == 8) {//学术圈精选
                 Object o = msg.obj;
@@ -101,7 +110,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                         mSelectAdapter.setList(mSelectList);
                         mListview.setAdapter(mSelectAdapter);
                         mSelectAdapter.notifyDataSetChanged();
-                        if (list.size() != 2) {
+                        if (list.size() != 10) {
                             mMany_Box.setVisibility(View.GONE);
                         } else {
                             mMany_Box.setVisibility(View.VISIBLE);
@@ -111,6 +120,8 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 }
             }else if (msg.what==107){
                 MyDialog.stopDia();
+                mBar.setVisibility(View.INVISIBLE);
+                mMany_Box.setVisibility(View.GONE);
                 ToastUtils.myToast(getContext(), "数据错误");
             }
         }
@@ -133,11 +144,13 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
     public void getHttpData() {
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.circleHot(mHandler, mStart, mLimit);//学术圈热门
+        Log.e("token",UserInfo.UserToken);
     }
 
 
     public void initView(View view) {
+        mMessage_img= (ImageView) view.findViewById(R.id.information_img);
+        mMessage_img.setOnClickListener(this);
         //头部热门，精选，最新
         mHot_tv = (TextView) view.findViewById(R.id.circle_hot_tv);
         mSelect_tv = (TextView) view.findViewById(R.id.circle_select_tv);
@@ -178,35 +191,49 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             MyDialog.showDialog(this.getContext());
             mFlag=0;
             mStart=0;
-            mList.clear();
-            mHttptools.circleHot(mHandler,mStart,mLimit);
+            mHttptools.circleHot(mHandler,mStart,mLimit,UserInfo.UserToken);
             showHotLine();
+            mList.clear();
+            mMany_Box.setVisibility(View.GONE);
+            mAdapter.setList(mList);
+            mListview.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         } else if (id == mSelect_tv.getId()) {//精选
             MyDialog.showDialog(this.getContext());
             mFlag=1;
             mStart=0;
-            mSelectList.clear();
-            mHttptools.circleSelect(mHandler,mStart,mLimit);
+            mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
             showSelectLine();
+            mSelectList.clear();
+            mMany_Box.setVisibility(View.GONE);
+            mSelectAdapter.setList(mSelectList);
+            mListview.setAdapter(mSelectAdapter);
+            mSelectAdapter.notifyDataSetChanged();
         } else if (id == mNew_tv.getId()) {//最新
             MyDialog.showDialog(this.getContext());
             mFlag=2;
             mStart=0;
-            mList.clear();
-            mHttptools.circleNew(mHandler,mStart,mLimit);
+            mHttptools.circleNew(mHandler,mStart,mLimit, UserInfo.UserToken);
             showNewLine();
+            mList.clear();
+            mMany_Box.setVisibility(View.GONE);
+            mAdapter.setList(mList);
+            mListview.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         } else if (id == mPostImg.getId()) {//发帖
             startActivity(new Intent(getContext(), PostActivity.class));
         } else if (id == mMany_Box.getId()) {//加载更多
-            mStart += 2;
+            mStart += 10;
             if (mFlag==0){//学术圈热门
-                mHttptools.circleHot(mHandler, mStart, mLimit);
+                mHttptools.circleHot(mHandler, mStart, mLimit,UserInfo.UserToken);
             }else if (mFlag==1){//学术圈精选
-                mHttptools.circleSelect(mHandler,mStart,mLimit);
+                mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
             }else if (mFlag==2){//学术圈最新
-                mHttptools.circleNew(mHandler,mStart,mLimit);
+                mHttptools.circleNew(mHandler,mStart,mLimit,UserInfo.UserToken);
             }
             mBar.setVisibility(View.VISIBLE);
+        }else if (id == mMessage_img.getId()) {//发帖
+            startActivity(new Intent(getContext(), My_message_Activity.class));
         }
     }
 
@@ -264,5 +291,26 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         mSelect_tv.setTextColor(Color.parseColor(mNoSelectColor));
         mHot_tv.setTextColor(Color.parseColor(mColorSelect));
         mNew_tv.setTextColor(Color.parseColor(mNoSelectColor));
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mFlag==0){//学术圈热门
+            mList.clear();
+            mStart=0;
+            mHttptools.circleHot(mHandler, mStart, mLimit,UserInfo.UserToken);
+        }else if (mFlag==1){//学术圈精选
+            mSelectList.clear();
+            mStart=0;
+            mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
+        }else if (mFlag==2){//学术圈最新
+            mList.clear();
+            mStart=0;
+            mHttptools.circleNew(mHandler,mStart,mLimit,UserInfo.UserToken);
+        }
+
     }
 }
