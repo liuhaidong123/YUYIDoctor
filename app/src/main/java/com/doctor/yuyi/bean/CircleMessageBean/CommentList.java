@@ -25,7 +25,17 @@ public class CommentList {
 
     private String commentType;
 
-    private String id;
+    private long id;
+
+    private boolean isLike;
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
 
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;
@@ -87,10 +97,10 @@ public class CommentList {
     public String getCommentType(){
         return this.commentType;
     }
-    public void setId(String id){
+    public void setId(long id){
         this.id = id;
     }
-    public String getId(){
+    public long getId(){
         return this.id;
     }
 }

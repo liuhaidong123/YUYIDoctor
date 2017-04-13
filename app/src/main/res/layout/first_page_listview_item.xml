@@ -15,7 +15,7 @@
             android:layout_height="92dp"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/my_one" />
+            />
 
         <TextView
             android:id="@+id/title"
@@ -26,7 +26,7 @@
             android:layout_toEndOf="@id/img"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/title"
+            android:text=""
             android:textColor="@color/color_normal"
             android:textSize="13sp" />
 
@@ -41,7 +41,7 @@
             android:layout_toEndOf="@id/img"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="@string/message"
+            android:text=""
             android:textColor="@color/color_press"
             android:textSize="12sp" />
     </RelativeLayout>

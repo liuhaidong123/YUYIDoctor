@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by liuhaidong on 2017/3/29.
@@ -15,15 +18,22 @@ import com.doctor.yuyi.R;
 public class CardMessageImgAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
+    private String[] str = new String[0];
 
-    public CardMessageImgAdapter(Context mContext) {
+
+    public CardMessageImgAdapter(Context mContext, String[] str) {
         this.mContext = mContext;
-        this.mInflater=LayoutInflater.from(this.mContext);
+        this.str = str;
+        this.mInflater = LayoutInflater.from(this.mContext);
+    }
+
+    public void setStr(String[] str) {
+        this.str = str;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return str.length;
     }
 
     @Override
@@ -38,7 +48,20 @@ public class CardMessageImgAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView=mInflater.inflate(R.layout.card_img_litsview_item,null);
+        ImgHolder holder = null;
+        if (convertView == null) {
+            holder = new ImgHolder();
+            convertView = mInflater.inflate(R.layout.card_img_litsview_item, null);
+            holder.img = (ImageView) convertView.findViewById(R.id.item_img);
+            convertView.setTag(holder);
+        } else {
+            holder = (ImgHolder) convertView.getTag();
+        }
+        Picasso.with(mContext).load(UrlTools.BASE + str[position]).error(R.mipmap.error_big).into(holder.img);
         return convertView;
+    }
+
+    class ImgHolder {
+        ImageView img;
     }
 }

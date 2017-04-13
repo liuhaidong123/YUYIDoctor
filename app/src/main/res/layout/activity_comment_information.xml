@@ -54,7 +54,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:text="@string/message"
+            android:text=""
             android:textColor="@color/color_normal"
             android:textSize="15sp" />
 
@@ -88,7 +88,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:layout_toRightOf="@id/comment_img2"
-                android:text="234"
+                android:text=""
                 android:textColor="@color/color_ad"
                 android:textSize="12sp" />
 
@@ -100,7 +100,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
-                android:text="123"
+                android:text=""
                 android:textColor="@color/color_ad"
                 android:textSize="12sp" />
 
@@ -112,7 +112,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf="@id/praise_num_tv"
                 android:padding="5dp"
-                android:src="@mipmap/like_selected" />
+               />
 
             <TextView
                 android:id="@+id/share_num_tv"
@@ -121,7 +121,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="25dp"
                 android:layout_toStartOf="@id/praise"
-                android:text="125"
+                android:text=""
                 android:textColor="@color/color_ad"
                 android:textSize="12sp" />
 

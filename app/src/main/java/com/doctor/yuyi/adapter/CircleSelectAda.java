@@ -2,6 +2,8 @@ package com.doctor.yuyi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.MyUtils.TimeUtils;
+import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.activity.CardMessageActivity;
 import com.doctor.yuyi.bean.CircleBean.SelectBean.Result;
+import com.doctor.yuyi.bean.InformationPraise.Root;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,8 +37,39 @@ public class CircleSelectAda extends BaseAdapter {
     private SelectHolder circleHolder;
     private int mPosition;
     private List<Result> list = new ArrayList<>();
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
 
+            if (msg.what==9){
+                Object o= msg.obj;
+                if (o!=null&& o instanceof Root){
+                    Root root= (Root) o;
+                    if (root.getCode().equals("0")){
+                        if (root.getResult().equals("点赞成功")){
+                            list.get(mPosition).setIsLike(true);
+                            if (list.get(mPosition).getLikeNum() == null) {
+                                list.get(mPosition).setLikeNum(1);
+                            } else {
+                                list.get(mPosition).setLikeNum(list.get(mPosition).getLikeNum() + 1);
+                            }
+                            notifyDataSetChanged();
+                        }else {
+                            list.get(mPosition).setIsLike(false);
+                            list.get(mPosition).setLikeNum(list.get(mPosition).getLikeNum() - 1);
+                            notifyDataSetChanged();
+                        }
+                    }
+                }
+            }else if (msg.what==109){
+                ToastUtils.myToast(mContext,"点赞失败");
+            }
+        }
+    };
+    private HttpTools httpTools;
     public CircleSelectAda(Context mContext, List<Result> list) {
+        httpTools=HttpTools.getHttpToolsInstance();
         this.mContext = mContext;
         this.list = list;
         this.mInflater = LayoutInflater.from(this.mContext);
@@ -87,7 +124,7 @@ public class CircleSelectAda extends BaseAdapter {
         if (list.get(position).getLikeNum() == null) {
             circleHolder.praise_num.setText("0");
         } else {
-            circleHolder.praise_num.setText(list.get(position).getShareNum() + "");
+            circleHolder.praise_num.setText(list.get(position).getLikeNum() + "");
         }
         //评论设值
         if (list.get(position).getCommentNum() == null) {
@@ -97,28 +134,24 @@ public class CircleSelectAda extends BaseAdapter {
         }
 
         final View finalConvertView = convertView;
+        mPosition=position;
         if (list.get(position).getIsLike()) {
             circleHolder.praise_img.setImageResource(R.mipmap.like_selected);
-            //点赞
-            circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finalConvertView.setFocusable(false);
-                    //请求点赞接口
-                }
-            });
+
         } else {
             circleHolder.praise_img.setImageResource(R.mipmap.like);
-            //点赞
-            circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finalConvertView.setFocusable(false);
-                    //请求点赞接口
-                }
-            });
         }
 
+        //点赞
+        circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPosition=position;
+                finalConvertView.setFocusable(false);
+                //请求点赞接口
+                httpTools.circlePraise(handler,list.get(position).getId(), UserInfo.UserToken);
+            }
+        });
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:paddingLeft="20dp"
+
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <com.doctor.yuyi.lzh_utils.RoundImageView
+            android:layout_marginLeft="20dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/doc"
             android:layout_centerVertical="true"
             android:id="@+id/frag_my_patientList_image"
             />
         <TextView
             android:layout_marginLeft="15dp"
-            android:text="张三"
+            android:text=""
             android:textColor="#333333"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/frag_my_patientList_image"
@@ -31,6 +31,14 @@
             android:paddingLeft="10dp"
             android:src="@mipmap/many"
             android:layout_alignParentRight="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_cancel"
+
+            />
     </RelativeLayout>
 
 </RelativeLayout>

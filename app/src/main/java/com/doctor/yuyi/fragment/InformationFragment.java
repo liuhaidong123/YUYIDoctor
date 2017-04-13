@@ -113,7 +113,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                         mList.addAll(list);
                         mFirstPageAdapter.setmList(mList);
                         mFirstPageAdapter.notifyDataSetChanged();
-                        if (list.size()<2){//隐藏加载更多
+                        if (list.size()<10){//隐藏加载更多
                             mRefreshBox.setVisibility(View.GONE);
                         }else {
                             mRefreshBox.setVisibility(View.VISIBLE);
@@ -135,7 +135,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     private HttpTools mHttptools;
     private int mStart = 0;
-    private int mLimit = 2;
+    private int mLimit = 10;
 
     private int mFlag=0;
 
@@ -222,6 +222,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             MyDialog.showDialog(this.getContext());
             mList.clear();
             mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);
+            mFirstPageAdapter.setmList(mList);
+            mFirstPageAdapter.notifyDataSetChanged();
+            mRefreshBox.setVisibility(View.GONE);
         } else if (id == mNew_tv.getId()) {//最新
             mFlag=1;
             mStart=0;
@@ -229,6 +232,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             MyDialog.showDialog(this.getContext());
             mList.clear();
             mHttptools.getNew(mHttpHandler,mStart,mLimit);
+            mFirstPageAdapter.setmList(mList);
+            mFirstPageAdapter.notifyDataSetChanged();
+            mRefreshBox.setVisibility(View.GONE);
         } else if (id == mHot_tv.getId()) {//热门
             mFlag=2;
             mStart=0;
@@ -236,9 +242,12 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mList.clear();
             mHttptools.getHot(mHttpHandler,mStart,mLimit);
             showHotLine();
+            mFirstPageAdapter.setmList(mList);
+            mFirstPageAdapter.notifyDataSetChanged();
+            mRefreshBox.setVisibility(View.GONE);
         }else if (id == mRefreshBox.getId()) {//加载更多
             mBar.setVisibility(View.VISIBLE);
-            mStart+=2;
+            mStart+=10;
             if (mFlag==0){//加载的是今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
             }else if (mFlag==1){//加载的是最新

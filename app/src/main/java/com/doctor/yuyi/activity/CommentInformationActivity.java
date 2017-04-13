@@ -49,7 +49,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     private ProgressBar mBar;
     private HttpTools mHttptools;
     private int mStart = 0;
-    private int mLimit = 2;
+    private int mLimit = 10;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -66,7 +66,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         mAdapter.setmList(mList);
                         mAdapter.notifyDataSetChanged();
 
-                        if (list.size() == 2) {
+                        if (list.size() == 10) {
                             mMany_box.setVisibility(View.VISIBLE);
                             mBar.setVisibility(View.INVISIBLE);
                         } else {
@@ -226,7 +226,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
             finish();
         } else if (id == mMany_box.getId()) {//加载更多
             mBar.setVisibility(View.VISIBLE);
-            mStart += 2;
+            mStart += 10;
             mHttptools.getCommendList(mHandler, id, mStart, mLimit);//获取评论列表
 
         }
