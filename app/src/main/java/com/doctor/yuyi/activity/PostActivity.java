@@ -210,8 +210,8 @@ public class PostActivity extends AppCompatActivity {
     public void Submit() {
         post_submit.setClickable(false);
             List<File>li=new ArrayList<>();
-        post_Edi_title.setText("标题");
-        post_Edi_content.setText("内容");
+//        post_Edi_title.setText("标题");
+//        post_Edi_content.setText("内容");
             String title=post_Edi_title.getText().toString();
             String content=post_Edi_content.getText().toString();
             if (!"".equals(title)&&!TextUtils.isEmpty(title)

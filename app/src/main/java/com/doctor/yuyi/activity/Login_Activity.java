@@ -115,7 +115,7 @@ public class Login_Activity extends Activity {
             }
             else if(msg.what==-2){
                 my_userlogin_getSMScode.setClickable(true);
-                my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
+                my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_smscode);
             }
         }
     };
@@ -177,13 +177,13 @@ public class Login_Activity extends Activity {
         });
         my_userlogin_SMStimer.setVisibility(View.GONE);
         my_userlogin_getSMScode.setClickable(true);
-        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
+        my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_smscode);
     }
 
     //获取验证码
     private void getSMScode() {
         my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
-        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
+        my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_unclick);
         timeOut=60;
         new Thread(new Runnable() {
             @Override
