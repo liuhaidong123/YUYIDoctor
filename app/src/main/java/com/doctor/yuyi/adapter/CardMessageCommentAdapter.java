@@ -120,13 +120,14 @@ public class CardMessageCommentAdapter extends BaseAdapter {
         Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(holder.img);
         holder.name.setText(list.get(position).getTrueName());
         holder.time.setText(TimeUtils.getTime(list.get(position).getCreateTimeString()));
-        String str="";
-        try {
-            str= URLDecoder.decode(list.get(position).getContent(),"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        holder.content_tv.setText(str);
+//        String str="";
+//        try {
+//            str= URLDecoder.decode(list.get(position).getContent(),"utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        holder.content_tv.setText(str);
+        holder.content_tv.setText(list.get(position).getContent());
         if (list.get(position).getLikeNum() == null) {
             holder.praise_num.setText("0");
         } else {
