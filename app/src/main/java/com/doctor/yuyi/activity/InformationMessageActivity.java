@@ -194,7 +194,6 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                         .setCallback(new UMShareListner()).open();
             }
 
-
         }
     }
 
