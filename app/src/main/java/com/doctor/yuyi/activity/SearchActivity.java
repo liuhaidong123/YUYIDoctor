@@ -123,8 +123,13 @@ public class SearchActivity extends Activity {
                 BeanSearch.RowsBean bean=new BeanSearch.RowsBean();
                 bean.setTrueName(cur.getString(cur.getColumnIndex("content")));
                 list.add(bean);
+                Log.i("list数据库长度--",list.size()+"");
             }
+
             searchac_listview.setAdapter(adapter);
+        }
+        else{
+            Log.i("list数据库长度--","无法从本地数据库查询到数据");
         }
     }
 
@@ -147,7 +152,7 @@ public class SearchActivity extends Activity {
      content=searchac_editext.getText().toString();
         if (!"".equals(content)&&!TextUtils.isEmpty(content)){
             Map<String,String> mp=new HashMap<>();
-            mp.put("content",content);
+            mp.put("trueName",content);
             mp.put("token", UserInfo.UserToken);
             mp.put("start",start+"");
             mp.put("limit",limit+"");

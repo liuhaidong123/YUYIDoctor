@@ -76,7 +76,7 @@ public class My_message_Activity extends MyActivity {
                                 }
                                 else {//服务器还有数据
                                     my_message_loading_layout.setVisibility(View.VISIBLE);
-                                }
+                                    }
                                 list.addAll(myMessage.getRows());
                                 adapter.notifyDataSetChanged();
                             }

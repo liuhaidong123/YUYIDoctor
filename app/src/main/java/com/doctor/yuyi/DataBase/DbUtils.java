@@ -22,19 +22,20 @@ public class DbUtils {
             if (l>0){
                 return true;
             }
+            else {
+                return false;
+            }
         }
         catch (Exception e){
             e.printStackTrace();
             return false;
         }
-
-            return false;
     }
     public static Cursor selectAll(Context context){
         SearchOpenHelper dbHelper = new SearchOpenHelper(context,
                 "search",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select *from paint order by oid desc",null);
+        Cursor cursor=db.rawQuery("select *from paint",null);
         return cursor;
     }
 
