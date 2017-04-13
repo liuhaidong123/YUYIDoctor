@@ -21,32 +21,33 @@ public class TimeUtils {
         Date d1 = null;
         try {
             d1 = df.parse(strTime);
-            long diff = curDate.getTime() - d1.getTime();//这样得到的差值是微秒级别
+            double diff = curDate.getTime()-d1.getTime() ;//这样得到的差值是微秒级别
 
-            long days = diff / (1000 * 60 * 60 * 24);
-            long year = days / 365;
-            long month = days / 30;
-            long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-            long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-            Log.e("year=", year + "");
-            Log.e("month=", month + "");
-            Log.e("day=", days + "");
-            Log.e("hours=", hours + "");
-            Log.e("minutes=", minutes + "");
-            if (year > 0) {
-                return year + "年前";
+            double days = diff / (1000 * 60 * 60 * 24);
+            double year = days / 365;
+            double month = days / 30;
+            double hours = days*24;
+            double minutes = hours*60;
+//            Log.e("diff=", diff + "");
+//            Log.e("year=", year + "");
+//            Log.e("month=", month + "");
+//            Log.e("day=", days + "");
+//            Log.e("hours=", hours + "");
+//            Log.e("minutes=", minutes + "");
+            if (year > 1) {
+                return (int)year + "年前";
             }else {
-                if (month>0){
-                    return month+"个月前";
+                if (month>1){
+                    return (int)month+"个月前";
                 }else {
-                    if (days>0){
-                        return days+"天前";
+                    if (days>1){
+                        return (int)days+"天前";
                     }else {
-                        if (hours>0){
-                            return hours+"小时前";
+                        if (hours>1){
+                            return (int)hours+"小时前";
                         }else {
-                            if (minutes>0){
-                                return minutes+"分钟前";
+                            if (minutes>1){
+                                return (int)minutes+"分钟前";
                             }else {
                                 return "刚刚";
                             }

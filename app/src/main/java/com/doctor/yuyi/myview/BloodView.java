@@ -40,20 +40,20 @@ public class BloodView extends View {
     public BloodView(Context context) {
         super(context);
         this.mContext = context;
-
+        //initPaint();
     }
 
     public BloodView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
-
+       // initPaint();
     }
 
     public BloodView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
 
-
+        //initPaint();
     }
 
     public void setInfo(ArrayList<Integer> YBlood, ArrayList<String> XDate, ArrayList<Integer> mHeightBloodData, ArrayList<Integer> mLowBloodData) {
@@ -67,18 +67,6 @@ public class BloodView extends View {
     public void initPaint() {
         //屏幕信息类
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
-        mBigCircleRadius = dip2px(4);
-        mSmallCircleRadius = dip2px(2.5f);
-
-        YEndPoint = getHeight();
-        YScale = YEndPoint / 10.0f;
-        YEachBlood = YScale / 20.0f;
-        XScale = getWidth() / 8.0f;
-
-        Log.e("YEndPoint", YEndPoint + "");
-        Log.e("XScale", XScale + "");
-        Log.e("YScale", YScale + "");
-        Log.e("YEachBlood", YEachBlood + "");
 
         //x,y轴画笔
         mPaintXY = new Paint();
@@ -113,6 +101,21 @@ public class BloodView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mBigCircleRadius = dip2px(4);
+        mSmallCircleRadius = dip2px(2.5f);
+
+        YEndPoint = getHeight();
+        YScale = YEndPoint / 10.0f;
+        YEachBlood = YScale / 20.0f;
+        XScale = getWidth() / 8.0f;
+
+        Log.e("YEndPoint", YEndPoint + "");
+        Log.e("XScale", XScale + "");
+        Log.e("YScale", YScale + "");
+        Log.e("YEachBlood", YEachBlood + "");
+
+
+
         //Y血量刻度
         for (int i = 0; i < YBlood.size(); i++) {
             try {

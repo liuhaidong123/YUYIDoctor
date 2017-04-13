@@ -38,6 +38,12 @@ public class UrlTools {
     public static final  String URL_NEW="/doctorlyinformation/findPage.do?";//最新（需传start，limit）
     public static final  String URL_HOT="/doctorlyinformation/find.do?";//热门（需传start，limit）
     public static final  String URL_COMMEND_LIST="/comment/getConmentAll.do?";//评论列表（需传：id=4&start=0&limit=6）
+    public static final  String URL_COMMEND="/comment/AddConment.do?";//评论(需telephone=18782931355&content_id=1&Content=haha)
+    public static final  String URL_PRAISE="/likes/UpdateLikeNum.do?";//点赞接口（需：id=&token=）
 
+
+    public static final  String URL_CIRCLE_HOT="/academicpaper/findhot.do?";//学术圈热门（start=0&limit=6）
+    public static final  String URL_CIRCLE_SELECT="/academicpaper/Selected.do?";//学术圈精选（start=0&limit=6）
+    public static final  String URL_CIRCLE_NEW="/academicpaper/findtime.do?";//学术圈最新（start=0&limit=6）
+    public static final  String URL_NEW_SELECT_HOT_MESSAGE="/academicpaper/academicpaperComment.do?";//start=0&limit=2&id=1
 }
-
