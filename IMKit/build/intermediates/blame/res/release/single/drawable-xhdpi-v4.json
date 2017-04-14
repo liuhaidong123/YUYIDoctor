@@ -544,12 +544,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_bg_voice_popup.9.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_receive_voice_three.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_receive_voice_three.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/u1f349.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f349.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_receive_voice_three.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_receive_voice_three.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_cs_group_ok_normal.png",
@@ -920,12 +920,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_ext_indicator_hover.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_file_icon_audio.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_audio.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_audio_toggle_hover.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_audio_toggle_hover.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_file_icon_audio.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_audio.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_cs_group_ok_pressed.png",

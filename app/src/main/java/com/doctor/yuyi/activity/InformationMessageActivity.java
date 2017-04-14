@@ -1,9 +1,15 @@
 package com.doctor.yuyi.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +22,7 @@ import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.UMShareImp.ShareUtils;
 import com.doctor.yuyi.UMShareImp.UMShareListner;
 import com.doctor.yuyi.UMShareImp.UmAuthListener;
 import com.doctor.yuyi.User.UserInfo;
@@ -25,13 +32,14 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
+import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.Map;
 
-public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener {
+public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
     private ImageView mBack;
     private ImageView mComment_img;
     private ImageView mShare_img;
@@ -58,6 +66,14 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
                     mRoot = root;
+                    //分享时需要的图片和内容
+                    image = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片
+                    thumb = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
+                    image.setThumb(thumb);//图片设置缩略图
+                    image.compressStyle = UMImage.CompressStyle.SCALE;
+                    //title = mRoot.getTitle();
+                    content = mRoot.getContent();
+
                     Picasso.with(InformationMessageActivity.this).load(UrlTools.BASE + root.getPicture()).error(R.mipmap.error_big).into(mImg);
                     mTitle.setText(root.getTitle());
                     mContent.setText(root.getContent());
@@ -127,8 +143,27 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
             } else if (msg.what == 105) {
                 ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
             }
+            else if (msg.what == 16) {//分享接口
+                Object o = msg.obj;
+                if (o!=null&& o instanceof com.doctor.yuyi.bean.ShareBean.Root){
+                    com.doctor.yuyi.bean.ShareBean.Root root= (com.doctor.yuyi.bean.ShareBean.Root) o;
+                    if (root.getCode().equals("0")){
+                        //mShare_tv.setText(Integer.valueOf(mShare_tv.getText().toString())+1+"");
+                    }else {
+
+                    }
+                }
+
+            }else if (msg.what == 116) {
+                ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
+            }
         }
     };
+
+    private UMImage image;
+    private UMImage thumb;
+    private String title;
+    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +171,11 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_information_message);
         initView();
 
-
     }
 
     public void initView() {
         mHttpTools = HttpTools.getHttpToolsInstance();
+
 
         mImg = (ImageView) findViewById(R.id.information_img);//图片
         mTitle = (TextView) findViewById(R.id.information_title);//标题
@@ -173,27 +208,14 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
             if (mRoot != null) {
                 Intent intent = new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
                 intent.putExtra("id", getIntent().getLongExtra("id", -1));
-                startActivityForResult(intent, 1);
+               startActivity(intent);
             }
 
 
         } else if (id == mShare_img.getId()) {  //分享
             if (mRoot != null) {
-////                UMImage image = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片
-//                UMImage thumb = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
-////                image.setThumb(thumb);
-////                image.compressStyle = UMImage.CompressStyle.SCALE;
-//                String title = mRoot.getTitle();
-//                String content = mRoot.getContent();
-//                UMWeb web = new UMWeb("http://www.bai.com");
-//                web.setTitle(title);
-//                web.setThumb(thumb);
-//                web.setDescription(content);
-                new ShareAction(InformationMessageActivity.this).withText("nihao")
-                        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .setCallback(new UMShareListner()).open();
+                init();
             }
-
         }
     }
 
@@ -211,4 +233,87 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         mHttpTools.getADMessageDetial(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);//获取广告,今日推荐，最新，热门资讯详情
     }
 
+    public static final int REQUEST_CODE_ASK_READ_PHONE = 123;
+
+    public void init() {
+        //sdk版本>=23时，
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            //如果读取电话权限没有授权
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+                //注意 ：如果是在fragment中申请权限，不要使用ActivityCompat.requestPermissions，
+                //直接使用requestPermissions （new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_READ_PHONE）
+                //否则不会调用onRequestPermissionsResult（）方法。
+                ActivityCompat.requestPermissions(this,
+                        //在这个数组中可以添加很多权限
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_ASK_READ_PHONE);
+                return;
+                //如果已经授权，执行业务逻辑
+            } else {
+                if (image != null && content != null) {
+                    ShareUtils.share(this, this, content, image);
+                }
+
+            }
+            //版本小于23时，不需要判断敏感权限，执行业务逻辑
+        } else {
+            if (image != null && content != null) {
+                ShareUtils.share(this, this, content, image);
+            }
+
+        }
+    }
+
+
+    //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_READ_PHONE:
+                //点击了允许，授权成功
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    if (image != null && content != null) {
+                        ShareUtils.share(this, this, content, image);
+                    }
+                    //点击了拒绝，授权失败
+                } else {
+                    // Permission Denied
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+        Log.e("分享开始", "===" + share_media.toString());
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+        if (share_media.toString().equals("SINA")) {//微博
+            mHttpTools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 2);
+        } else if (share_media.toString().equals("WEIXIN_CIRCLE")) {//微信朋友圈
+            mHttpTools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 1);
+        } else if (share_media.toString().equals("QZONE")) {
+            mHttpTools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 3);
+        }
+
+        ToastUtils.myToast(InformationMessageActivity.this, "分享成功");
+        Log.e("分享成功结果", "===" + share_media);
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+        Log.e("分享错误", "===" + share_media.toString());
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+        Log.e("分享取消", "===" + share_media.toString());
+    }
 }

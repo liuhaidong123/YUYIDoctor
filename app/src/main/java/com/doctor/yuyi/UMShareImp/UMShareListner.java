@@ -30,6 +30,7 @@ public class UMShareListner implements UMShareListener {
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
+
         Log.e("分享取消","===");
     }
 }

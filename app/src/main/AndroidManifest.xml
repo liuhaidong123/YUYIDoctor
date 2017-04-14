@@ -16,8 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- //／／／／／／／／／／／／／／激光推送／／／／／／／／／／／／／／／／／／／／ -->
     <permission
         android:name="com.doctor.yuyi.permission.JPUSH_MESSAGE"
@@ -26,22 +24,14 @@
     <!-- 222222222222 -->
     <uses-permission android:name="com.doctor.yuyi.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- Optional. Required for location feature -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 于开启 debug 版本的应 在6.0 系统上 层叠窗 权限 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMAN" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -82,49 +72,61 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.My_setting_about_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.My_setting_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.My_setting_feadus_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.My_setting_contactus_Activity"
-            android:launchMode="singleTop" />
-        <activity android:name=".activity.My_message_Activity" />
-        <activity android:name=".activity.My_message_notification_Activity" />
-        <activity android:name=".activity.My_forumPosts_Activity" />
-        <activity android:name=".activity.My_praise_Activity" />
-        <activity android:name=".activity.My_patientDataList_Activity" />
-        <activity android:name=".activity.My_registration_Activity" />
-        <activity android:name=".activity.My_registration_Info_Activity" />
-        <activity android:name=".activity.Login_Activity" />
-        <activity
-            android:name=".activity.UserInfo_Activity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".activity.Post_SelectPhotoActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_message_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_message_notification_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_forumPosts_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_praise_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_patientDataList_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_registration_Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.My_registration_Info_Activity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activity.Login_Activity"
+            android:screenOrientation="portrait"
             >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
 
-                <!--<data-->
-                    <!--android:scheme="yyys"-->
-                    <!--android:host="test.uri.activity"-->
-                    <!--android:port="666"-->
-                    <!--android:path="/app"-->
-
-                    <!--/>-->
-            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".activity.UserInfo_Activity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".activity.Post_SelectPhotoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
+
 
         <activity
             android:name=".activity.PostActivity"
@@ -132,7 +134,9 @@
         <activity
             android:name=".activity.CommentInformationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
         <activity
             android:name=".activity.CardMessageActivity"
             android:screenOrientation="portrait"
@@ -207,7 +211,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1106000897" />
             </intent-filter>
         </activity>
         <activity
@@ -376,7 +380,11 @@
         </receiver>
         <!-- 网络改变监听 -->
         <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            >
+
+        </activity>
     </application>
 
 </manifest>

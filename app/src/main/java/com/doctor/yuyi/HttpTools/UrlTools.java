@@ -5,7 +5,8 @@ package com.doctor.yuyi.HttpTools;
  */
 
 public class UrlTools {
-    public static final String BASE="http://192.168.1.55:8080/yuyi";
+  public static final String BASE="http://192.168.1.55:8080/yuyi";
+    //public static final String BASE="http://59.110.169.148:8080";
     public static final  String URL_AD="/doctorlyinformation/getall.do";//广告数据
     public static final  String URL_AD_MESSAGE="/doctorlyinformation/get.do?";//广告,今日，最新，热门数据详情（需传id=,token）
     public static final  String URL_TODAY_RECOMMEND="/doctorlyinformation/getTodayAll.do?";//今日推荐（需传start，limit）
@@ -29,5 +30,8 @@ public class UrlTools {
     public static final  String URL_CIRCLE_COMMEND="/comment/AddConment2.do?";//telephone=18782931355&content_id=1&Content=haha学术圈详情评论
     public static final  String URL_CIRCLE_COMMEND_PRAISE="/likes/CommentLike.do?";//id=1&token=CEDA9F4E7D5FEC556E1BB035FA18E54E 学术圈详情评论点赞
     public static final  String URL_MY_PATIENT="/homeuser/findMyUserList.do?";//我的患者接口token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
+    public static final  String URL_SHARE_CARD="/share/AcademicpaperShare.do?";//id=1&token=CEDA9F4E7D5FEC556E1BB035FA18E54E&shareType=1  帖子详情分享
+
+    public static final  String URL_SHARE_INFORMATION="/share/UpdateShar.do?";//id=1&shareType=1&token=0365866B04DA5283B29330178F625C64  资讯详情分享
 
 }
