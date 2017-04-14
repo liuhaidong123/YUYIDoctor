@@ -1,7 +1,14 @@
 package com.doctor.yuyi.activity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +27,7 @@ import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.MyUtils.TimeUtils;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.UMShareImp.ShareUtils;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.CardMessageCommentAdapter;
 import com.doctor.yuyi.adapter.CardMessageImgAdapter;
@@ -28,11 +36,15 @@ import com.doctor.yuyi.bean.CircleMessageBean.Root;
 import com.doctor.yuyi.myview.InformationListView;
 import com.doctor.yuyi.myview.RoundImageView;
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.ArrayList;
 import java.util.List;
-//帖子详情
-public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener ,UMShareListener{
 
     private InformationListView mImgListView, mCommentListView;
     private CardMessageImgAdapter mImgAdapter;
@@ -51,6 +63,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
     private TextView mContent;
     private TextView mComment_allNum;
     private ImageView mPraise_img;
+    private ImageView mShare_img;
 
     private long id=-1;
 
@@ -66,6 +79,15 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                     if (root.getCode().equals("0")) {
 
                         if (isFlag){//头部一些信息只加载一次
+
+                            //分享时需要的图片和内容
+//                            image = new UMImage(CardMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片
+//                            thumb = new UMImage(CardMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
+//                            image.setThumb(thumb);//图片设置缩略图
+//                            image.compressStyle = UMImage.CompressStyle.SCALE;
+                            //title = mRoot.getTitle();
+                            content = root.getResult().getContent();
+
 
                             Log.e("=====","头部一些信息只加载一次");
                             Picasso.with(CardMessageActivity.this).load(UrlTools.BASE + root.getResult().getAvatar()).error(R.mipmap.error_small).into(mHead_img);
@@ -171,6 +193,11 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
 
     //评论框
     private EditText mEdit;
+
+    private UMImage image;
+    private UMImage thumb;
+    private String title;
+    private String content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,7 +209,8 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getHotSelectNewMessage(mHandler, UserInfo.UserToken, mStart, mLimit, getIntent().getLongExtra("id", -1));
 
-
+        mShare_img = (ImageView) findViewById(R.id.share_card_img);
+        mShare_img.setOnClickListener(this);
         mHead_img = (RoundImageView) findViewById(R.id.car_user_head_img);
         mName = (TextView) findViewById(R.id.car_user_name);
         mTime = (TextView) findViewById(R.id.car_user_time);
@@ -245,15 +273,77 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         int id = v.getId();
         if (id == mback.getId()) {
             finish();
-        }else if (id==mPraise_img.getId()){
+        }else if (id==mPraise_img.getId()){//点赞
             mHttptools.circlePraise(mHandler,getIntent().getLongExtra("id", -1),UserInfo.UserToken);
         }else if (id == mMany_Box.getId()) {//加载更多
             mStart += 10;
             mHttptools.getHotSelectNewMessage(mHandler, UserInfo.UserToken, mStart, mLimit, getIntent().getLongExtra("id", -1));
             mBar.setVisibility(View.VISIBLE);
+        }else if (id==mShare_img.getId()){
+            init();
+        }
+    }
+    //分享回调方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static final int REQUEST_CODE_ASK_READ_PHONE = 123;
+
+    public void init() {
+        //sdk版本>=23时，
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            //如果读取电话权限没有授权
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+                //注意 ：如果是在fragment中申请权限，不要使用ActivityCompat.requestPermissions，
+                //直接使用requestPermissions （new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_READ_PHONE）
+                //否则不会调用onRequestPermissionsResult（）方法。
+                ActivityCompat.requestPermissions(this,
+                        //在这个数组中可以添加很多权限
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_ASK_READ_PHONE);
+                return;
+                //如果已经授权，执行业务逻辑
+            } else {
+                if ( content != null) {
+                    ShareUtils.share(this, this, content, image);
+                }
+
+            }
+            //版本小于23时，不需要判断敏感权限，执行业务逻辑
+        } else {
+            if (content != null) {
+                ShareUtils.share(this, this, content, image);
+            }
+
         }
     }
 
+
+    //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_READ_PHONE:
+                //点击了允许，授权成功
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    if ( content != null) {
+                        ShareUtils.share(this, this, content, image);
+                    }
+                    //点击了拒绝，授权失败
+                } else {
+                    // Permission Denied
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
     /**
      * 获取输入框的内容
      *
@@ -265,5 +355,33 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
             return "";
         }
         return content;
+    }
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+        Log.e("分享开始", "==="+share_media.toString());
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+        Log.e("分享成功结果", "===" + share_media);
+//        if (share_media.toString().equals("SINA")){//微博
+//            mHttptools.shareCard(mHandler, getIntent().getLongExtra("id", -1),UserInfo.UserToken,2);
+//        }else if (share_media.toString().equals("WEIXIN_CIRCLE")){//微信朋友圈
+//            mHttptools.shareCard(mHandler, getIntent().getLongExtra("id", -1),UserInfo.UserToken,1);
+//        }else if (share_media.toString().equals("QZONE")){
+//            mHttptools.shareCard(mHandler, getIntent().getLongExtra("id", -1),UserInfo.UserToken,3);
+//        }
+
+        ToastUtils.myToast(CardMessageActivity.this,"分享成功");
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+        Log.e("分享错误", "==="+share_media.toString());
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+        Log.e("分享取消", "==="+share_media.toString());
     }
 }

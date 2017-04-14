@@ -1,11 +1,18 @@
 package com.doctor.yuyi.activity;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,17 +30,22 @@ import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.MyUtils.TimeUtils;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.UMShareImp.ShareUtils;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.CommentAdapter;
 import com.doctor.yuyi.bean.AdMessageDetial.Root;
 import com.doctor.yuyi.bean.CommendListBean.Result;
 import com.doctor.yuyi.myview.InformationListView;
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.ArrayList;
 import java.util.List;
-//咨询评论页面
-public class CommentInformationActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class CommentInformationActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
     private ImageView mBack;
     private InformationListView mListview;
     private CommentAdapter mAdapter;
@@ -45,6 +57,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     private TextView mPraise_num;
     private TextView mTitle;
     private ImageView mPraise_img;
+    private ImageView mShare_img;
     private RelativeLayout mMany_box;
     private ProgressBar mBar;
     private HttpTools mHttptools;
@@ -85,7 +98,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         mEdit.setText("");
                         mStart = 0;
                         mList.clear();
-                        mHttptools.getCommendList(mHandler, id, mStart, mLimit);//获取评论列表
+                        mHttptools.getCommendList(mHandler, mid, mStart, mLimit);//获取评论列表
                         mComment_num.setText(Integer.valueOf(mComment_num.getText().toString()) + 1 + "");
 
                     } else {
@@ -99,6 +112,15 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
+                    //分享时需要的图片和内容
+                    image = new UMImage(CommentInformationActivity.this, UrlTools.BASE + root.getPicture());//设置要分享的图片
+                    thumb = new UMImage(CommentInformationActivity.this, UrlTools.BASE + root.getPicture());//设置分享图片的缩略图
+                    image.setThumb(thumb);//图片设置缩略图
+                    image.compressStyle = UMImage.CompressStyle.SCALE;
+                    //title = root.getTitle();
+                    content = root.getContent();
+
+
                     mTitle.setText(root.getTitle());
                     if (root.getShareNum() == null) {//分享设值
                         mShare_num.setText("0");
@@ -123,7 +145,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         mPraise_img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mHttptools.informationPraise(mHandler, id, UserInfo.UserToken);
+                                mHttptools.informationPraise(mHandler, mid, UserInfo.UserToken);
                             }
                         });
                     } else {
@@ -131,7 +153,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         mPraise_img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mHttptools.informationPraise(mHandler, id, UserInfo.UserToken);
+                                mHttptools.informationPraise(mHandler, mid, UserInfo.UserToken);
                             }
                         });
                     }
@@ -157,12 +179,30 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                 }
             } else if (msg.what == 105) {
                 ToastUtils.myToast(CommentInformationActivity.this, "数据错误");
+            } else if (msg.what == 16) {//分享接口
+                Object o = msg.obj;
+                if (o != null && o instanceof com.doctor.yuyi.bean.ShareBean.Root) {
+                    com.doctor.yuyi.bean.ShareBean.Root root = (com.doctor.yuyi.bean.ShareBean.Root) o;
+                    if (root.getCode().equals("0")) {
+                        // mShare_num.setText(Integer.valueOf(mShare_num.getText().toString())+1+"");
+                    } else {
+
+                    }
+                }
+
+            } else if (msg.what == 116) {
+                ToastUtils.myToast(CommentInformationActivity.this, "数据错误");
             }
         }
     };
 
 
-    private long id;
+    private long mid;
+
+    private UMImage image;
+    private UMImage thumb;
+    private String title;
+    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,12 +212,14 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     }
 
     public void initView() {
-        id = getIntent().getLongExtra("id", -1);
+        mid = getIntent().getLongExtra("id", -1);
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getCommendList(mHandler, id, mStart, mLimit);//获取评论列表
-        mHttptools.getADMessageDetial(mHandler, id, UserInfo.UserToken);//获取广告,今日推荐，最新，热门资讯详情
+        mHttptools.getCommendList(mHandler, mid, mStart, mLimit);//获取评论列表
+
         mComment_num = (TextView) findViewById(R.id.comment_num_tv);
         mShare_num = (TextView) findViewById(R.id.share_num_tv);
+        mShare_img = (ImageView) findViewById(R.id.share_img);
+        mShare_img.setOnClickListener(this);
         mPraise_num = (TextView) findViewById(R.id.praise_num_tv);
         mTitle = (TextView) findViewById(R.id.title_tv);
         mPraise_img = (ImageView) findViewById(R.id.praise);
@@ -200,7 +242,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         ToastUtils.myToast(CommentInformationActivity.this, "请输入评论内容");
                     } else {
 
-                        mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), id, getEditContent());
+                        mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
                         //隐藏软键盘
                         ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -220,6 +262,12 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mHttptools.getADMessageDetial(mHandler, mid, UserInfo.UserToken);//获取广告,今日推荐，最新，热门资讯详情
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == mBack.getId()) {
@@ -227,8 +275,9 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
         } else if (id == mMany_box.getId()) {//加载更多
             mBar.setVisibility(View.VISIBLE);
             mStart += 10;
-            mHttptools.getCommendList(mHandler, id, mStart, mLimit);//获取评论列表
-
+            mHttptools.getCommendList(mHandler, mid, mStart, mLimit);//获取评论列表
+        } else if (id == mShare_img.getId()) {
+            init();
         }
     }
 
@@ -245,4 +294,94 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
         return content;
     }
 
+    //分享回调方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static final int REQUEST_CODE_ASK_READ_PHONE = 123;
+
+    public void init() {
+        //sdk版本>=23时，
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            //如果读取电话权限没有授权
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+                //注意 ：如果是在fragment中申请权限，不要使用ActivityCompat.requestPermissions，
+                //直接使用requestPermissions （new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_READ_PHONE）
+                //否则不会调用onRequestPermissionsResult（）方法。
+                ActivityCompat.requestPermissions(this,
+                        //在这个数组中可以添加很多权限
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_ASK_READ_PHONE);
+                return;
+                //如果已经授权，执行业务逻辑
+            } else {
+                if (image != null && content != null) {
+                    ShareUtils.share(this, this, content, image);
+                }
+
+            }
+            //版本小于23时，不需要判断敏感权限，执行业务逻辑
+        } else {
+            if (image != null && content != null) {
+                ShareUtils.share(this, this, content, image);
+            }
+
+        }
+    }
+
+
+    //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_READ_PHONE:
+                //点击了允许，授权成功
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    if (image != null && content != null) {
+                        ShareUtils.share(this, this, content, image);
+                    }
+                    //点击了拒绝，授权失败
+                } else {
+                    // Permission Denied
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+        Log.e("分享开始", "===" + share_media.toString());
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+        if (share_media.toString().equals("SINA")) {//微博
+            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 2);
+        } else if (share_media.toString().equals("WEIXIN_CIRCLE")) {//微信朋友圈
+            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 1);
+        } else if (share_media.toString().equals("QZONE")) {
+            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 3);
+        }
+
+        ToastUtils.myToast(CommentInformationActivity.this, "分享成功");
+        Log.e("分享成功结果", "===" + share_media);
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+        Log.e("分享错误", "===" + share_media.toString());
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+        Log.e("分享取消", "===" + share_media.toString());
+    }
 }

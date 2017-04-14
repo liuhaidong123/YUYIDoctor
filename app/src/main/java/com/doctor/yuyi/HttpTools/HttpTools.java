@@ -755,4 +755,88 @@ public class HttpTools {
         });
     }
 
+
+    /**
+     * 帖子详情分享接口
+     * 参数：token  String
+     shareType  Integer 1=微信，2=新浪微博,3=QQ
+     id   Long   帖子编号
+     */
+    public void shareCard(final Handler handler,long id,String token,int shareType) {
+        String url = UrlTools.BASE + UrlTools.URL_SHARE_CARD +"id="+id+"&token="+token+"&shareType="+shareType;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "  帖子详情分享接口");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "  帖子详情分享接口" + s);
+                try {
+                    com.doctor.yuyi.bean.ShareBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.ShareBean.Root.class);
+                    Message m = new Message();
+                    m.what = 15;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(115);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", " 帖子详情分享接口" + strMsg.toString());
+                handler.sendEmptyMessage(115);
+            }
+        });
+    }
+
+    /**
+     * 资讯详情分享接口
+     * 参数：token  String
+     shareType  Integer 1=微信，2=新浪微博,3=QQ
+     id   Long   帖子编号
+     */
+    public void shareInformation(final Handler handler,long id,String token,int shareType) {
+        String url = UrlTools.BASE + UrlTools.URL_SHARE_INFORMATION +"id="+id+"&token="+token+"&shareType="+shareType;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart", "  资讯详情分享接口");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess", "  资讯详情分享接口" + s);
+                try {
+                    com.doctor.yuyi.bean.ShareBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.ShareBean.Root.class);
+                    Message m = new Message();
+                    m.what = 16;
+                    m.obj = root;
+                    handler.sendMessage(m);
+
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(116);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure", " 资讯详情分享接口" + strMsg.toString());
+                handler.sendEmptyMessage(116);
+            }
+        });
+    }
 }
