@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.Bean_MySetting_Feadus;
@@ -42,9 +43,11 @@ public class My_setting_feadus_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     toast.toast_faild(con);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try{
                         Bean_MySetting_Feadus info=okhttp.gson.fromJson(resStr,Bean_MySetting_Feadus.class);
                         if ("0".equals(info.getCode())){
@@ -119,6 +122,7 @@ public class My_setting_feadus_Activity extends MyActivity {
         String contact=my_settings_idea_editContact.getText().toString();
         String content=my_settings_idea_editIdea.getText().toString();
         if (!"".equals(contact)&&!TextUtils.isEmpty(contact)&&!"".equals(content)&&!TextUtils.isEmpty(content)){
+            MyDialog.showDialog(My_setting_feadus_Activity.this);
             Map<String,String> mp=new HashMap<>();
             mp.put("token", UserInfo.UserToken);
             mp.put("content",content);

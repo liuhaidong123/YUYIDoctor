@@ -31,6 +31,7 @@ import com.doctor.yuyi.adapter.CircleSelectAda;
 import com.doctor.yuyi.bean.CircleBean.Root;
 import com.doctor.yuyi.bean.CircleBean.Rows;
 import com.doctor.yuyi.bean.CircleBean.SelectBean.Result;
+import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     private String mNoSelectColor = "#6a6a6a";
 
     private SwipeRefreshLayout mRefresh;
-    private InformationListView mListview;
+    private MyNorEmptyListVIew mListview;
     private CircleAdpater mAdapter;
     private List<Rows> mList = new ArrayList<>();//热门，最新集合
 
@@ -90,6 +91,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                         mMany_Box.setVisibility(View.VISIBLE);
                     }
                 }
+                mListview.setEmpty();
             } else if (msg.what == 106) {
                 MyDialog.stopDia();
                 mRefresh.setRefreshing(false);
@@ -97,6 +99,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 mMany_Box.setVisibility(View.GONE);
                 mBar.setVisibility(View.INVISIBLE);
                 ToastUtils.myToast(getContext(), "数据错误");
+                mListview.setError();
             } else if (msg.what == 8) {//学术圈精选
                 Object o = msg.obj;
                 if (o != null&& o instanceof com.doctor.yuyi.bean.CircleBean.SelectBean.Root) {
@@ -118,11 +121,13 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
                     }
                 }
+                mListview.setEmpty();
             }else if (msg.what==107){
                 MyDialog.stopDia();
                 mBar.setVisibility(View.INVISIBLE);
                 mMany_Box.setVisibility(View.GONE);
                 ToastUtils.myToast(getContext(), "数据错误");
+                mListview.setError();
             }
         }
     };
@@ -169,7 +174,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         mBar = (ProgressBar) view.findViewById(R.id.pbLocate);
         showHotLine();//刚开始显示热门
         //适配器
-        mListview = (InformationListView) view.findViewById(R.id.circle_listview);
+        mListview = (MyNorEmptyListVIew) view.findViewById(R.id.circle_listview);
         mAdapter = new CircleAdpater(getContext(), mList);
 
         mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.circle_refresh);

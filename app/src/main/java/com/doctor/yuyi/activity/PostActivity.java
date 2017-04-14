@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.PostListAdapter;
@@ -72,9 +73,11 @@ public class PostActivity extends AppCompatActivity {
             switch (msg.what){
                 case 0:
                     post_submit.setClickable(true);
+                    MyDialog.stopDia();
                     break;
                 case 1:
                     post_submit.setClickable(true);
+                    MyDialog.stopDia();
                     try{
                         Bean_PostIn postIn= okhttp.gson.fromJson(resStr,Bean_PostIn.class);
                         if (postIn!=null){
@@ -232,6 +235,7 @@ public class PostActivity extends AppCompatActivity {
                             }
                     }
                 }
+                MyDialog.showDialog(PostActivity.this);
                 MultipartBuilder builder=  new MultipartBuilder();
                 builder.type(MultipartBuilder.FORM);
                 builder.addFormDataPart("token", UserInfo.UserToken);

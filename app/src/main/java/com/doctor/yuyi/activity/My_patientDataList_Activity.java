@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_paintDataList_Adapter;
@@ -55,12 +56,14 @@ public class My_patientDataList_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     my_listview.setError();
                     toast.toast_faild(con);
                     my_paintlist_loading_laout.setClickable(true);
                     setLoading(1);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     my_paintlist_loading_laout.setClickable(true);
                     setLoading(1);
                     try{
@@ -146,6 +149,7 @@ public class My_patientDataList_Activity extends MyActivity {
     }
     //获取混着列表http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
     public void getDataList(int st,int lim){
+        MyDialog.showDialog(My_patientDataList_Activity.this);
         setLoading(0);
         my_paintlist_loading_laout.setClickable(false);
         Map<String,String>mp=new HashMap<>();

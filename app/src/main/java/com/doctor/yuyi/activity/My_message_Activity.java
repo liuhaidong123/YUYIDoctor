@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_message_listViewAdapter;
@@ -57,12 +58,14 @@ public class My_message_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     my_message_listview.setError();
 //                    toast.toast_faild(con);
                     my_message_loading_layout.setClickable(true);
                     setLoading(1);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     my_message_loading_layout.setVisibility(View.GONE);
                     my_message_loading_layout.setClickable(true);
                     setLoading(1);
@@ -187,6 +190,7 @@ public class My_message_Activity extends MyActivity {
 
 //获取消息列表http://192.168.1.55:8080/yuyi/messagePhysician/findPage.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
     public void getMessage(int st,int lim){
+        MyDialog.showDialog(My_message_Activity.this);
         my_message_loading_layout.setClickable(false);
         Map<String,String> mp=new HashMap<>();
         mp.put("token", UserInfo.UserToken);
@@ -210,7 +214,7 @@ public class My_message_Activity extends MyActivity {
     public void setUnRead(int position){//设置已读消息
         unReadId=position;
         Map<String,String>mp=new HashMap<>();
-        mp.put("token","EA62E69E02FABA4E4C9A0FDC1C7CAE10");
+        mp.put("token",UserInfo.UserToken);
         mp.put("messageId",list.get(position).getId()+"");
         okhttp.getCall(Ip.URL+Ip.interface_MyMessageRead,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override

@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_forumPosts_Adapter;
@@ -57,12 +58,14 @@ public class My_forumPosts_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+//                    MyDialog.stopDia();
                     my_forum_posts_listview.setError();
                     my_forum_post_loadinglayout.setClickable(true);
                     setPro(1);
 //                    toast.toast_faild(con);
                     break;
                 case 1:
+//                    MyDialog.stopDia();
                     my_forum_post_loadinglayout.setClickable(true);
                     setPro(1);
                 try{
@@ -150,6 +153,7 @@ public class My_forumPosts_Activity extends MyActivity {
 
     //获取我的帖子
     public void getPostData(int st) {
+//        MyDialog.showDialog(My_forumPosts_Activity.this);
         Log.i("当前start===",st+"");
         my_forum_post_loadinglayout.setClickable(false);
         setPro(0);

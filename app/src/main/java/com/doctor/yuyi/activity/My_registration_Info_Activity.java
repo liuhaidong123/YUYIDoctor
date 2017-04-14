@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.Bean_MyRegister_info;
@@ -40,9 +41,11 @@ public class My_registration_Info_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     toast.toast_faild(con);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try{
                         Bean_MyRegister_info info=okhttp.gson.fromJson(resStr,Bean_MyRegister_info.class);
                         if (info!=null){
@@ -136,6 +139,7 @@ public class My_registration_Info_Activity extends MyActivity {
     }
         //获取挂号单http://192.168.1.55:8080/yuyi/register/get.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&id=1
     public void getData() {
+        MyDialog.showDialog(My_registration_Info_Activity.this);
         Map<String,String> m=new HashMap<>();
         m.put("token", UserInfo.UserToken);
         m.put("id",id);

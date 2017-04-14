@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.MyListAdapter;
@@ -79,6 +80,7 @@ public class My_registration_Activity extends MyActivity{
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     toast.toast_faild(con);
                     my_registration_listview.setError();
                     my_registration_loadingLayout.setClickable(true);
@@ -86,6 +88,7 @@ public class My_registration_Activity extends MyActivity{
                     my_registration_loadingLayout.setVisibility(View.GONE);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try{
                         Bean_MyRegistrationKS ks=okhttp.gson.fromJson(resStr,Bean_MyRegistrationKS.class);
                         if (ks!=null){
@@ -114,6 +117,7 @@ public class My_registration_Activity extends MyActivity{
                     }
                     break;
                 case 2://挂号列表患者列表
+                    MyDialog.stopDia();
                     my_registration_loadingLayout.setClickable(true);
                     setLoadingState(0);
                     my_registration_loadingLayout.setVisibility(View.GONE);
@@ -341,7 +345,8 @@ public class My_registration_Activity extends MyActivity{
             if (popSucc!=null){
                 popSucc.dismiss();
             }
-        Map<String,String>mp=new HashMap<>();
+
+            Map<String,String>mp=new HashMap<>();
             if (ChildId!=-1){//父view点击事件
                 mp.put("clinicId",ChildId+"");
             }
@@ -350,8 +355,15 @@ public class My_registration_Activity extends MyActivity{
             }
             mp.put("token",UserInfo.UserToken);
             mp.put("start",st+"");
-        mp.put("limit",limit+"");
-        Log.i("start---"+st,"limit---"+lim);
+            mp.put("limit",limit+"");
+            Log.i("start---"+st,"limit---"+lim);
+
+            if (popSucc!=null&&popSucc.isShowing()){
+
+            }
+        else {
+                MyDialog.showDialog(My_registration_Activity.this);
+            }
             okhttp.getCall(Ip.URL+Ip.interface_MyRegisterGH,mp,okhttp.OK_GET).enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {

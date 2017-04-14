@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_message_listViewAdapter;
@@ -51,6 +52,7 @@ public class My_message_notification_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     my_message_notifi_loading_layo.setClickable(true);
                     my_message_notifi_loading_layo.setVisibility(View.VISIBLE);
                     setPro(1);
@@ -58,6 +60,7 @@ public class My_message_notification_Activity extends MyActivity {
 //                    toast.toast_faild(context);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     my_message_notifi_loading_layo.setClickable(true);
                     my_message_notifi_loading_layo.setVisibility(View.GONE);
                     setPro(1);
@@ -132,6 +135,7 @@ public class My_message_notification_Activity extends MyActivity {
     }
 
     public void getMessage(int st,int lim){
+        MyDialog.showDialog(My_message_notification_Activity.this);
         my_message_notifi_loading_layo.setClickable(false);
         Map<String,String> mp=new HashMap<>();
         mp.put("token", UserInfo.UserToken);

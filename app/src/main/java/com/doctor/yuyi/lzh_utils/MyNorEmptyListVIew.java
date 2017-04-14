@@ -58,6 +58,12 @@ public class MyNorEmptyListVIew extends MyEmptyListView{
             return;
         }
         else {
+            if (this.getHeaderViewsCount()!=0){
+                for (int i=0;i<getHeaderViewsCount();i++){
+                    View view=getChildAt(i);
+                    removeHeaderView(view);
+                }
+            }
             View vi= LayoutInflater.from(con).inflate(R.layout.my_message_emptyview,null);
             ViewGroup.LayoutParams params=this.getLayoutParams();
             params.width= ViewGroup.LayoutParams.MATCH_PARENT;
@@ -79,6 +85,12 @@ public class MyNorEmptyListVIew extends MyEmptyListView{
             return;
         }
         else {
+            if (this.getHeaderViewsCount()!=0){
+                for (int i=0;i<getHeaderViewsCount();i++){
+                    View view=getChildAt(i);
+                    removeHeaderView(view);
+                }
+            }
             ViewGroup.LayoutParams params=this.getLayoutParams();
             params.width= ViewGroup.LayoutParams.MATCH_PARENT;
             params.height= ViewGroup.LayoutParams.MATCH_PARENT;
