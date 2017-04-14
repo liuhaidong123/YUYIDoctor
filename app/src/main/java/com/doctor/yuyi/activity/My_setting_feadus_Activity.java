@@ -71,6 +71,11 @@ public class My_setting_feadus_Activity extends MyActivity {
         initView();
     }
 
+    @Override
+    public void initEmpty() {
+
+    }
+
 
     private void initView() {
         my_settings_idea_editIdea= (EditText) findViewById(R.id.my_settings_idea_editIdea);

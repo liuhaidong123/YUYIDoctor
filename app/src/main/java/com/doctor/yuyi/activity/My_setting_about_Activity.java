@@ -74,6 +74,11 @@ public class My_setting_about_Activity extends MyActivity {
         getData();
     }
 
+    @Override
+    public void initEmpty() {
+
+    }
+
     private void initView() {
         my_settings_aboutOurs_name= (TextView) findViewById(R.id.my_settings_aboutOurs_name);
         my_settings_aboutOurs_pro= (TextView) findViewById(R.id.my_settings_aboutOurs_pro);

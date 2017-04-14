@@ -52,13 +52,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
+//发帖页面
 public class PostActivity extends AppCompatActivity {
     private final int RequestCode = 100;
     private final int ResultCode = 200;
     private EditText post_Edi_title;
     private EditText post_Edi_content;
-
     private TextView post_submit;//发布
     private ImageView mAdd_img;
     private MyListView img_listview;
@@ -75,11 +74,13 @@ public class PostActivity extends AppCompatActivity {
                     post_submit.setClickable(true);
                     break;
                 case 1:
+                    post_submit.setClickable(true);
                     try{
                         Bean_PostIn postIn= okhttp.gson.fromJson(resStr,Bean_PostIn.class);
                         if (postIn!=null){
                             if ("0".equals(postIn.getCode())){
                                 Toast.makeText(PostActivity.this,"帖子发布成功",Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             else if ("-1".equals(postIn)){
                                 Toast.makeText(PostActivity.this,"发帖失败：您没有发帖的权限",Toast.LENGTH_SHORT).show();
@@ -99,7 +100,6 @@ public class PostActivity extends AppCompatActivity {
                         toast.toast_gsonFaild(PostActivity.this);
                         e.printStackTrace();
                     }
-                    post_submit.setClickable(true);
                     break;
 //                {"result":"帖子保存成功！","code":"0"}
             }
@@ -248,7 +248,7 @@ public class PostActivity extends AppCompatActivity {
                 }
                 else {
                     Log.i("1111111","没有上传文件");
-                }
+                    }
                 RequestBody requestBody=builder.build();
                 final Request request = new Request.Builder().url(Ip.URL+Ip.interface_PostIn).post(requestBody).build();
                OkHttpClient client=new OkHttpClient();
@@ -298,5 +298,9 @@ public class PostActivity extends AppCompatActivity {
           return null;
       }
 
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 }

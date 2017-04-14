@@ -53,7 +53,7 @@ public class Login_Activity extends Activity {
                     try{
                         Bean_SMSCode smsCode=okhttp.gson.fromJson(resStr,Bean_SMSCode.class);
                         if ("0".equals(smsCode.getCode())){
-                            my_userlogin_edit_smdCode.setText(smsCode.getResult());
+//                            my_userlogin_edit_smdCode.setText(smsCode.getResult());
                         }
                         else {
                             Toast.makeText(Login_Activity.this,"获取验证失败",Toast.LENGTH_SHORT).show();
@@ -165,7 +165,7 @@ public class Login_Activity extends Activity {
                 if (!"".equals(userName) && !TextUtils.isEmpty(userName)) {
                     if (isPhoneNum(userName)) {
                         getSMScode();
-                        my_userlogin_edit_smdCode.setText("123456");//测试用
+//                        my_userlogin_edit_smdCode.setText("123456");//测试用
 
                     } else {
                         Toast.makeText(Login_Activity.this, "用户名不正确", Toast.LENGTH_SHORT).show();

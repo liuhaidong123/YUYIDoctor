@@ -34,6 +34,7 @@ import com.doctor.yuyi.bean.Bean_MyRegistrationKS;
 import com.doctor.yuyi.bean.Bean_RegistertionList;
 import com.doctor.yuyi.lzh_utils.BitMapUtils;
 import com.doctor.yuyi.lzh_utils.MyActivity;
+import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.doctor.yuyi.myview.MyListView;
@@ -50,7 +51,7 @@ import java.util.Map;
 //挂号接收
 public class My_registration_Activity extends MyActivity{
     private final Context con=My_registration_Activity.this;
-    private MyListView my_registration_listview;
+    private MyNorEmptyListVIew my_registration_listview;
 
     private My_Registration_Adapter adapter;
     private TextView my_registration_ks;//科室名字
@@ -79,6 +80,7 @@ public class My_registration_Activity extends MyActivity{
             switch (msg.what){
                 case 0:
                     toast.toast_faild(con);
+                    my_registration_listview.setError();
                     my_registration_loadingLayout.setClickable(true);
                     setLoadingState(0);
                     my_registration_loadingLayout.setVisibility(View.GONE);
@@ -90,7 +92,6 @@ public class My_registration_Activity extends MyActivity{
                             if ("0".equals(ks.getCode())){
                                 if (ks.getResult()!=null&&ks.getResult().size()>0){
                                     listKS.addAll(ks.getResult());
-                                    adapterPop.notifyDataSetChanged();
                                 }
                                 else {
                                     toast.toast_gsonEmpty(con);
@@ -112,7 +113,7 @@ public class My_registration_Activity extends MyActivity{
                         e.printStackTrace();
                     }
                     break;
-                case 2://挂号列表请求
+                case 2://挂号列表患者列表
                     my_registration_loadingLayout.setClickable(true);
                     setLoadingState(0);
                     my_registration_loadingLayout.setVisibility(View.GONE);
@@ -129,7 +130,7 @@ public class My_registration_Activity extends MyActivity{
                                 else {//还有数据
                                     my_registration_loadingLayout.setVisibility(View.VISIBLE);
                                 }
-                                adapter.notifyDataSetChanged();
+
                             }
                             else {
                                 toast.toast_gsonEmpty(con);
@@ -143,6 +144,8 @@ public class My_registration_Activity extends MyActivity{
                         toast.toast_gsonFaild(con);
                         e.printStackTrace();
                     }
+                    adapter.notifyDataSetChanged();
+                    my_registration_listview.setEmpty();
                     break;
                 case 3:
                     showWindowSelect();
@@ -161,6 +164,11 @@ public class My_registration_Activity extends MyActivity{
         prId=-1L;
         chId=-1L;
         getRegsiterData(-1L,-1L,start,limit);
+    }
+
+    @Override
+    public void initEmpty() {
+
     }
 
     private void initView() {
@@ -183,7 +191,7 @@ public class My_registration_Activity extends MyActivity{
         my_registration_image= (ImageView) findViewById(R.id.my_registration_image);
         titleTextView= (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("挂号接收");
-        my_registration_listview= (MyListView) findViewById(R.id.my_registration_listview);
+        my_registration_listview= (MyNorEmptyListVIew) findViewById(R.id.my_registration_listview);
 
         adapter=new My_Registration_Adapter(this,lis);
         my_registration_listview.setAdapter(adapter);
@@ -222,6 +230,7 @@ public class My_registration_Activity extends MyActivity{
                 public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                     start=0;
                     lis.clear();
+                    my_registration_loadingLayout.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                     getRegsiterData(listKS.get(groupPosition).getId(),-1L,start,limit);
                     prId=listKS.get(groupPosition).getId();
@@ -237,9 +246,13 @@ public class My_registration_Activity extends MyActivity{
                     if (popSucc!=null){
                         popSucc.dismiss();
                     }
+                    my_registration_loadingLayout.setVisibility(View.GONE);
                     start=0;
                     lis.clear();
                     adapter.notifyDataSetChanged();
+//                    lis=new ArrayList<Bean_RegistertionList.RowsBean>();
+//                    adapter=new My_Registration_Adapter(con,lis);
+//                    my_registration_listview.setAdapter(adapter);
                     my_registration_ks.setText(listKS.get(groupPosition).getClinicList().get(childPosition).getClinicName());
                     prId= listKS.get(groupPosition).getId();
                     chId=listKS.get(groupPosition).getClinicList().get(childPosition).getId();

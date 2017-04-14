@@ -41,6 +41,11 @@ public class Post_SelectPhotoActivity extends MyActivity implements PostPhotoGri
         checkPerm();
     }
 
+    @Override
+    public void initEmpty() {
+
+    }
+
     private void checkPerm() {
         if (Build.VERSION.SDK_INT>=23){
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED||
@@ -83,7 +88,7 @@ public class Post_SelectPhotoActivity extends MyActivity implements PostPhotoGri
             listCursor.addAll(BitMapUtils.getCursor(this));
         }
         if (list!=null&&list.size()>0){
-            post_select_submit.setText("完成"+list.size());
+            post_select_submit.setText("完成("+list.size()+"/6)");
             if (listCursor!=null&&listCursor.size()>0){
                 for (int i=0;i<list.size();i++){
                     for (int j=0;j<listCursor.size();j++){

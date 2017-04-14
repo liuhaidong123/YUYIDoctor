@@ -28,14 +28,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.doctor.yuyi.myview.InformationListView
+                <com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew
                     android:id="@+id/my_patient_listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@null"
                     android:scrollbars="none">
 
-                </com.doctor.yuyi.myview.InformationListView>
+                </com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew>
 
                 <RelativeLayout
                     android:visibility="gone"

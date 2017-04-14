@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
 /**
  * Created by wanyu on 2017/4/12.
  */
@@ -17,7 +16,7 @@ public class SearchOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql="create table paint( oid Integer primary key,content varchar(40) unique)";
+        String sql="create table paint( oid Integer primary key,content varchar(40))";
         db.execSQL(sql);
     }
 

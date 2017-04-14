@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -21,6 +22,7 @@ import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_paintDataList_Adapter;
 import com.doctor.yuyi.bean.Bean_MyPaintList;
 import com.doctor.yuyi.lzh_utils.MyActivity;
+import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.doctor.yuyi.myview.MyListView;
@@ -36,7 +38,7 @@ import java.util.Map;
 //患者数据
 public class My_patientDataList_Activity extends MyActivity {
     private final Context con=My_patientDataList_Activity.this;
-    private MyListView my_listview;
+    private MyNorEmptyListVIew my_listview;
     private My_paintDataList_Adapter adapter;
     private int start=0;
     private final int limit=15;
@@ -53,6 +55,7 @@ public class My_patientDataList_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    my_listview.setError();
                     toast.toast_faild(con);
                     my_paintlist_loading_laout.setClickable(true);
                     setLoading(1);
@@ -85,6 +88,7 @@ public class My_patientDataList_Activity extends MyActivity {
                     catch (Exception e){
                         toast.toast_gsonFaild(con);
                     }
+                    my_listview.setEmpty();
                     break;
             }
         }
@@ -98,8 +102,13 @@ public class My_patientDataList_Activity extends MyActivity {
 
     }
 
+    @Override
+    public void initEmpty() {
+
+    }
+
     private void initView() {
-        my_listview= (MyListView) findViewById(R.id.my_patientList_listview);
+        my_listview= (MyNorEmptyListVIew) findViewById(R.id.my_patientList_listview);
         list=new ArrayList<>();
         adapter=new My_paintDataList_Adapter(this,list);
         my_listview.setAdapter(adapter);
@@ -116,6 +125,16 @@ public class My_patientDataList_Activity extends MyActivity {
             }
         });
         setLoading(1);
+
+
+        my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(My_patientDataList_Activity.this,PatientMessageActivity.class);
+                intent.putExtra("humeuserId",list.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
 

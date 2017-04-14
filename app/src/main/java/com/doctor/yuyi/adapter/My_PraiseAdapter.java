@@ -1,6 +1,7 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
+import com.doctor.yuyi.activity.CardMessageActivity;
+import com.doctor.yuyi.activity.CommentInformationActivity;
+import com.doctor.yuyi.activity.InformationMessageActivity;
 import com.doctor.yuyi.activity.My_praise_Activity;
 import com.doctor.yuyi.bean.Bean_DeleteMyPraise;
 import com.doctor.yuyi.bean.Bean_MyPostData;
@@ -63,7 +67,13 @@ public class My_PraiseAdapter extends BaseAdapter{
                             Toast.makeText(context,"取消成功",Toast.LENGTH_SHORT).show();
                             list.remove(current);
                             notifyDataSetChanged();
-                            notifi.notifiDelete();
+                            if (list!=null&&list.size()==0){
+                                notifi.notifiDelete(true);
+                            }
+                           else {
+                                notifi.notifiDelete(false);
+                            }
+
                         }
                         else {
                             Toast.makeText(context,"取消失败："+deleteMyPraise.getResult(),Toast.LENGTH_SHORT).show();
@@ -155,11 +165,15 @@ public class My_PraiseAdapter extends BaseAdapter{
                 hodler.forumpost_listitem_time_praise.setText(list.get(position).getCreateTimeString());
             }
         }
-
-        hodler.forumposts_listview_item_msgNum_praise.setText(list.get(position).getCommentNum()+"");
-        hodler.forumposts_listview_item_postNum_praise.setText(list.get(position).getLikeNum()+"");
+        hodler.forumposts_listview_item_msgNum_praise.setText(""+(list.get(position).getCommentNum()==null?0:(list.get(position).getCommentNum())));
+        hodler.forumposts_listview_item_postNum_praise.setText(""+(list.get(position).getLikeNum()==null?0:(list.get(position).getLikeNum())));
         if (!"".equals(list.get(position).getPicture())&&!TextUtils.isEmpty(list.get(position).getPicture())){
-            Picasso.with(context).load(Ip.URL+list.get(position).getPicture()).error(R.mipmap.logo).into(hodler.forumposts_listview_item_photoImage_praise);
+            String url=list.get(position).getPicture();
+            if (url.contains(";")){
+                url=url.substring(0,url.indexOf(";"));
+            }
+            Log.i("url---",Ip.ImgPth+url);
+            Picasso.with(context).load(Ip.ImgPth+url).error(R.mipmap.logo).into(hodler.forumposts_listview_item_photoImage_praise);
         }
         else {
             hodler.forumposts_listview_item_photoImage_praise.setVisibility(View.GONE);
@@ -179,10 +193,27 @@ public class My_PraiseAdapter extends BaseAdapter{
                 }
             }
         });
+        hodler.forumpost_listitem_layout_msg_praise.setTag(position);
         hodler.forumpost_listitem_layout_msg_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int pos= (int) v.getTag();
+                Long likeType=list.get(pos).getLikeType();
+                Intent intent=new Intent();
+                if (likeType==1){//咨询评论
+                    intent.setClass(context,CommentInformationActivity.class);
+                    intent.putExtra("id",list.get(pos).getContentId());
+                    Log.i("id---",list.get(pos).getContentId()+"");
+                }
+                else if (likeType==2){//帖子评论
+                    intent.setClass(context,CardMessageActivity.class);
+                    intent.putExtra("id",list.get(pos).getContentId());
+                    Log.i("id---",list.get(pos).getContentId()+"");
+                }
                 Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
+
+
+                context.startActivity(intent);
             }
         });
             hodler.forumposts_listview_item_postImage_praise.setSelected(true);
@@ -218,6 +249,6 @@ public class My_PraiseAdapter extends BaseAdapter{
     }
 
    public interface notifi{
-        void notifiDelete();
+        void notifiDelete(Boolean flag);
     }
 }

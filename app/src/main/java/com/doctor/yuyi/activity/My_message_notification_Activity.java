@@ -14,11 +14,14 @@ import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
+import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_message_listViewAdapter;
 import com.doctor.yuyi.adapter.My_message_notifi_listAdapter;
 import com.doctor.yuyi.bean.Bean_MyMessage_Notifi;
 import com.doctor.yuyi.bean.Bean_Test_My_message;
+import com.doctor.yuyi.lzh_utils.ListVIewUtils;
 import com.doctor.yuyi.lzh_utils.MyActivity;
+import com.doctor.yuyi.lzh_utils.MyEmptyListView;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.squareup.okhttp.Callback;
@@ -32,10 +35,10 @@ import java.util.List;
 import java.util.Map;
 
 public class My_message_notification_Activity extends MyActivity {
-    private ListView my_message_notifi_listview;
+    private MyEmptyListView my_message_notifi_listview;
     private List<Bean_MyMessage_Notifi.RowsBean> list;
     private My_message_notifi_listAdapter adapter;
-    private final int limit=1;
+    private final int limit=10;
     private int start=0;
     private String resStr;
     private RelativeLayout my_message_notifi_loading_layo;
@@ -51,7 +54,8 @@ public class My_message_notification_Activity extends MyActivity {
                     my_message_notifi_loading_layo.setClickable(true);
                     my_message_notifi_loading_layo.setVisibility(View.VISIBLE);
                     setPro(1);
-                    toast.toast_faild(context);
+                    my_message_notifi_listview.setError();
+//                    toast.toast_faild(context);
                     break;
                 case 1:
                     my_message_notifi_loading_layo.setClickable(true);
@@ -63,6 +67,7 @@ public class My_message_notification_Activity extends MyActivity {
                             if ( noti.getRows()!=null&&noti.getRows().size()>0){
                                 list.addAll(noti.getRows());
                                 adapter.notifyDataSetChanged();
+                                ListVIewUtils.setListViewHeightBasedOnChildren(my_message_notifi_listview);
                                 start+=noti.getRows().size();
                                 if (noti.getRows().size()!=limit){
                                     my_message_notifi_loading_layo.setVisibility(View.GONE);
@@ -82,6 +87,7 @@ public class My_message_notification_Activity extends MyActivity {
                     catch (Exception e){
                         toast.toast_gsonFaild(context);
                     }
+                    my_message_notifi_listview.setEmpty();
                     break;
             }
         }
@@ -95,16 +101,22 @@ public class My_message_notification_Activity extends MyActivity {
         getMessage(start,limit);
     }
 
+    @Override
+    public void initEmpty() {
+
+    }
+
     private void initData() {
         list=new ArrayList<>();
         adapter=new My_message_notifi_listAdapter(this,list);
         my_message_notifi_listview.setAdapter(adapter);
+        ListVIewUtils.setListViewHeightBasedOnChildren(my_message_notifi_listview);
     }
 
     private void initView() {
         titleTextView= (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("宇医公告");
-        my_message_notifi_listview= (ListView) findViewById(R.id.my_message_notifi_listview);
+        my_message_notifi_listview= (MyEmptyListView) findViewById(R.id.my_message_notifi_listview);
         my_message_notifi_loading_layo= (RelativeLayout) findViewById(R.id.my_message_notifi_loading_layout);
         my_message_notifi_loading_text= (TextView) findViewById(R.id.my_message_notifi_loading_text);
         my_message_notifi_loading_progress= (ProgressBar) findViewById(R.id.my_message_notifi_loading_progress);
@@ -122,7 +134,7 @@ public class My_message_notification_Activity extends MyActivity {
     public void getMessage(int st,int lim){
         my_message_notifi_loading_layo.setClickable(false);
         Map<String,String> mp=new HashMap<>();
-        mp.put("token","EA62E69E02FABA4E4C9A0FDC1C7CAE10");
+        mp.put("token", UserInfo.UserToken);
         mp.put("start",st+"");mp.put("limit",lim+"");
         okhttp.getCall(Ip.URL+Ip.interface_MyMessageList,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
@@ -138,9 +150,6 @@ public class My_message_notification_Activity extends MyActivity {
             }
         });
     }
-
-
-
     private  void setPro(int state){
         switch (state){
             case 0://正在加载的时候
@@ -153,4 +162,5 @@ public class My_message_notification_Activity extends MyActivity {
                 break;
         }
     }
+
 }

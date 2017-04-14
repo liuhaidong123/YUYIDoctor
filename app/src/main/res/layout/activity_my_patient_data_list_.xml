@@ -56,13 +56,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-            <com.doctor.yuyi.myview.MyListView
+            <com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew
                 android:dividerHeight="1dp"
                 android:divider="#eeeeee"
                 android:id="@+id/my_patientList_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </com.doctor.yuyi.myview.MyListView>
+            </com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew>
             <RelativeLayout
                 android:background="#f2f2f2"
                 android:id="@+id/my_paintlist_loading_laout"

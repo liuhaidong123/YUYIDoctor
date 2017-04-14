@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
@@ -19,12 +19,12 @@ import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_message_listViewAdapter;
 import com.doctor.yuyi.bean.Bean_MyMessage;
 import com.doctor.yuyi.bean.Bean_MyMessageRead;
-import com.doctor.yuyi.bean.Bean_Test_My_message;
+import com.doctor.yuyi.lzh_utils.ListVIewUtils;
 import com.doctor.yuyi.lzh_utils.MyActivity;
+import com.doctor.yuyi.lzh_utils.MyEmptyListView;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
-import com.doctor.yuyi.myview.MyListView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -37,12 +37,12 @@ import java.util.Map;
 
 public class My_message_Activity extends MyActivity {
     private final Context con=My_message_Activity.this;
-    private MyListView my_message_listview;
+    private MyEmptyListView my_message_listview;
     private RoundImageView my_message_titleImage;//标题图
     private TextView my_message_notifi_time,my_message_notifi_name,my_message_notifi_msg;//标题时间,标题，标题内容
     private My_message_listViewAdapter adapter;
     private int unReadId=-1;
-    private final int limit=1;
+    private final int limit=10;
     private int start=0;
     private String resStr;
     private List<Bean_MyMessage.RowsBean>list;
@@ -57,7 +57,8 @@ public class My_message_Activity extends MyActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    toast.toast_faild(con);
+                    my_message_listview.setError();
+//                    toast.toast_faild(con);
                     my_message_loading_layout.setClickable(true);
                     setLoading(1);
                     break;
@@ -76,21 +77,24 @@ public class My_message_Activity extends MyActivity {
                                 }
                                 else {//服务器还有数据
                                     my_message_loading_layout.setVisibility(View.VISIBLE);
-                                }
+                                    }
                                 list.addAll(myMessage.getRows());
                                 adapter.notifyDataSetChanged();
+                                ListVIewUtils.setListViewHeightBasedOnChildren(my_message_listview);
                             }
                             else {
-                                toast.toast_gsonEmpty(con);
+//                                toast.toast_gsonEmpty(con);
                             }
                         }
                         else {
-                            toast.toast_gsonEmpty(con);
+//                            toast.toast_gsonEmpty(con);
                         }
                     }
                     catch (Exception e){
                         toast.toast_gsonFaild(con);
+                        e.printStackTrace();
                     }
+                    my_message_listview.setEmpty();
                     break;
                 case 2:
                     try{
@@ -99,10 +103,11 @@ public class My_message_Activity extends MyActivity {
                             Log.i("消息设置已读成功","--messageid=="+unReadId);
                             list.get(unReadId).setIsRead(true);
                             adapter.notifyDataSetChanged();
+                            }
                         }
-                    }
                     catch (Exception e){
                         toast.toast_faild(con);
+                        e.printStackTrace();
                     }
                     break;
             }
@@ -117,10 +122,19 @@ public class My_message_Activity extends MyActivity {
         getMessage(start,limit);
     }
 
+    @Override
+    public void initEmpty() {
+        emptyView= LayoutInflater.from(this).inflate(R.layout.my_message_emptyview,null);
+    }
+
     private void initData() {
         list=new ArrayList<>();
         adapter=new My_message_listViewAdapter(this,list);
         my_message_listview.setAdapter(adapter);
+        ListVIewUtils.setListViewHeightBasedOnChildren(my_message_listview);
+//        my_message_listview.setEmptyView(emptyView);
+
+
         my_message_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -136,7 +150,7 @@ public class My_message_Activity extends MyActivity {
                        //不做处里
                        break;
                    case 3:
-//                       咨询详情页面
+                        //咨询详情页面
                        break;
                    case 4:
                        //帖子详情页面
@@ -151,7 +165,7 @@ public class My_message_Activity extends MyActivity {
     }
 
     private void initView() {
-        my_message_listview= (MyListView) findViewById(R.id.my_message_listview);
+        my_message_listview= (MyEmptyListView) findViewById(R.id.my_message_listview);
         titleTextView= (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("消息");
 
@@ -175,7 +189,7 @@ public class My_message_Activity extends MyActivity {
     public void getMessage(int st,int lim){
         my_message_loading_layout.setClickable(false);
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", UserInfo.testToken);
+        mp.put("token", UserInfo.UserToken);
         mp.put("start",st+"");mp.put("limit",lim+"");
         okhttp.getCall(Ip.URL+Ip.interface_MyMessageList,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override

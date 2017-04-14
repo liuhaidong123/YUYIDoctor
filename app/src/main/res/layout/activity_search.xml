@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context="com.doctor.yuyi.activity.SearchActivity">
 <RelativeLayout
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="44dp"
     >
@@ -17,7 +19,7 @@
         android:layout_toLeftOf="@+id/searchac_cancle"
         android:layout_width="match_parent"
         android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
+        android:layout_height="29dp"
         android:orientation="horizontal">
     <ImageView
         android:layout_marginLeft="10dp"
@@ -25,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
         <EditText
+            android:background="@null"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#aaa9a9"
@@ -51,6 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/searchac_cancle"/>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f2f2f2"/>
 </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -59,15 +67,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <com.doctor.yuyi.myview.MyListView
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:dividerHeight="1dp"
-                android:divider="#eeeeee"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/searchac_listview">
-            </com.doctor.yuyi.myview.MyListView>
+                android:layout_height="match_parent">
+                <com.doctor.yuyi.myview.MyListView
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:dividerHeight="1dp"
+                    android:divider="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/searchac_listview">
+                </com.doctor.yuyi.myview.MyListView>
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/listempty"
+                    android:textSize="15sp"
+                    android:textColor="#25f368"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="暂时没有数据"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="#f2f2f2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_loadLayout">
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+                    <ProgressBar
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/search_loadprogress"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/search_loadtext"
+                        android:textSize="15sp"
+                        android:text="正在加载"/>
+                </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:clickable="true"
                 android:onClick="clear"

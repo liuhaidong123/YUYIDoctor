@@ -63,7 +63,7 @@ public class Bean_MyRegister_info {
         private String trueName;
         private int physicianId;
         private int id;
-        private Object age;
+        private Integer age;
 
         public String getClinicName() {
             return clinicName;
@@ -177,11 +177,11 @@ public class Bean_MyRegister_info {
             this.id = id;
         }
 
-        public Object getAge() {
+        public Integer getAge() {
             return age;
         }
 
-        public void setAge(Object age) {
+        public void setAge(Integer age) {
             this.age = age;
         }
     }
