@@ -24,12 +24,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_dialog_popup_prompt.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_item_system_conversation.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_system_conversation.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_camera.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_camera.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_item_system_conversation.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_system_conversation.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_ext_root_menu_item.xml",
@@ -148,12 +148,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_ac_albums.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_wi_vo_popup.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_wi_vo_popup.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_cs_leave_message.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_cs_leave_message.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_wi_vo_popup.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_wi_vo_popup.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_conversation_notification_container.xml",
@@ -320,12 +320,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_public_service_conversation.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_item_public_service_input_menu.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_public_service_input_menu.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_item_group_information_notification_message.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_group_information_notification_message.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_item_public_service_input_menu.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/layout/rc_item_public_service_input_menu.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/layout/rc_ext_emoji_pager.xml",
