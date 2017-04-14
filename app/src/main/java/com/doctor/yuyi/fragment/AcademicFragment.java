@@ -311,6 +311,5 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mStart=0;
             mHttptools.circleNew(mHandler,mStart,mLimit,UserInfo.UserToken);
         }
-
     }
 }
