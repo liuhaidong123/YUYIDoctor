@@ -1,7 +1,11 @@
 package com.doctor.yuyi.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +33,7 @@ import com.doctor.yuyi.activity.RongConversationList_Activity;
 import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.bean.Bean_UserInfo;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
+import com.doctor.yuyi.lzh_utils.checkNotificationAllowed;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.squareup.okhttp.Callback;
@@ -105,13 +110,15 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         }
                         else {
 //                            Toast.makeText(getContext(),"")
+                            toast.toast_gsonFaild(getActivity());
                             Log.e("获取个人信息失败","---MyFragment---");
 
                         }
 
                     }
                     catch (Exception e){
-
+                        e.printStackTrace();
+                        toast.toast_gsonFaild(getActivity());
                     }
                     break;
             }
@@ -125,6 +132,17 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         initView(v);
         getUserInfo();//获取个人信息
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (checkNotificationAllowed.isNOtificationOpen(getActivity()) == false) {//当用户没有通知栏权限时
+            SharedPreferences preferences = getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND);
+            if (preferences.contains("notifi") == false) {//用户第一次点击修改权限弹窗时写入，用于判断是否显示跳转到权限修改到界面（true：用户之前已经进入过修改权限到页面，但不给予通知但权限，false：用户没有进入过）
+                showWindowRevampLimit();
+            }
+        }
     }
 
     private void initView(View view) {
@@ -173,7 +191,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                         break;
 
                     case R.id.my_image_photo://头像
-                        startActivity(new Intent(getActivity(), UserInfo_Activity.class));
+//                        startActivity(new Intent(getActivity(), UserInfo_Activity.class));
                         break;
 
                     case R.id.my_relative_tiezi://帖子
@@ -217,5 +235,23 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 handler.sendEmptyMessage(1);
             }
         });
+    }
+
+    //跳转到修改权限页面到弹窗
+    private void showWindowRevampLimit() {
+        new AlertDialog.Builder(getActivity()).setTitle("应用通知栏权限被禁止").
+                setMessage("无法接收到应用发送的相关通知，需要您手动打开通知权限，是否现在去打开？").setIcon(R.mipmap.logo).
+                setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND).edit().putBoolean("notifi", true).commit();
+                        checkNotificationAllowed.goToSet(getActivity());
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setCancelable(true).show();
     }
 }

@@ -65,10 +65,11 @@ public class My_registration_Info_Activity extends MyActivity {
                                     }
 
                                     my_registrationInfo_textV_sex.setText(sex);
-                                    my_registrationInfo_textV_age.setText(bean.getAge()+"");
-                                    if (bean.getAge()==null){
-                                        my_registrationInfo_textV_age.setText("用户未填写");
-                                    }
+
+                                    my_registrationInfo_textV_age.setText((bean.getAge()==null?0:(int)(bean.getAge()))+"");
+//                                    if (bean.getAge()==null){
+//                                        my_registrationInfo_textV_age.setText("用户未填写");
+//                                    }
                                     my_registrationInfo_textV_tel.setText(bean.getTelephone()+"");
                                     if (bean.getTelephone()==null){
                                         my_registrationInfo_textV_tel.setText("用户未填写");
@@ -109,6 +110,11 @@ public class My_registration_Info_Activity extends MyActivity {
         if (!"".equals(id)&&!TextUtils.isEmpty(id)){
             getData();
         }
+    }
+
+    @Override
+    public void initEmpty() {
+
     }
 
     private void initView() {

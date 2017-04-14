@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//咨询评论页面
 public class CommentInformationActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
     private InformationListView mListview;

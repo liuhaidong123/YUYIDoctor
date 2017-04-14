@@ -51,7 +51,7 @@ public class My_Registration_Adapter extends BaseAdapter{
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
-        hodler.my_registration_list_name.setText(lis.get(position).getPhysicianTrueName());
+        hodler.my_registration_list_name.setText(lis.get(position).getTrueName());
         hodler.my_registration_list_time.setText(lis.get(position).getCreateTimeString());
         return convertView;
     }

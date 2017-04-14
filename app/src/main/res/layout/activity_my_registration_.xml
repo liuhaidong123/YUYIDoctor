@@ -70,13 +70,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.doctor.yuyi.myview.MyListView
+            <com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/my_registration_listview"
                 android:dividerHeight="1dp"
                 android:divider="#eeeeee">
-            </com.doctor.yuyi.myview.MyListView>
+            </com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew>
             <RelativeLayout
                 android:background="#f2f2f2"
                 android:id="@+id/my_registration_loadingLayout"

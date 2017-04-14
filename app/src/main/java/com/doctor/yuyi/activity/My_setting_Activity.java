@@ -36,6 +36,11 @@ public class My_setting_Activity extends MyActivity implements View.OnClickListe
     }
 
     @Override
+    public void initEmpty() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.my_setting_rela_about:

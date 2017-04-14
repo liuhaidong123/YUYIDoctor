@@ -19,7 +19,7 @@ public class DbUtils {
         values.put("content",content);
         try{
             Long l=db.insert("paint",null,values);
-            if (l>0){
+            if (l>-1){
                 return true;
             }
             else {
@@ -31,11 +31,17 @@ public class DbUtils {
             return false;
         }
     }
-    public static Cursor selectAll(Context context){
+    public static Cursor selectAll(Context context,int start,int limit){
         SearchOpenHelper dbHelper = new SearchOpenHelper(context,
                 "search",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select *from paint",null);
+        Cursor cursor=db.rawQuery("select *from paint where oid>? and oid<? order by oid desc",new String[]{(start)+"",(start+limit+1)+""});
+        Log.i("----",cursor.getCount()+"");
+        Log.i("-------"+start,"=--"+(start+limit));
+//        while (cursor.moveToNext()){
+//            Log.e("cursor--oid-",""+cursor.getInt(cursor.getColumnIndex("oid")));
+//            Log.e("cursor--content-",""+cursor.getString(cursor.getColumnIndex("content")));
+//        }
         return cursor;
     }
 
@@ -43,18 +49,12 @@ public class DbUtils {
         SearchOpenHelper dbHelper = new SearchOpenHelper(context,
                 "search",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select *from paint order by oid desc",null);
-        db.beginTransaction();
         try{
-            db.delete("paint",null,null);
+            db.execSQL("delete from paint");
         }
         catch (Exception e){
-            Log.e("删除所有搜索记录失败---","-------");
-            e.printStackTrace();
-            db.endTransaction();
             return false;
         }
-        db.endTransaction();
         return true;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -93,11 +94,18 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
 
                     Picasso.with(PatientMessageActivity.this).load(UrlTools.BASE+root.getResult().getAvatar()).error(R.mipmap.error_small).into(mHead_img);
                     mName.setText(root.getResult().getTrueName());
-                    if (root.getResult().getGender()==0){//0：女
-                        mSex.setText("性别:女");
-                    }else if (root.getResult().getGender()==1){
-                        mSex.setText("性别:男");
-                    }else {
+                    if (root.getResult().getGender()==null){
+                        Log.e("=====空的数据===","--------------");
+                    }
+                    if (root.getResult().getGender()!=null){
+                        if (root.getResult().getGender()==0){//0：女
+                            mSex.setText("性别:女");
+                        }
+                        else if (root.getResult().getGender()==1){
+                            mSex.setText("性别:男");
+                        }
+                    }
+                    else {
                         mSex.setText("性别:");
                     }
 
@@ -246,8 +254,8 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
 
         mHttptools = HttpTools.getHttpToolsInstance();
         MyDialog.showDialog(this);
-        mHttptools.getPatientEle(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1));
-        mHttptools.getPatientData(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1));
+        mHttptools.getPatientEle(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1L));
+        mHttptools.getPatientData(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1L));
         //时间
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         mEle_btn = (TextView) findViewById(R.id.patient_ele_btn);//电子病历按钮

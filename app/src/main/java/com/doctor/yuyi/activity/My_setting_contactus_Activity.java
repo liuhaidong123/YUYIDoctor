@@ -68,6 +68,12 @@ public class My_setting_contactus_Activity extends MyActivity {
         my_settings_contactOur_phone= (TextView) findViewById(R.id.my_settings_contactOur_phone);
         my_settings_contactOur_phoneNum= (TextView) findViewById(R.id.my_settings_contactOur_phoneNum);
     }
+
+    @Override
+    public void initEmpty() {
+
+    }
+
     //拨打电话的按钮
     public void callPhone(View view) {
         if (view!=null){

@@ -1,6 +1,7 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
+import com.doctor.yuyi.activity.CardMessageActivity;
 import com.doctor.yuyi.bean.Bean_MyPostData;
 import com.doctor.yuyi.bean.Bean_MyPostDataPriase;
 import com.doctor.yuyi.lzh_utils.DataUtils;
@@ -178,10 +180,15 @@ public class My_forumPosts_Adapter extends BaseAdapter{
             }
         }
 
-        hodler.forumposts_listview_item_msgNum.setText(list.get(position).getCommentNum()+"");
-        hodler.forumposts_listview_item_postNum.setText(list.get(position).getLikeNum()+"");
+        hodler.forumposts_listview_item_msgNum.setText((list.get(position).getCommentNum()==null?0:list.get(position).getCommentNum())+"");
+        hodler.forumposts_listview_item_postNum.setText((list.get(position).getLikeNum()==null?0:list.get(position).getLikeNum())+"");
         if (!"".equals(list.get(position).getPicture())&&!TextUtils.isEmpty(list.get(position).getPicture())){
-            Picasso.with(context).load(Ip.URL+list.get(position).getPicture()).error(R.mipmap.logo).into(hodler.forumposts_listview_item_photoImage);
+            String url=list.get(position).getPicture();
+            if (url.contains(";")){
+                url=url.substring(0,url.indexOf(";"));
+            }
+            Log.i("uri-----",Ip.URL+url);
+            Picasso.with(context).load(Ip.ImgPth+url).error(R.mipmap.logo).into(hodler.forumposts_listview_item_photoImage);
         }
         else {
             hodler.forumposts_listview_item_photoImage.setVisibility(View.GONE);
@@ -207,10 +214,16 @@ public class My_forumPosts_Adapter extends BaseAdapter{
 
             }
         });
+        hodler.forumpost_listitem_layout_msg.setTag(position);
         hodler.forumpost_listitem_layout_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int pos= (int) v.getTag();
                 Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(context, CardMessageActivity.class);
+                intent.putExtra("id",list.get(pos).getId());
+                context.startActivity(intent);
             }
         });
         if (list.get(position).isIsLike()){
@@ -236,7 +249,7 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         CurrentPosition=id;
         Map<String,String>mp=new HashMap<>();
         mp.put("id",list.get(id).getId()+"");
-        mp.put("token", UserInfo.testToken);
+        mp.put("token", UserInfo.UserToken);
         okhttp.getCall(Ip.URL+Ip.interface_MyPostDataPraise,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {

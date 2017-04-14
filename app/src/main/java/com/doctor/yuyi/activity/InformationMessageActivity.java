@@ -30,7 +30,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.Map;
-
+//咨询详情
 public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
     private ImageView mComment_img;

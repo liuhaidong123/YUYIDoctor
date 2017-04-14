@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.doctor.yuyi.activity.NetWorkError_Activity;
 
@@ -29,8 +30,9 @@ public class NetWorkBroadCast extends BroadcastReceiver{
         }
         //没有执行return,则说明当前无网络连接
         System.out.println("------------> Network is validate");
-        intent.setClass(context, NetWorkError_Activity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+//        intent.setClass(context, NetWorkError_Activity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(intent);
+        Toast.makeText(context,"断网了，请检查您的网络",Toast.LENGTH_LONG).show();
     }
 }

@@ -51,7 +51,7 @@ public class BeanSearch {
 
         private String avatar;
         private String trueName;
-        private int id;
+        private Long id;
 
         public String getAvatar() {
             return avatar;
@@ -69,11 +69,11 @@ public class BeanSearch {
             this.trueName = trueName;
         }
 
-        public int getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Long id) {
             this.id = id;
         }
     }

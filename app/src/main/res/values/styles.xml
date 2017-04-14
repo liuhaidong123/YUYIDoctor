@@ -29,4 +29,8 @@
         <item name="android:windowEnterAnimation">@anim/pop3_in</item>
         <item name="android:windowExitAnimation">@anim/pop3_out</item>
     </style>
+    <declare-styleable name="MyEmptyListView">
+        <attr name="bitmap" format="reference"></attr>
+        <attr name="emptyText" format="string"></attr>
+    </declare-styleable>
 </resources>

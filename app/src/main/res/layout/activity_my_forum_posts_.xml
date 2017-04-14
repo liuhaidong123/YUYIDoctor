@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_forum_posts_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.doctor.yuyi.activity.My_forumPosts_Activity">
+
     <RelativeLayout
         android:id="@+id/ms_tops_relayout"
         android:layout_width="match_parent"
@@ -32,6 +34,8 @@
             android:textColor="@color/L_color_titleText"
             android:textSize="17sp"/>
         <TextView
+            android:clickable="true"
+            android:onClick="setPost"
             android:id="@+id/my_forum_posts_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +48,7 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"/>
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -55,14 +60,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ListView
+            <com.doctor.yuyi.lzh_utils.MyEmptyListView
+                app:bitmap="@mipmap/nopost"
+                app:emptyText="您还又没有发表过帖子哦"
                 android:layout_marginBottom="10dp"
                 android:divider="#eeeeee"
                 android:dividerHeight="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/my_forum_posts_listview">
-            </ListView>
+            </com.doctor.yuyi.lzh_utils.MyEmptyListView>
 
             <RelativeLayout
                 android:background="#f2f2f2"

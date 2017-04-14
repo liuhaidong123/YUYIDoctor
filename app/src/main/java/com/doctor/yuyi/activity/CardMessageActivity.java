@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//帖子详情
 public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener {
 
     private InformationListView mImgListView, mCommentListView;

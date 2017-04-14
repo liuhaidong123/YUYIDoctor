@@ -5,6 +5,7 @@ package com.doctor.yuyi.Ip;
  */
 
 public interface Ip {
+//    http://59.110.169.148:8080/
     public final static String URL="http://192.168.1.55:8080/yuyi/";
     public final static String ImgPth="http://192.168.1.55:8080/yuyi";
 
