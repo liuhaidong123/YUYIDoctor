@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.doctor.yuyi.DataBase.DbUtils;
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.SearchAdpter;
@@ -66,12 +67,14 @@ public class SearchActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     setLoadState(0);
                     search_loadLayout.setClickable(true);
                     search_loadLayout.setVisibility(View.GONE);
                     toast.toast_faild(SearchActivity.this);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     setLoadState(0);
                     search_loadLayout.setClickable(true);
                     search_loadLayout.setVisibility(View.GONE);
@@ -234,6 +237,7 @@ public class SearchActivity extends Activity {
     public void getData(int start,int limit) {
      content=searchac_editext.getText().toString();
         if (!"".equals(content)&&!TextUtils.isEmpty(content)){
+            MyDialog.showDialog(SearchActivity.this);
             Map<String,String> mp=new HashMap<>();
             mp.put("trueName",content);
             mp.put("token", UserInfo.UserToken);

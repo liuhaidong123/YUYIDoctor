@@ -1,19 +1,15 @@
 package com.doctor.yuyi.activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,20 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.PostListAdapter;
 import com.doctor.yuyi.bean.Bean_PostIn;
 import com.doctor.yuyi.lzh_utils.BitMapUtils;
-import com.doctor.yuyi.lzh_utils.SetList;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
-import com.doctor.yuyi.myview.InformationListView;
-import com.doctor.yuyi.myview.MyGridView;
 import com.doctor.yuyi.myview.MyListView;
 import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -51,7 +43,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 //发帖页面
 public class PostActivity extends AppCompatActivity {
     private final int RequestCode = 100;
@@ -72,9 +63,11 @@ public class PostActivity extends AppCompatActivity {
             switch (msg.what){
                 case 0:
                     post_submit.setClickable(true);
+                    MyDialog.stopDia();
                     break;
                 case 1:
                     post_submit.setClickable(true);
+                    MyDialog.stopDia();
                     try{
                         Bean_PostIn postIn= okhttp.gson.fromJson(resStr,Bean_PostIn.class);
                         if (postIn!=null){
@@ -232,6 +225,7 @@ public class PostActivity extends AppCompatActivity {
                             }
                     }
                 }
+                MyDialog.showDialog(PostActivity.this);
                 MultipartBuilder builder=  new MultipartBuilder();
                 builder.type(MultipartBuilder.FORM);
                 builder.addFormDataPart("token", UserInfo.UserToken);

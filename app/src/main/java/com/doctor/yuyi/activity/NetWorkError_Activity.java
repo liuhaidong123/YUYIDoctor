@@ -2,11 +2,8 @@ package com.doctor.yuyi.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 
 import com.doctor.yuyi.R;
-import com.doctor.yuyi.lzh_utils.NetWorkState;
-import com.doctor.yuyi.mApplication.MyApplication;
 
 /**
  * Created by wanyu on 2017/4/6.

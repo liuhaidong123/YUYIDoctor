@@ -3,18 +3,16 @@ package com.doctor.yuyi.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,21 +21,14 @@ import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.UMShareImp.ShareUtils;
-import com.doctor.yuyi.UMShareImp.UMShareListner;
-import com.doctor.yuyi.UMShareImp.UmAuthListener;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.AdMessageDetial.Root;
 import com.squareup.picasso.Picasso;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
-
-import java.util.Map;
 
 public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
     private ImageView mBack;
@@ -52,7 +43,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
     private ImageView mImg;
     private TextView mTitle;
     private TextView mContent;
-
+    private UMWeb umWeb;
 
     private Root mRoot;
 
@@ -71,9 +62,12 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     thumb = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
                     image.setThumb(thumb);//图片设置缩略图
                     image.compressStyle = UMImage.CompressStyle.SCALE;
-                    //title = mRoot.getTitle();
                     content = mRoot.getContent();
-
+                    title=mRoot.getTitle();
+                    umWeb=new UMWeb("http://www.baidu.com");
+                    umWeb.setTitle(title);//标题
+                    umWeb.setThumb(thumb);  //缩略图
+                    umWeb.setDescription(content);//描述
                     Picasso.with(InformationMessageActivity.this).load(UrlTools.BASE + root.getPicture()).error(R.mipmap.error_big).into(mImg);
                     mTitle.setText(root.getTitle());
                     mContent.setText(root.getContent());
@@ -252,15 +246,15 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
-                if (image != null && content != null) {
-                    ShareUtils.share(this, this, content, image);
+                if (image != null && content != null&& umWeb!=null) {
+                    ShareUtils.share(this, this, umWeb);
                 }
 
             }
             //版本小于23时，不需要判断敏感权限，执行业务逻辑
         } else {
-            if (image != null && content != null) {
-                ShareUtils.share(this, this, content, image);
+            if (image != null && content != null&& umWeb!=null) {
+                ShareUtils.share(this, this, umWeb);
             }
 
         }
@@ -275,8 +269,8 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 //点击了允许，授权成功
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    if (image != null && content != null) {
-                        ShareUtils.share(this, this, content, image);
+                    if (image != null && content != null&& umWeb!=null) {
+                        ShareUtils.share(this, this,umWeb);
                     }
                     //点击了拒绝，授权失败
                 } else {

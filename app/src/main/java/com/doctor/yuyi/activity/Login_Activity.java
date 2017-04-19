@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.Bean_Login;
@@ -24,7 +25,6 @@ import com.doctor.yuyi.lzh_utils.toast;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,9 +47,11 @@ public class Login_Activity extends Activity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
                     toast.toast_faild(Login_Activity.this);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try{
                         Bean_SMSCode smsCode=okhttp.gson.fromJson(resStr,Bean_SMSCode.class);
                         if ("0".equals(smsCode.getCode())){
@@ -64,6 +66,7 @@ public class Login_Activity extends Activity {
                     }
                     break;
                 case 2:
+                    MyDialog.stopDia();
                     try{
                         Bean_Login login=okhttp.gson.fromJson(resStr,Bean_Login.class);
                         if ("0".equals(login.getCode())){
@@ -182,6 +185,7 @@ public class Login_Activity extends Activity {
 
     //获取验证码
     private void getSMScode() {
+        MyDialog.showDialog(Login_Activity.this);
         my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
         my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_unclick);
         timeOut=60;
@@ -239,6 +243,7 @@ public class Login_Activity extends Activity {
                 userPsd = my_userlogin_edit_smdCode.getText().toString();
                 if (!"".equals(userName)&&!TextUtils.isEmpty(userName)&& !"".equals(userPsd) && !TextUtils.isEmpty(userPsd)){
                     if (isPhoneNum(userName)){
+                        MyDialog.showDialog(Login_Activity.this);
                         Map<String,String>mp=new HashMap<>();
                         mp.put("id",userName);
                         mp.put("vcode",userPsd);

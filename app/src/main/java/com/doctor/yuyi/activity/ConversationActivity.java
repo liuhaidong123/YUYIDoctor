@@ -1,8 +1,7 @@
 package com.doctor.yuyi.activity;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.doctor.yuyi.R;
 //会话页面

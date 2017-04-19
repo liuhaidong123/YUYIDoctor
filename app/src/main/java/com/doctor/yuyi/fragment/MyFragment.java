@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
@@ -30,7 +28,6 @@ import com.doctor.yuyi.activity.My_praise_Activity;
 import com.doctor.yuyi.activity.My_registration_Activity;
 import com.doctor.yuyi.activity.My_setting_Activity;
 import com.doctor.yuyi.activity.RongConversationList_Activity;
-import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.bean.Bean_UserInfo;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.doctor.yuyi.lzh_utils.checkNotificationAllowed;
@@ -44,9 +41,6 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.Conversation;
 
 
 /**

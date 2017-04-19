@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.doctor.yuyi.activity.MainActivity">
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <TextView
+            android:id="@+id/title_all"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/all_ll_btn"

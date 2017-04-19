@@ -10,16 +10,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,17 +35,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.R;
-import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.lzh_utils.BitmapTobase64;
-import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.myview.RoundImageView;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserInfo_Activity extends Activity implements View.OnClickListener {
 

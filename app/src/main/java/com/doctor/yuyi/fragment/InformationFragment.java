@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.MyUtils.MyDialog;
@@ -29,7 +28,6 @@ import com.doctor.yuyi.adapter.AdViewPagerAdapter;
 import com.doctor.yuyi.adapter.FirstPageListviewAdapter;
 import com.doctor.yuyi.bean.AdBean.Result;
 import com.doctor.yuyi.bean.AdBean.Root;
-import com.doctor.yuyi.bean.MyEntity;
 import com.doctor.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -108,14 +106,14 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                         MyDialog.stopDia();
                         mRefreshLayout.setRefreshing(false);
                         mBar.setVisibility(View.INVISIBLE);
-                        List<com.doctor.yuyi.bean.TodayRecommendBean.Result> list=new ArrayList<>();
+                        List<com.doctor.yuyi.bean.TodayRecommendBean.Result> list = new ArrayList<>();
                         list = root.getResult();
                         mList.addAll(list);
                         mFirstPageAdapter.setmList(mList);
                         mFirstPageAdapter.notifyDataSetChanged();
-                        if (list.size()<10){//隐藏加载更多
+                        if (list.size() < 10) {//隐藏加载更多
                             mRefreshBox.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             mRefreshBox.setVisibility(View.VISIBLE);
                         }
                     }
@@ -136,8 +134,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private HttpTools mHttptools;
     private int mStart = 0;
     private int mLimit = 10;
+    private int mFlag = 0;
 
-    private int mFlag=0;
 
     public InformationFragment() {
 
@@ -146,16 +144,20 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_information, container, false);
+        View view = null;
+        view = inflater.inflate(R.layout.fragment_information, container, false);
         init(view);
+
         return view;
     }
 
     //初始化数据
     public void init(View view) {
+
+
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getADMessage(mHttpHandler);//获取广告数据
-        mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
+        mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
         //广告
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_title);
         mImgAapter = new AdViewPagerAdapter(mAdList, getContext());
@@ -196,18 +198,19 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mStart=0;
+                mStart = 0;
                 mList.clear();
                 showTodayLine();//刷新的时候回到今日推荐
-                mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
+                mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
             }
         });
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getContext(), InformationMessageActivity.class);
-        intent.putExtra("id",mList.get(position).getId());
+        intent.putExtra("id", mList.get(position).getId());
         startActivity(intent);
 
     }
@@ -216,44 +219,44 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     public void onClick(View v) {
         int id = v.getId();
         if (id == mToday_tv.getId()) {//今日推荐
-            mFlag=0;
-            mStart=0;
+            mFlag = 0;
+            mStart = 0;
             showTodayLine();
             MyDialog.showDialog(this.getContext());
             mList.clear();
-            mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);
+            mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);
             mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
             mRefreshBox.setVisibility(View.GONE);
         } else if (id == mNew_tv.getId()) {//最新
-            mFlag=1;
-            mStart=0;
+            mFlag = 1;
+            mStart = 0;
             showNewLine();
             MyDialog.showDialog(this.getContext());
             mList.clear();
-            mHttptools.getNew(mHttpHandler,mStart,mLimit);
+            mHttptools.getNew(mHttpHandler, mStart, mLimit);
             mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
             mRefreshBox.setVisibility(View.GONE);
         } else if (id == mHot_tv.getId()) {//热门
-            mFlag=2;
-            mStart=0;
+            mFlag = 2;
+            mStart = 0;
             MyDialog.showDialog(this.getContext());
             mList.clear();
-            mHttptools.getHot(mHttpHandler,mStart,mLimit);
+            mHttptools.getHot(mHttpHandler, mStart, mLimit);
             showHotLine();
             mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
             mRefreshBox.setVisibility(View.GONE);
-        }else if (id == mRefreshBox.getId()) {//加载更多
+        } else if (id == mRefreshBox.getId()) {//加载更多
             mBar.setVisibility(View.VISIBLE);
-            mStart+=10;
-            if (mFlag==0){//加载的是今日推荐
-                mHttptools.getTodayRecommend(mHttpHandler,mStart,mLimit);//今日推荐
-            }else if (mFlag==1){//加载的是最新
-                mHttptools.getNew(mHttpHandler,mStart,mLimit);
-            }else if (mFlag==2){//加载的是热门
-                mHttptools.getHot(mHttpHandler,mStart,mLimit);
+            mStart += 10;
+            if (mFlag == 0) {//加载的是今日推荐
+                mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
+            } else if (mFlag == 1) {//加载的是最新
+                mHttptools.getNew(mHttpHandler, mStart, mLimit);
+            } else if (mFlag == 2) {//加载的是热门
+                mHttptools.getHot(mHttpHandler, mStart, mLimit);
             }
 
         }
@@ -272,9 +275,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.GONE);
         mNew_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
     }
 
     //显示最新
@@ -291,9 +294,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
     }
 
     //显示热门
@@ -310,9 +313,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mNew_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_normal));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(),R.color.color_username));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
     }
 
     //轮播图监听
@@ -397,4 +400,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             }
         }
     }
+
+
 }

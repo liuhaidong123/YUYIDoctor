@@ -10,7 +10,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doctor.yuyi.Manifest;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.adapter.PostPhotoGridviewAdapter;
 import com.doctor.yuyi.lzh_utils.BitMapUtils;

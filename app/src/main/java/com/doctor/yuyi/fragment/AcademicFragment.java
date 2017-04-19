@@ -3,7 +3,6 @@ package com.doctor.yuyi.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +29,6 @@ import com.doctor.yuyi.adapter.CircleSelectAda;
 import com.doctor.yuyi.bean.CircleBean.Root;
 import com.doctor.yuyi.bean.CircleBean.Rows;
 import com.doctor.yuyi.bean.CircleBean.SelectBean.Result;
-import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     private String mNoSelectColor = "#6a6a6a";
 
     private SwipeRefreshLayout mRefresh;
-    private MyNorEmptyListVIew mListview;
+    private InformationListView mListview;
     private CircleAdpater mAdapter;
     private List<Rows> mList = new ArrayList<>();//热门，最新集合
 
@@ -58,8 +55,8 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     private List<Result> mSelectList = new ArrayList<>();//精选集合
     private RelativeLayout mMany_Box;//加载更多
     private ProgressBar mBar;
-    private int mFlag=0;
-    private boolean isFlag=true;
+    private int mFlag = 0;
+    private boolean isFlag = true;
     private ImageView mPostImg;//发帖
 
     private HttpTools mHttptools;
@@ -77,7 +74,6 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                     mRefresh.setRefreshing(false);
                     mRefresh.setEnabled(false);
                     mBar.setVisibility(View.INVISIBLE);
-
                     Root root = (Root) o;
                     List<Rows> list = new ArrayList<>();
                     list = root.getRows();
@@ -91,6 +87,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                         mMany_Box.setVisibility(View.VISIBLE);
                     }
                 }
+
             } else if (msg.what == 106) {
                 MyDialog.stopDia();
                 mRefresh.setRefreshing(false);
@@ -100,13 +97,13 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 ToastUtils.myToast(getContext(), "数据错误");
             } else if (msg.what == 8) {//学术圈精选
                 Object o = msg.obj;
-                if (o != null&& o instanceof com.doctor.yuyi.bean.CircleBean.SelectBean.Root) {
+                if (o != null && o instanceof com.doctor.yuyi.bean.CircleBean.SelectBean.Root) {
                     com.doctor.yuyi.bean.CircleBean.SelectBean.Root root = (com.doctor.yuyi.bean.CircleBean.SelectBean.Root) o;
                     if (root.getCode().equals("0")) {
                         MyDialog.stopDia();
                         mBar.setVisibility(View.INVISIBLE);
-                        List<Result> list=new ArrayList<>();
-                        list=root.getResult();
+                        List<Result> list = new ArrayList<>();
+                        list = root.getResult();
                         mSelectList.addAll(list);
                         mSelectAdapter.setList(mSelectList);
                         mListview.setAdapter(mSelectAdapter);
@@ -119,7 +116,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
                     }
                 }
-            }else if (msg.what==107){
+            } else if (msg.what == 107) {
                 MyDialog.stopDia();
                 mBar.setVisibility(View.INVISIBLE);
                 mMany_Box.setVisibility(View.GONE);
@@ -127,6 +124,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+
 
     public AcademicFragment() {
         // Required empty public constructor
@@ -136,21 +134,21 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_academic, container, false);
+        View view = null;
+        view = inflater.inflate(R.layout.fragment_academic, container, false);
         getHttpData();
         initView(view);
-
         return view;
     }
 
     public void getHttpData() {
         mHttptools = HttpTools.getHttpToolsInstance();
-        Log.e("token",UserInfo.UserToken);
+        Log.e("token", UserInfo.UserToken);
     }
 
 
     public void initView(View view) {
-        mMessage_img= (ImageView) view.findViewById(R.id.information_img);
+        mMessage_img = (ImageView) view.findViewById(R.id.information_img);
         mMessage_img.setOnClickListener(this);
         //头部热门，精选，最新
         mHot_tv = (TextView) view.findViewById(R.id.circle_hot_tv);
@@ -170,7 +168,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         mBar = (ProgressBar) view.findViewById(R.id.pbLocate);
         showHotLine();//刚开始显示热门
         //适配器
-        mListview = (MyNorEmptyListVIew) view.findViewById(R.id.circle_listview);
+        mListview = (InformationListView) view.findViewById(R.id.circle_listview);
         mAdapter = new CircleAdpater(getContext(), mList);
 
         mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.circle_refresh);
@@ -178,7 +176,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         mRefresh.setRefreshing(true);
 
         //精选适配器
-        mSelectAdapter=new CircleSelectAda(this.getContext(),mSelectList);
+        mSelectAdapter = new CircleSelectAda(this.getContext(), mSelectList);
         //发帖
         mPostImg = (ImageView) view.findViewById(R.id.post_img);
         mPostImg.setOnClickListener(this);
@@ -190,9 +188,9 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
         if (id == mHot_tv.getId()) {//热门
             MyDialog.showDialog(this.getContext());
-            mFlag=0;
-            mStart=0;
-            mHttptools.circleHot(mHandler,mStart,mLimit,UserInfo.UserToken);
+            mFlag = 0;
+            mStart = 0;
+            mHttptools.circleHot(mHandler, mStart, mLimit, UserInfo.UserToken);
             showHotLine();
             mList.clear();
             mMany_Box.setVisibility(View.GONE);
@@ -201,9 +199,9 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mAdapter.notifyDataSetChanged();
         } else if (id == mSelect_tv.getId()) {//精选
             MyDialog.showDialog(this.getContext());
-            mFlag=1;
-            mStart=0;
-            mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
+            mFlag = 1;
+            mStart = 0;
+            mHttptools.circleSelect(mHandler, mStart, mLimit, UserInfo.UserToken);
             showSelectLine();
             mSelectList.clear();
             mMany_Box.setVisibility(View.GONE);
@@ -212,9 +210,9 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mSelectAdapter.notifyDataSetChanged();
         } else if (id == mNew_tv.getId()) {//最新
             MyDialog.showDialog(this.getContext());
-            mFlag=2;
-            mStart=0;
-            mHttptools.circleNew(mHandler,mStart,mLimit, UserInfo.UserToken);
+            mFlag = 2;
+            mStart = 0;
+            mHttptools.circleNew(mHandler, mStart, mLimit, UserInfo.UserToken);
             showNewLine();
             mList.clear();
             mMany_Box.setVisibility(View.GONE);
@@ -225,15 +223,15 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             startActivity(new Intent(getContext(), PostActivity.class));
         } else if (id == mMany_Box.getId()) {//加载更多
             mStart += 10;
-            if (mFlag==0){//学术圈热门
-                mHttptools.circleHot(mHandler, mStart, mLimit,UserInfo.UserToken);
-            }else if (mFlag==1){//学术圈精选
-                mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
-            }else if (mFlag==2){//学术圈最新
-                mHttptools.circleNew(mHandler,mStart,mLimit,UserInfo.UserToken);
-            }
             mBar.setVisibility(View.VISIBLE);
-        }else if (id == mMessage_img.getId()) {//发帖
+            if (mFlag == 0) {//学术圈热门
+                mHttptools.circleHot(mHandler, mStart, mLimit, UserInfo.UserToken);
+            } else if (mFlag == 1) {//学术圈精选
+                mHttptools.circleSelect(mHandler, mStart, mLimit, UserInfo.UserToken);
+            } else if (mFlag == 2) {//学术圈最新
+                mHttptools.circleNew(mHandler, mStart, mLimit, UserInfo.UserToken);
+            }
+        } else if (id == mMessage_img.getId()) {//发帖
             startActivity(new Intent(getContext(), My_message_Activity.class));
         }
     }
@@ -297,20 +295,26 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
-        super.onResume();
 
-        if (mFlag==0){//学术圈热门
+        if (mFlag == 0) {//学术圈热门
+            mMany_Box.setVisibility(View.GONE);
             mList.clear();
-            mStart=0;
-            mHttptools.circleHot(mHandler, mStart, mLimit,UserInfo.UserToken);
-        }else if (mFlag==1){//学术圈精选
+            mAdapter.notifyDataSetChanged();
+            mStart = 0;
+            mHttptools.circleHot(mHandler, mStart, mLimit, UserInfo.UserToken);
+        } else if (mFlag == 1) {//学术圈精选
+            mMany_Box.setVisibility(View.GONE);
             mSelectList.clear();
-            mStart=0;
-            mHttptools.circleSelect(mHandler,mStart,mLimit,UserInfo.UserToken);
-        }else if (mFlag==2){//学术圈最新
+            mSelectAdapter.notifyDataSetChanged();
+            mStart = 0;
+            mHttptools.circleSelect(mHandler, mStart, mLimit, UserInfo.UserToken);
+        } else if (mFlag == 2) {//学术圈最新
+            mMany_Box.setVisibility(View.GONE);
             mList.clear();
-            mStart=0;
-            mHttptools.circleNew(mHandler,mStart,mLimit,UserInfo.UserToken);
+            mAdapter.notifyDataSetChanged();
+            mStart = 0;
+            mHttptools.circleNew(mHandler, mStart, mLimit, UserInfo.UserToken);
         }
+        super.onResume();
     }
 }

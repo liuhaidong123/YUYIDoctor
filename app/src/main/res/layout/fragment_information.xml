@@ -27,6 +27,7 @@
         android:layout_below="@id/equip_title"
         android:background="@color/color_cancel" />
 
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/first_page_swiperefesh"
         android:layout_width="match_parent"
@@ -174,12 +175,12 @@
                 </com.doctor.yuyi.myview.InformationListView>
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/more_relative"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/information_listview"
-                    android:background="@color/color_white">
+                    android:background="@color/color_white"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import com.doctor.yuyi.activity.PatientMessageActivity;
 import com.doctor.yuyi.adapter.FragmentMyPatientListAdapter;
 import com.doctor.yuyi.bean.PatientList.Root;
 import com.doctor.yuyi.bean.PatientList.Rows;
-import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class PatientFragment extends Fragment {
-    private MyNorEmptyListVIew my_patient_listview;
+    private InformationListView my_patient_listview;
     private TextView titleText;
     private ImageView activity_include_imageReturn;
     private FragmentMyPatientListAdapter adapter;
@@ -73,27 +71,22 @@ public class PatientFragment extends Fragment {
                         ToastUtils.myToast(getContext(), "对不起，您没有权限");
                     }
                 }
-                my_patient_listview.setEmpty();
-            }
-            else if (msg.what == 114) {
+            } else if (msg.what == 114) {
                 mRefreshBox.setVisibility(View.GONE);
                 mBar.setVisibility(View.INVISIBLE);
                 mRefresh.setRefreshing(false);
                 ToastUtils.myToast(getContext(), "患者数据错误");
-                my_patient_listview.setError();
             }
         }
     };
 
     public PatientFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
         initView(view);
         return view;
@@ -114,7 +107,7 @@ public class PatientFragment extends Fragment {
                 mHttptools.myPatient(mHandler, UserInfo.UserToken, mStart, mLimit);
             }
         });
-        my_patient_listview = (MyNorEmptyListVIew) view.findViewById(R.id.my_patient_listview);
+        my_patient_listview = (InformationListView) view.findViewById(R.id.my_patient_listview);
         titleText = (TextView) view.findViewById(R.id.titleinclude_textview);
         titleText.setText("我的患者");
         activity_include_imageReturn = (ImageView) view.findViewById(R.id.activity_include_imageReturn);

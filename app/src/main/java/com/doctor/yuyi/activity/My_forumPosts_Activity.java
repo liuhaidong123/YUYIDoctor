@@ -2,10 +2,9 @@ package com.doctor.yuyi.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.lzh_utils.MyEmptyListView;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
-import com.doctor.yuyi.myview.MyListView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -38,12 +36,12 @@ import java.util.Map;
 
 //我的帖子
 public class My_forumPosts_Activity extends MyActivity {
-    private final Context con=My_forumPosts_Activity.this;
+    private final Context con = My_forumPosts_Activity.this;
     private MyEmptyListView my_forum_posts_listview;
     private My_forumPosts_Adapter adapter;
-    private   List<Bean_MyPostData.RowsBean> list;
-    private int start=0;
-    private int limit=10;
+    private List<Bean_MyPostData.RowsBean> list;
+    private int start = 0;
+    private int limit = 10;
     private boolean isEnd;//查询结束（已经不能加载更多的帖子）
     private String resStr;
     //---------
@@ -51,51 +49,51 @@ public class My_forumPosts_Activity extends MyActivity {
     private TextView my_forum_post_loading_textv;
     private ProgressBar my_forum_post_progress;
     //---------
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
+//                    MyDialog.stopDia();
                     my_forum_posts_listview.setError();
                     my_forum_post_loadinglayout.setClickable(true);
                     setPro(1);
 //                    toast.toast_faild(con);
                     break;
                 case 1:
+//                    MyDialog.stopDia();
                     my_forum_post_loadinglayout.setClickable(true);
                     setPro(1);
-                try{
-                    Bean_MyPostData postData=okhttp.gson.fromJson(resStr,Bean_MyPostData.class);
-                    if (postData!=null&&postData.getRows()!=null&&postData.getRows().size()>0){
-                        list.addAll(postData.getRows());
-                        start+=postData.getRows().size();
-                        adapter.notifyDataSetChanged();
-                        setListViewHeightBasedOnChildren(my_forum_posts_listview);
-                        if (postData.getRows().size()!=limit){//返回的不够10条时，说明数据库已经查询到了所有的数据，不能再次请求
-                            isEnd=true;
+                    try {
+                        Bean_MyPostData postData = okhttp.gson.fromJson(resStr, Bean_MyPostData.class);
+                        if (postData != null && postData.getRows() != null && postData.getRows().size() > 0) {
+                            list.addAll(postData.getRows());
+                            start += postData.getRows().size();
+                            adapter.notifyDataSetChanged();
+                            setListViewHeightBasedOnChildren(my_forum_posts_listview);
+                            if (postData.getRows().size() != limit) {//返回的不够10条时，说明数据库已经查询到了所有的数据，不能再次请求
+                                isEnd = true;
+                                my_forum_post_loadinglayout.setVisibility(View.GONE);
+                            } else {
+                                isEnd = false;
+                                my_forum_post_loadinglayout.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            toast.toast_gsonEmpty(con);
                             my_forum_post_loadinglayout.setVisibility(View.GONE);
                         }
-                        else {
-                            isEnd=false;
-                            my_forum_post_loadinglayout.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    else {
-                        toast.toast_gsonEmpty(con);
-                        my_forum_post_loadinglayout.setVisibility(View.GONE);
-                    }
 
-                        }
-                    catch (Exception e){
-                            toast.toast_gsonFaild(con);
-                            e.printStackTrace();
-                                    }
+                    } catch (Exception e) {
+                        toast.toast_gsonFaild(con);
+                        e.printStackTrace();
+                    }
                     my_forum_posts_listview.setEmpty();
                     break;
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,31 +110,31 @@ public class My_forumPosts_Activity extends MyActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        start=0;
+        start = 0;
         list.clear();
         getPostData(start);//获取我的帖子
 
     }
 
     private void initView() {
-        list=new ArrayList<>();
-        my_forum_posts_listview= (MyEmptyListView) findViewById(R.id.my_forum_posts_listview);
-        adapter=new My_forumPosts_Adapter(list,con);
+        list = new ArrayList<>();
+        my_forum_posts_listview = (MyEmptyListView) findViewById(R.id.my_forum_posts_listview);
+        adapter = new My_forumPosts_Adapter(list, con);
         my_forum_posts_listview.setAdapter(adapter);
         setListViewHeightBasedOnChildren(my_forum_posts_listview);
         my_forum_posts_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent();
-                intent.setClass(My_forumPosts_Activity.this,CardMessageActivity.class);
-                intent.putExtra("id",list.get(position).getId());
+                Intent intent = new Intent();
+                intent.setClass(My_forumPosts_Activity.this, CardMessageActivity.class);
+                intent.putExtra("id", list.get(position).getId());
                 startActivity(intent);
             }
         });
 
-        my_forum_post_loadinglayout= (RelativeLayout) findViewById(R.id.my_forum_post_loadinglayout);
-        my_forum_post_loading_textv= (TextView) findViewById(R.id.my_forum_post_loading_textv);
-        my_forum_post_progress= (ProgressBar) findViewById(R.id.my_forum_post_progress);
+        my_forum_post_loadinglayout = (RelativeLayout) findViewById(R.id.my_forum_post_loadinglayout);
+        my_forum_post_loading_textv = (TextView) findViewById(R.id.my_forum_post_loading_textv);
+        my_forum_post_progress = (ProgressBar) findViewById(R.id.my_forum_post_progress);
         my_forum_post_loadinglayout.setVisibility(View.GONE);
         setPro(1);
         my_forum_post_loadinglayout.setOnClickListener(new View.OnClickListener() {
@@ -150,14 +148,15 @@ public class My_forumPosts_Activity extends MyActivity {
 
     //获取我的帖子
     public void getPostData(int st) {
-        Log.i("当前start===",st+"");
+//        MyDialog.showDialog(My_forumPosts_Activity.this);
+        Log.i("当前start===", st + "");
         my_forum_post_loadinglayout.setClickable(false);
         setPro(0);
-        Map<String,String> mp=new HashMap<>();
+        Map<String, String> mp = new HashMap<>();
         mp.put("token", UserInfo.UserToken);
-        mp.put("start",st+"");
-        mp.put("limit",""+limit);
-        okhttp.getCall(Ip.URL+Ip.interface_MyPostData,mp,okhttp.OK_GET).enqueue(new Callback() {
+        mp.put("start", st + "");
+        mp.put("limit", "" + limit);
+        okhttp.getCall(Ip.URL + Ip.interface_MyPostData, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
@@ -165,15 +164,15 @@ public class My_forumPosts_Activity extends MyActivity {
 
             @Override
             public void onResponse(Response response) throws IOException {
-                    resStr=response.body().string();
-                Log.i("获取我的帖子---",resStr);
-                    handler.sendEmptyMessage(1);
+                resStr = response.body().string();
+                Log.i("获取我的帖子---", resStr);
+                handler.sendEmptyMessage(1);
             }
         });
     }
 
-    private  void setPro(int state){
-        switch (state){
+    private void setPro(int state) {
+        switch (state) {
             case 0://正在加载的时候
                 my_forum_post_progress.setVisibility(View.VISIBLE);
                 my_forum_post_loading_textv.setText("正在加载。。。");
@@ -184,7 +183,6 @@ public class My_forumPosts_Activity extends MyActivity {
                 break;
         }
     }
-
 
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -211,8 +209,8 @@ public class My_forumPosts_Activity extends MyActivity {
 
     //发布帖子
     public void setPost(View view) {
-        Intent intent=new Intent();
-        intent.setClass(this,PostActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(this, PostActivity.class);
 //        intent.putExtra("type","0");
         startActivity(intent);
     }
@@ -220,10 +218,10 @@ public class My_forumPosts_Activity extends MyActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==0){
-            if (resultCode==0){
+        if (requestCode == 0) {
+            if (resultCode == 0) {
                 list.clear();
-                start=0;
+                start = 0;
                 getPostData(start);
             }
         }

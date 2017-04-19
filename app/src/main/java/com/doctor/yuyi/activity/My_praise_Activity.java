@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.Ip.Ip;
+import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_PraiseAdapter;
@@ -60,7 +61,6 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
                     my_praise_listview.setError();
                     my_praise_loading_layout.setClickable(true);
                     setLoading(1);
-//                    toast.toast_faild(con);
                     break;
                 case 1:
                     my_praise_loading_layout.setClickable(true);
@@ -82,7 +82,6 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
                             }
                         }
                         else {
-//                            toast.toast_gsonEmpty(con);
                             my_praise_loading_layout.setVisibility(View.GONE);
                         }
 
@@ -154,6 +153,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
     }
 
     public void getPraiseData(int star) {
+//        MyDialog.showDialog(My_praise_Activity.this);
         Log.i("start----",star+"");
         my_praise_loading_layout.setClickable(false);
         setLoading(0);

@@ -40,6 +40,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,14 +82,16 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                         if (isFlag){//头部一些信息只加载一次
 
                             //分享时需要的图片和内容
-//                            image = new UMImage(CardMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片
-//                            thumb = new UMImage(CardMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
-//                            image.setThumb(thumb);//图片设置缩略图
-//                            image.compressStyle = UMImage.CompressStyle.SCALE;
-                            //title = mRoot.getTitle();
+                            image = new UMImage(CardMessageActivity.this, UrlTools.BASE + root.getResult().getPicture());//设置要分享的图片
+                            thumb = new UMImage(CardMessageActivity.this, UrlTools.BASE + root.getResult().getPicture());//设置分享图片的缩略图
+                            image.setThumb(thumb);//图片设置缩略图
+                            image.compressStyle = UMImage.CompressStyle.SCALE;
+                            title = root.getResult().getTitle();
                             content = root.getResult().getContent();
-
-
+                            umWeb=new UMWeb("http://www.baidu.com");
+                            umWeb.setTitle(title);
+                            umWeb.setThumb(thumb);
+                            umWeb.setDescription(content);
                             Log.e("=====","头部一些信息只加载一次");
                             Picasso.with(CardMessageActivity.this).load(UrlTools.BASE + root.getResult().getAvatar()).error(R.mipmap.error_small).into(mHead_img);
                             mName.setText(root.getResult().getTrueName());
@@ -198,6 +201,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
     private UMImage thumb;
     private String title;
     private String content;
+    private UMWeb umWeb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -309,15 +313,15 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
-                if ( content != null) {
-                    ShareUtils.share(this, this, content, image);
+                if ( content != null&&title!=null && umWeb!=null) {
+                    ShareUtils.share(this, this, umWeb);
                 }
 
             }
             //版本小于23时，不需要判断敏感权限，执行业务逻辑
         } else {
-            if (content != null) {
-                ShareUtils.share(this, this, content, image);
+            if (content != null&&title!=null && umWeb!=null) {
+                ShareUtils.share(this, this, umWeb);
             }
 
         }
@@ -332,8 +336,8 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                 //点击了允许，授权成功
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    if ( content != null) {
-                        ShareUtils.share(this, this, content, image);
+                    if ( content != null&&title!=null && umWeb!=null) {
+                        ShareUtils.share(this, this, umWeb);
                     }
                     //点击了拒绝，授权失败
                 } else {
