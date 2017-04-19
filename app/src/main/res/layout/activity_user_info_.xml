@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="20dp"
                 android:gravity="right|center_vertical"
-                android:text="@string/str_user_num"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="13sp"
                 android:layout_alignBaseline="@+id/textView5"
@@ -163,7 +163,7 @@
                 android:inputType="number"
                 android:paddingEnd="20dp"
                 android:hint="输入年龄"
-                android:text="26"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="13sp" />
         </RelativeLayout>
@@ -237,7 +237,7 @@
                 android:maxLength="18"
                 android:maxLines="1"
                 android:paddingEnd="20dp"
-                android:text="123456789012345678"
+                android:text=""
                 android:hint="身份证号"
                 android:textColor="@color/color_press"
                 android:textSize="13sp"
@@ -270,7 +270,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
-                android:text="@string/str_user_boy"
+                android:text=""
                 android:id="@+id/user_editor_sex"
                 android:textColor="@color/color_press"
                 android:textSize="13sp" />

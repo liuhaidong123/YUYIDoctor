@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:gravity="center"
-            android:text="@string/forumposts_title"
+            android:text=""
             android:textSize="@dimen/textSize14"
             android:maxLines="2"
             android:ellipsize="end"
@@ -30,7 +30,6 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/doc"
                 />
 
             <TextView
@@ -40,7 +39,7 @@
                 android:ellipsize="end"
                 android:textColor="#6a6a6a"
                 android:textSize="13sp"
-                android:text="@string/forumposts_content"
+                android:text=""
                 android:id="@+id/forumpost_listitem_content"/>
 
         </LinearLayout>
@@ -49,15 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
-            <TextView
-                android:text="3小时前"
-                android:textColor="#cccccc"
-                android:textSize="11sp"
-                android:id="@+id/forumpost_listitem_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                />
+
             <LinearLayout
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
@@ -72,15 +63,16 @@
                 android:id="@+id/forumposts_listview_item_msgImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#cccccc"
-                android:text="231"
-                android:id="@+id/forumposts_listview_item_msgNum"
-                android:textSize="11sp"
-                />
-        </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#cccccc"
+                    android:text=""
+                    android:id="@+id/forumposts_listview_item_msgNum"
+                    android:textSize="11sp"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:gravity="center_vertical"
@@ -104,10 +96,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#cccccc"
-                    android:text="2112"
+                    android:text=""
                     android:textSize="11sp"
                     />
             </LinearLayout>
+
+            <TextView
+                android:text=""
+                android:textColor="#cccccc"
+                android:textSize="11sp"
+                android:id="@+id/forumpost_listitem_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
     </LinearLayout>
 
