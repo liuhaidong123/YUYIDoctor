@@ -7,7 +7,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="13sp"
-    android:text="张三"
+    android:text=""
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
     android:textColor="#aaa9a9"/>

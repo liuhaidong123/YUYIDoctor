@@ -9,13 +9,12 @@
         <com.doctor.yuyi.lzh_utils.RoundImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/doc"
             android:layout_centerVertical="true"
             android:id="@+id/my_patientList_image"
             />
         <TextView
             android:layout_marginLeft="15dp"
-            android:text="张三"
+            android:text=""
             android:textColor="#333333"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/my_patientList_image"

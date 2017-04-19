@@ -78,7 +78,7 @@
                         android:inputType="number"
                         android:maxLength="11"
                         android:paddingBottom="0dp"
-                        android:text="17734862622"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="12sp" />
                 </RelativeLayout>
