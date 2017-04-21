@@ -13,11 +13,11 @@ import com.doctor.yuyi.R;
 import com.doctor.yuyi.activity.InformationMessageActivity;
 import com.doctor.yuyi.bean.AdBean.Result;
 import com.doctor.yuyi.bean.MyEntity;
+import com.doctor.yuyi.fragment.InformationFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -28,7 +28,7 @@ public class AdViewPagerAdapter extends PagerAdapter {
     private List<Result> mList = new ArrayList<>();
     private Context mContext;
     private LayoutInflater mInflater;
-    private int mPotision;
+
     public AdViewPagerAdapter(List<Result> mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
@@ -41,7 +41,7 @@ public class AdViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return  mList.size() == 1 ? 1 : Integer.MAX_VALUE;
+        return mList.size() == 1 ? 1 : Integer.MAX_VALUE;
     }
 
     @Override
@@ -53,13 +53,12 @@ public class AdViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.ad_viewpager, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.img_ad);
-        Picasso.with(mContext).load(UrlTools.BASE+mList.get(position % mList.size()).getPicture()).error(R.mipmap.error_small).into(imageView);
-        mPotision = position % mList.size();
+        Picasso.with(mContext).load(UrlTools.BASE + mList.get(InformationFragment.mSelectPosition).getPicture()).error(R.mipmap.error_small).into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, InformationMessageActivity.class);
-                intent.putExtra("id",mList.get(mPotision).getId());
+                Intent intent = new Intent(mContext, InformationMessageActivity.class);
+                intent.putExtra("id", mList.get(InformationFragment.mSelectPosition).getId());
                 mContext.startActivity(intent);
             }
         });
