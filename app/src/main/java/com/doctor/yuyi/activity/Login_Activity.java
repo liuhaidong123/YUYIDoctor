@@ -81,6 +81,9 @@ public class Login_Activity extends Activity {
                     startActivity(new Intent(Login_Activity.this,MainActivity.class));
                     finish();
                         }
+                        else if ("-1".equals(login.getCode())){
+                            Toast.makeText(Login_Activity.this,"验证码错误",Toast.LENGTH_SHORT).show();
+                        }
                         else {
                             Toast.makeText(Login_Activity.this,"登陆失败",Toast.LENGTH_SHORT).show();
                         }
