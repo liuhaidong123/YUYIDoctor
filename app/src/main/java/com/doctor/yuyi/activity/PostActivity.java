@@ -207,9 +207,13 @@ public class PostActivity extends AppCompatActivity {
 //        post_Edi_content.setText("内容");
             String title=post_Edi_title.getText().toString();
             String content=post_Edi_content.getText().toString();
+
             if (!"".equals(title)&&!TextUtils.isEmpty(title)
                     &&!"".equals(content)&&!TextUtils.isEmpty(content)){
-
+                if (content.length()>1000){
+                    Toast.makeText(PostActivity.this,"发帖内容不能大于1000个字",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (list!=null&&list.size()>0){
                     Log.i("----list.size----",""+list.size());
                     for (int i=0;i<list.size();i++){
