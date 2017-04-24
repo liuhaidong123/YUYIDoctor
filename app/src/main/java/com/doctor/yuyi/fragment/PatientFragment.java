@@ -68,14 +68,13 @@ public class PatientFragment extends Fragment {
                             mRefreshBox.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        ToastUtils.myToast(getContext(), "对不起，您没有权限");
+                        ToastUtils.myToast(getActivity(), "对不起，您没有权限");
                     }
                 }
             } else if (msg.what == 114) {
                 mRefreshBox.setVisibility(View.GONE);
                 mBar.setVisibility(View.INVISIBLE);
                 mRefresh.setRefreshing(false);
-                ToastUtils.myToast(getContext(), "患者数据错误");
             }
         }
     };
@@ -112,7 +111,7 @@ public class PatientFragment extends Fragment {
         titleText.setText("我的患者");
         activity_include_imageReturn = (ImageView) view.findViewById(R.id.activity_include_imageReturn);
         activity_include_imageReturn.setVisibility(View.GONE);
-        adapter = new FragmentMyPatientListAdapter(getContext(), mList);
+        adapter = new FragmentMyPatientListAdapter(getActivity(), mList);
         my_patient_listview.setAdapter(adapter);
 
         //加载更多
@@ -130,7 +129,7 @@ public class PatientFragment extends Fragment {
         my_patient_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), PatientMessageActivity.class);
+                Intent intent = new Intent(getActivity(), PatientMessageActivity.class);
                 intent.putExtra("humeuserId", mList.get(position).getId());
                 startActivity(intent);
             }

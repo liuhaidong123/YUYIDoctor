@@ -53,15 +53,19 @@ public class AdViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.ad_viewpager, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.img_ad);
-        Picasso.with(mContext).load(UrlTools.BASE + mList.get(InformationFragment.mSelectPosition).getPicture()).error(R.mipmap.error_small).into(imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, InformationMessageActivity.class);
-                intent.putExtra("id", mList.get(InformationFragment.mSelectPosition).getId());
-                mContext.startActivity(intent);
-            }
-        });
+
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(InformationFragment.mSelectPosition).getPicture()).error(R.mipmap.error_small).into(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mList!=null&&mList.size()>0){
+                        Intent intent = new Intent(mContext, InformationMessageActivity.class);
+                        intent.putExtra("id", mList.get(InformationFragment.mSelectPosition).getId());
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
+
         container.addView(view);
         return view;
     }

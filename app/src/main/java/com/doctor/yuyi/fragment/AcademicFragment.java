@@ -120,7 +120,6 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 MyDialog.stopDia();
                 mBar.setVisibility(View.INVISIBLE);
                 mMany_Box.setVisibility(View.GONE);
-                ToastUtils.myToast(getContext(), "数据错误");
             }
         }
     };
@@ -169,14 +168,14 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         showHotLine();//刚开始显示热门
         //适配器
         mListview = (InformationListView) view.findViewById(R.id.circle_listview);
-        mAdapter = new CircleAdpater(getContext(), mList);
+        mAdapter = new CircleAdpater(getActivity(), mList);
 
         mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.circle_refresh);
         mRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.color_blood);
         mRefresh.setRefreshing(true);
 
         //精选适配器
-        mSelectAdapter = new CircleSelectAda(this.getContext(), mSelectList);
+        mSelectAdapter = new CircleSelectAda(this.getActivity(), mSelectList);
         //发帖
         mPostImg = (ImageView) view.findViewById(R.id.post_img);
         mPostImg.setOnClickListener(this);
@@ -187,7 +186,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == mHot_tv.getId()) {//热门
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mFlag = 0;
             mStart = 0;
             mHttptools.circleHot(mHandler, mStart, mLimit, UserInfo.UserToken);
@@ -198,7 +197,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mListview.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         } else if (id == mSelect_tv.getId()) {//精选
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mFlag = 1;
             mStart = 0;
             mHttptools.circleSelect(mHandler, mStart, mLimit, UserInfo.UserToken);
@@ -209,7 +208,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mListview.setAdapter(mSelectAdapter);
             mSelectAdapter.notifyDataSetChanged();
         } else if (id == mNew_tv.getId()) {//最新
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mFlag = 2;
             mStart = 0;
             mHttptools.circleNew(mHandler, mStart, mLimit, UserInfo.UserToken);
@@ -220,7 +219,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mListview.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         } else if (id == mPostImg.getId()) {//发帖
-            startActivity(new Intent(getContext(), PostActivity.class));
+            startActivity(new Intent(getActivity(), PostActivity.class));
         } else if (id == mMany_Box.getId()) {//加载更多
             mStart += 10;
             mBar.setVisibility(View.VISIBLE);
@@ -232,7 +231,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 mHttptools.circleNew(mHandler, mStart, mLimit, UserInfo.UserToken);
             }
         } else if (id == mMessage_img.getId()) {//发帖
-            startActivity(new Intent(getContext(), My_message_Activity.class));
+            startActivity(new Intent(getActivity(), My_message_Activity.class));
         }
     }
 

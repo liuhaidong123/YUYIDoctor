@@ -108,7 +108,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     }
                 }
             } else if (msg.what == 101) {
-                ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
+
             } else if (msg.what == 6) {//点赞
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.InformationPraise.Root) {
@@ -135,21 +135,21 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     }
                 }
             } else if (msg.what == 105) {
-                ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
+
             }
             else if (msg.what == 16) {//分享接口
                 Object o = msg.obj;
                 if (o!=null&& o instanceof com.doctor.yuyi.bean.ShareBean.Root){
                     com.doctor.yuyi.bean.ShareBean.Root root= (com.doctor.yuyi.bean.ShareBean.Root) o;
                     if (root.getCode().equals("0")){
-                        //mShare_tv.setText(Integer.valueOf(mShare_tv.getText().toString())+1+"");
+
                     }else {
 
                     }
                 }
 
             }else if (msg.what == 116) {
-                ToastUtils.myToast(InformationMessageActivity.this, "数据错误");
+
             }
         }
     };

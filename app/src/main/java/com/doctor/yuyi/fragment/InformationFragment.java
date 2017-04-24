@@ -71,8 +71,13 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 mAdHandler.removeMessages(1);
             }
             if (msg.what == 1) {
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                mAdHandler.sendEmptyMessageDelayed(1, 3000);
+                if (mAdList.size()>1){
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                    if (isLoop){
+                        mAdHandler.sendEmptyMessageDelayed(1, 3000);
+                    }
+                }
+
             }
         }
     };
@@ -87,6 +92,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
                     if (root.getCode().equals("0")) {
+                        mAdList.clear();
+                        mGroup.removeAllViews();
                         mRefreshLayout.setRefreshing(false);
                         mAdList = root.getResult();
                         mImgAapter.setmList(mAdList);
@@ -98,7 +105,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 }
             } else if (msg.what == 100) {
                 mRefreshLayout.setRefreshing(false);
-                ToastUtils.myToast(getContext(), "广告数据错误");
+                ToastUtils.myToast(getActivity(), "广告数据错误");
             } else if (msg.what == 3) {//今日推荐,最新，热门
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.TodayRecommendBean.Root) {
@@ -127,7 +134,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 MyDialog.stopDia();
                 mBar.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setRefreshing(false);
-                ToastUtils.myToast(getContext(), "今日数据错误");
+                ToastUtils.myToast(getActivity(), "今日数据错误");
             }
         }
     };
@@ -138,7 +145,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private int mFlag = 0;
 
     public static int mSelectPosition;
-
+    public boolean isLoop = true;
     public InformationFragment() {
 
     }
@@ -149,7 +156,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         View view = null;
         view = inflater.inflate(R.layout.fragment_information, container, false);
         init(view);
-
         return view;
     }
 
@@ -204,12 +210,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 showTodayLine();//刷新的时候回到今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
 
-                mHttptools.getADMessage(mHttpHandler);//获取广告数据
-                mAdList.clear();
-                mImgAapter.notifyDataSetChanged();
-                mGroup.removeAllViews();
                 mSelectPosition = 0;
                 mViewPager.clearOnPageChangeListeners();
+                mHttptools.getADMessage(mHttpHandler);//获取广告数据
             }
         });
 
@@ -217,7 +220,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getContext(), InformationMessageActivity.class);
+        Intent intent = new Intent(getActivity(), InformationMessageActivity.class);
         intent.putExtra("id", mList.get(position).getId());
         startActivity(intent);
 
@@ -230,7 +233,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mFlag = 0;
             mStart = 0;
             showTodayLine();
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mList.clear();
             mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);
             mFirstPageAdapter.setmList(mList);
@@ -240,7 +243,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mFlag = 1;
             mStart = 0;
             showNewLine();
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mList.clear();
             mHttptools.getNew(mHttpHandler, mStart, mLimit);
             mFirstPageAdapter.setmList(mList);
@@ -249,7 +252,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         } else if (id == mHot_tv.getId()) {//热门
             mFlag = 2;
             mStart = 0;
-            MyDialog.showDialog(this.getContext());
+            MyDialog.showDialog(this.getActivity());
             mList.clear();
             mHttptools.getHot(mHttpHandler, mStart, mLimit);
             showHotLine();
@@ -283,9 +286,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.GONE);
         mNew_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_username));
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_normal));
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_normal));
     }
 
     //显示最新
@@ -367,7 +370,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             //将小圆点根据条件添加到容器中
             mArrImageView = new ImageView[mAdList.size()];
             for (int i = 0; i < mAdList.size(); i++) {
-                mCircleImg = new ImageView(this.getContext());
+                mCircleImg = new ImageView(this.getActivity());
                 //小圆点的布局
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMarginStart(14);
@@ -412,5 +415,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        isLoop=false;
+        super.onDestroy();
+    }
 }

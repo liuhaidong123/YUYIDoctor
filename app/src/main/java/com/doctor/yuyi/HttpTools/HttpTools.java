@@ -72,6 +72,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "广告数据获取失败" + strMsg.toString());
                 handler.sendEmptyMessage(100);
             }
@@ -111,6 +114,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "广告详情失败" + strMsg.toString());
                 handler.sendEmptyMessage(101);
             }
@@ -154,6 +160,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "今日推荐失败" + strMsg.toString());
                 handler.sendEmptyMessage(102);
             }
@@ -195,6 +204,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "最新" + strMsg.toString());
                 handler.sendEmptyMessage(102);
             }
@@ -237,6 +249,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "热门" + strMsg.toString());
                 handler.sendEmptyMessage(102);
             }
@@ -279,6 +294,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "获取评论列表失败" + strMsg.toString());
                 handler.sendEmptyMessage(103);
             }
@@ -321,6 +339,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "提交评论失败" + strMsg.toString());
                 handler.sendEmptyMessage(104);
             }
@@ -360,6 +381,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "资讯点赞失败" + strMsg.toString());
                 handler.sendEmptyMessage(105);
             }
@@ -399,6 +423,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 学术圈热门失败" + strMsg.toString());
                 handler.sendEmptyMessage(106);
             }
@@ -438,6 +465,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 学术圈精选失败" + strMsg.toString());
                 handler.sendEmptyMessage(107);
             }
@@ -476,6 +506,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 学术圈最新失败" + strMsg.toString());
                 handler.sendEmptyMessage(106);
             }
@@ -514,6 +547,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "  学术圈最新,精选，热门详情" + strMsg.toString());
                 handler.sendEmptyMessage(108);
             }
@@ -553,6 +589,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", "  学术圈最新,精选，热门点赞" + strMsg.toString());
                 handler.sendEmptyMessage(109);
             }
@@ -593,6 +632,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 患者数据接口" + strMsg.toString());
                 handler.sendEmptyMessage(110);
             }
@@ -632,6 +674,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 患者电子病历" + strMsg.toString());
                 handler.sendEmptyMessage(111);
             }
@@ -671,6 +716,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 学术圈详情评论" + strMsg.toString());
                 handler.sendEmptyMessage(112);
             }
@@ -710,6 +758,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 学术圈详情评论点赞" + strMsg.toString());
                 handler.sendEmptyMessage(113);
             }
@@ -749,6 +800,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 我的患者接口" + strMsg.toString());
                 handler.sendEmptyMessage(114);
             }
@@ -792,6 +846,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 帖子详情分享接口" + strMsg.toString());
                 handler.sendEmptyMessage(115);
             }
@@ -834,6 +891,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure", " 资讯详情分享接口" + strMsg.toString());
                 handler.sendEmptyMessage(116);
             }

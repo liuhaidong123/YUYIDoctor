@@ -66,7 +66,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    toast.toast_faild(getContext());
+                    toast.toast_faild(getActivity());
                     break;
                 case 1:
                     try{
@@ -100,10 +100,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                                 my_textV_ksName.setText("科室名称");
                             }
 
-                            Picasso.with(getContext()).load(Ip.URL+info.getPhysician().getAvatar()).error(R.mipmap.doc).into(my_image_photo);
+                            Picasso.with(getActivity()).load(Ip.URL+info.getPhysician().getAvatar()).error(R.mipmap.doc).into(my_image_photo);
                         }
                         else {
-//                            Toast.makeText(getContext(),"")
                             toast.toast_gsonFaild(getActivity());
                             Log.e("获取个人信息失败","---MyFragment---");
 

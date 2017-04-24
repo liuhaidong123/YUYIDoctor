@@ -912,12 +912,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_loading.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ad_list_video_icon.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ad_list_video_icon.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_phone_pressed.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_phone_pressed.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ad_list_video_icon.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ad_list_video_icon.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f4a3.png",
@@ -936,12 +936,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_real_time_location_hide.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_plugin_location_pressed.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ext_plugin_location_pressed.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_rt_location_arrow.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_rt_location_arrow.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_plugin_location_pressed.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ext_plugin_location_pressed.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f332.png",

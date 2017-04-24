@@ -248,6 +248,7 @@
             android:imeOptions="actionSend"
             android:inputType="text"
             android:maxLines="1"
+            android:maxLength="500"
             android:textColor="@color/color_bg"
             android:textSize="15sp" />
     </RelativeLayout>
