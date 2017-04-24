@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,6 +137,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private int mLimit = 10;
     private int mFlag = 0;
 
+    public static int mSelectPosition;
 
     public InformationFragment() {
 
@@ -154,7 +156,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     //初始化数据
     public void init(View view) {
 
-
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getADMessage(mHttpHandler);//获取广告数据
         mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
@@ -162,7 +163,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager_title);
         mImgAapter = new AdViewPagerAdapter(mAdList, getContext());
         mViewPager.setCurrentItem(0);
-        //初始化存放小圆点的容器与viewpager
+        //初始化存放小圆点的容器
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
 
         //今日推荐，最新，热门
@@ -202,6 +203,13 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 mList.clear();
                 showTodayLine();//刷新的时候回到今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
+
+                mHttptools.getADMessage(mHttpHandler);//获取广告数据
+                mAdList.clear();
+                mImgAapter.notifyDataSetChanged();
+                mGroup.removeAllViews();
+                mSelectPosition = 0;
+                mViewPager.clearOnPageChangeListeners();
             }
         });
 
@@ -328,6 +336,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onPageSelected(int position) {
         setImageBackground(position % mAdList.size());
+        mSelectPosition = position % mAdList.size();
+        Log.e("当前广告下标---", position % mAdList.size() + "");
     }
 
     //滑动状态改变
@@ -378,11 +388,12 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 //将每一个小圆点添加到容器中
                 mGroup.addView(mCircleImg);
             }
+            if (mAdList.size() > 1) {
+                mViewPager.addOnPageChangeListener(this);
+                mAdHandler.sendEmptyMessageDelayed(1, 3000);
+            }
         }
-        if (mAdList.size() > 1) {
-            mViewPager.addOnPageChangeListener(this);
-            mAdHandler.sendEmptyMessageDelayed(1, 3000);
-        }
+
     }
 
 

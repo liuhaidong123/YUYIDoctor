@@ -230,12 +230,12 @@
             android:value="Umeng">
         </meta-data>
 
-
-        <receiver android:name=".broadcast.BroadCastYUYI">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
+        <!--网络变化-->
+        <!--<receiver android:name=".broadcast.BroadCastYUYI">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity android:name=".activity.PatientMessageActivity" />
 

@@ -67,7 +67,7 @@ public class MyApplication extends Application{
         Config.DEBUG = true;
         list = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= 14) {//4.0以上
-            JPushInterface.setDebugMode(true);
+//            JPushInterface.setDebugMode(false);
             JPushInterface.init(getApplicationContext());
 
             list = new ArrayList<>();

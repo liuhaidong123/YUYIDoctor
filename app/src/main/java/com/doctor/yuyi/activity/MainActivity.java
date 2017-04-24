@@ -1,6 +1,9 @@
 package com.doctor.yuyi.activity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doctor.yuyi.MyUtils.SharedPreferencesUtils;
+import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.RongCloudUtils.RongConnection;
 import com.doctor.yuyi.broadcast.BroadCastYUYI;
@@ -54,16 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String noPressColor = "#666666";
 
     private long time = 0;
-    private BroadCastYUYI mBroadCast;
-    public static SharedPreferencesUtils sharedPreferencesUtils;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mBroadCast = BroadCastYUYI.getBroadcastinstance(this);
-        sharedPreferencesUtils = SharedPreferencesUtils.getSharedPreferencesUtils(this);
         initView();
         showInformationFragment();
         RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+            if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (informationFragment != null) {//显示资讯
                 fragmentTransaction.show(informationFragment);
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (academicFragment != null) {//显示学术圈
                 fragmentTransaction.show(academicFragment);
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (patientFragment != null) {//显示患者
                 fragmentTransaction.show(patientFragment);
@@ -413,5 +413,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JPushInterface.onPause(this);
     }
 
+    /**
+     * 判断有没有网
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
 
 }

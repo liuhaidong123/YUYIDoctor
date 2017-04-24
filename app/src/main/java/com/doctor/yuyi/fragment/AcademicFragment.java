@@ -94,7 +94,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 mRefresh.setEnabled(false);
                 mMany_Box.setVisibility(View.GONE);
                 mBar.setVisibility(View.INVISIBLE);
-                ToastUtils.myToast(getContext(), "数据错误");
+
             } else if (msg.what == 8) {//学术圈精选
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.CircleBean.SelectBean.Root) {
