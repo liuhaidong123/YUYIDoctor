@@ -184,7 +184,7 @@ public class My_PraiseAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 int pos= (int) v.getTag();
-                    Toast.makeText(context,"取消点赞",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"取消点赞",Toast.LENGTH_SHORT).show();
                 if (isDelete==false){
                     removePraise(pos);
                 }
@@ -210,9 +210,7 @@ public class My_PraiseAdapter extends BaseAdapter{
                     intent.putExtra("id",list.get(pos).getContentId());
                     Log.i("id---",list.get(pos).getContentId()+"");
                 }
-                Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
-
-
+//                Toast.makeText(context,"评论",Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
         });

@@ -90,7 +90,6 @@ public class BitMapUtils {
         //该属性设置为true只会加载图片的边框进来，并不会加载图片具体的像素点
         options.inJustDecodeBounds = true;
         //第一次加载图片，这时只会加载图片的边框进来，并不会加载图片中的像素点
-
         BitmapFactory.decodeFile(f.getAbsolutePath(), options);
         //获得原图的宽和高
         int outWidth = options.outWidth;
@@ -129,41 +128,41 @@ public class BitMapUtils {
 
 
 
-    public static Bitmap imageZoom(Bitmap bitmap,double maxSize) {
-        //图片允许最大空间   单位：KB
-        //将bitmap放至数组中，意在bitmap的大小（与实际读取的原文件要大）
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] b = baos.toByteArray();
-        //将字节换成KB
-        double mid = b.length/1024;
-        Log.i("--------",mid+"------");
-        //判断bitmap占用空间是否大于允许最大空间  如果大于则压缩 小于则不压缩
-        if (mid > maxSize) {
-            //获取bitmap大小 是允许最大大小的多少倍
-            double i = mid / maxSize;
-            //开始压缩  此处用到平方根 将宽带和高度压缩掉对应的平方根倍 （1.保持刻度和高度和原bitmap比率一致，压缩后也达到了最大大小占用空间的大小）
-            bitmap = zoomImage(bitmap, bitmap.getWidth() / Math.sqrt(i),
-                    bitmap.getHeight() / Math.sqrt(i));
-            }
-        return bitmap;
-    }
+//    public static Bitmap imageZoom(Bitmap bitmap,double maxSize) {
+//        //图片允许最大空间   单位：KB
+//        //将bitmap放至数组中，意在bitmap的大小（与实际读取的原文件要大）
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+//        byte[] b = baos.toByteArray();
+//        //将字节换成KB
+//        double mid = b.length/1024;
+//        Log.i("--------",mid+"------");
+//        //判断bitmap占用空间是否大于允许最大空间  如果大于则压缩 小于则不压缩
+//        if (mid > maxSize) {
+//            //获取bitmap大小 是允许最大大小的多少倍
+//            double i = mid / maxSize;
+//            //开始压缩  此处用到平方根 将宽带和高度压缩掉对应的平方根倍 （1.保持刻度和高度和原bitmap比率一致，压缩后也达到了最大大小占用空间的大小）
+//            bitmap = zoomImage(bitmap, bitmap.getWidth() / Math.sqrt(i),
+//                    bitmap.getHeight() / Math.sqrt(i));
+//            }
+//        return bitmap;
+//    }
 
 
-
-    private static Bitmap zoomImage(Bitmap bgimage, double newWidth,
-                                   double newHeight) {
-        // 获取这个图片的宽和高
-        float width = bgimage.getWidth();
-        float height = bgimage.getHeight();
-        // 创建操作图片用的matrix对象
-        Matrix matrix = new Matrix();
-        // 计算宽高缩放率
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // 缩放图片动作
-        matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(bgimage, 0, 0, (int) width,
-                (int) height, matrix, true);
-    }
+//
+//    private static Bitmap zoomImage(Bitmap bgimage, double newWidth,
+//                                   double newHeight) {
+//        // 获取这个图片的宽和高
+//        float width = bgimage.getWidth();
+//        float height = bgimage.getHeight();
+//        // 创建操作图片用的matrix对象
+//        Matrix matrix = new Matrix();
+//        // 计算宽高缩放率
+//        float scaleWidth = ((float) newWidth) / width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        // 缩放图片动作
+//        matrix.postScale(scaleWidth, scaleHeight);
+//        return Bitmap.createBitmap(bgimage, 0, 0, (int) width,
+//                (int) height, matrix, true);
+//    }
 }

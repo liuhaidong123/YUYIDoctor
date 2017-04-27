@@ -212,12 +212,13 @@ public class PostActivity extends AppCompatActivity {
                     &&!"".equals(content)&&!TextUtils.isEmpty(content)){
                 if (content.length()>1000){
                     Toast.makeText(PostActivity.this,"发帖内容不能大于1000个字",Toast.LENGTH_SHORT).show();
+                    post_submit.setClickable(true);
                     return;
                 }
                 if (list!=null&&list.size()>0){
                     Log.i("----list.size----",""+list.size());
                     for (int i=0;i<list.size();i++){
-                            Bitmap bt= BitMapUtils.resizeImage2(Uri.fromFile(new File(list.get(i))),800,800);
+                            Bitmap bt= BitMapUtils.resizeImage2(Uri.fromFile(new File(list.get(i))),1000,1000);
 //                            bt=BitMapUtils.imageZoom(bt,800);
                         File f=saveFile(bt,i+"");
                             if (f!=null){
@@ -268,6 +269,7 @@ public class PostActivity extends AppCompatActivity {
             }
 
             else {
+                post_submit.setClickable(true);
                 Toast.makeText(PostActivity.this,"请补全标题或内容",Toast.LENGTH_SHORT).show();
             }
 
@@ -295,7 +297,6 @@ public class PostActivity extends AppCompatActivity {
           e.printStackTrace();
           return null;
       }
-
     }
 
     public void goBack(View view) {
