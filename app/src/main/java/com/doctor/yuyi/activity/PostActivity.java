@@ -212,6 +212,7 @@ public class PostActivity extends AppCompatActivity {
                     &&!"".equals(content)&&!TextUtils.isEmpty(content)){
                 if (content.length()>1000){
                     Toast.makeText(PostActivity.this,"发帖内容不能大于1000个字",Toast.LENGTH_SHORT).show();
+                    post_submit.setClickable(true);
                     return;
                 }
                 if (list!=null&&list.size()>0){
@@ -268,6 +269,7 @@ public class PostActivity extends AppCompatActivity {
             }
 
             else {
+                post_submit.setClickable(true);
                 Toast.makeText(PostActivity.this,"请补全标题或内容",Toast.LENGTH_SHORT).show();
             }
 
