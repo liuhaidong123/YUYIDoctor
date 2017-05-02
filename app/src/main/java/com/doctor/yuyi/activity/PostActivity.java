@@ -283,7 +283,6 @@ public class PostActivity extends AppCompatActivity {
         else {
             file=new File(getFilesDir(),fileName);
         }
-//            Log.i("----",file.getAbsolutePath());
 
         try{
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
@@ -102,12 +103,15 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
                             Picasso.with(getActivity()).load(Ip.URL+info.getPhysician().getAvatar()).error(R.mipmap.doc).into(my_image_photo);
                         }
+                        else if (info!=null&&"-1".equals(info.getCode())){
+//                            toast.toast_gsonFaild(getActivity());
+                            my_image_photo.setImageResource(R.mipmap.usererr);
+                            Toast.makeText(getActivity(), "您还没有在医院系统注册，无法获取个人信息", Toast.LENGTH_SHORT).show();
+//                            Log.e("获取个人信息失败","---MyFragment---");
+                        }
                         else {
                             toast.toast_gsonFaild(getActivity());
-                            Log.e("获取个人信息失败","---MyFragment---");
-
                         }
-
                     }
                     catch (Exception e){
                         e.printStackTrace();

@@ -65,4 +65,7 @@ public interface Ip {
 
     //获取搜索患者的结果http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5&trueName=1
     public final  static String interface_Searchpaint="homeuser/findAllUserList.do?";
+
+    //检查当前用户是否有权限接收视频，咨询的接口http://192.168.1.37:8080/yuyi/
+    public final static String interface_CheckPri="physician/doctoryrongyuntoken.do?";
 }
