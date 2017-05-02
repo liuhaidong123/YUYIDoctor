@@ -218,7 +218,7 @@ public class PostActivity extends AppCompatActivity {
                 if (list!=null&&list.size()>0){
                     Log.i("----list.size----",""+list.size());
                     for (int i=0;i<list.size();i++){
-                            Bitmap bt= BitMapUtils.resizeImage2(Uri.fromFile(new File(list.get(i))),800,800);
+                            Bitmap bt= BitMapUtils.resizeImage2(Uri.fromFile(new File(list.get(i))),1000,1000);
 //                            bt=BitMapUtils.imageZoom(bt,800);
                         File f=saveFile(bt,i+"");
                             if (f!=null){
@@ -283,7 +283,6 @@ public class PostActivity extends AppCompatActivity {
         else {
             file=new File(getFilesDir(),fileName);
         }
-//            Log.i("----",file.getAbsolutePath());
 
         try{
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
@@ -297,7 +296,6 @@ public class PostActivity extends AppCompatActivity {
           e.printStackTrace();
           return null;
       }
-
     }
 
     public void goBack(View view) {

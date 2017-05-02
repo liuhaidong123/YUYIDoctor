@@ -17,7 +17,7 @@ import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 public class RongConnection {
     private static Context con;
     //连接服务器
-public static void connRong(final Context context, String token){
+public static void connRong(final Context context, String token, final UserInfo info){
     con=context;
     if (context.getApplicationInfo().packageName.equals(getCurProcessName(context.getApplicationContext()))) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
@@ -38,8 +38,8 @@ public static void connRong(final Context context, String token){
             @Override
             public void onSuccess(String userid) {
                 RongUserInfo.RongId=userid;
-                Log.e("融云id获取成功----",""+userid);
-                UserInfo userInfo=new UserInfo("9","李师师", Uri.parse("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490873959821&di=4a36685a2bec6f1b7ecd006ff529e795&imgtype=0&src=http%3A%2F%2Fp.3761.com%2Fpic%2F29641417567978.jpg"));
+                Log.e("融云id获取成功--id--",""+userid);
+                UserInfo userInfo=new UserInfo(userid,info.getName(), info.getPortraitUri());
                 RongIM.getInstance().setCurrentUserInfo(userInfo);
             }
 

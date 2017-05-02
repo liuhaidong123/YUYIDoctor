@@ -4,10 +4,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,16 +20,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.MyUtils.SharedPreferencesUtils;
 import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.RongCloudUtils.RongConnection;
+import com.doctor.yuyi.User.UserInfo;
+import com.doctor.yuyi.bean.BeanPriRong;
 import com.doctor.yuyi.broadcast.BroadCastYUYI;
 import com.doctor.yuyi.fragment.AcademicFragment;
 import com.doctor.yuyi.fragment.ErrorFragment;
 import com.doctor.yuyi.fragment.InformationFragment;
 import com.doctor.yuyi.fragment.MyFragment;
 import com.doctor.yuyi.fragment.PatientFragment;
+import com.doctor.yuyi.lzh_utils.okhttp;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -59,15 +75,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private long time = 0;
 
+    private String resStr;
+    private Handler han=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    break;
+                case 1:
+                    try{
+                        BeanPriRong rong=okhttp.gson.fromJson(resStr,BeanPriRong.class);
+                       if (rong!=null){
+                           if (rong.getCode()==0){
+                               if (rong.isPermissionInfo()==true){
+                                   String name="医生";
+                                   String uri="http://img5.imgtn.bdimg.com/it/u=1482475142,4125104797&fm=23&gp=0.jpg";
+                                   if (rong.getTrueName()!=null&&!"".equals(rong.getTrueName())){
+                                    name=rong.getTrueName();
+                                   }
+                                   if (!"".equals(rong.getAvatar())&&!TextUtils.isEmpty(rong.getAvatar())){
+                                       uri=rong.getAvatar();
+                                   }
+                                   io.rong.imlib.model.UserInfo info=new io.rong.imlib.model.UserInfo(rong.getId()+"",name,Uri.parse(uri));
+                                   com.doctor.yuyi.User.UserInfo.RongToken=rong.getToken();
+                                   RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken,info);
+                               }
+                               else {
+                                   Log.e("当前医生无法接收到咨询xinxi ","mainActivity:医院未授予当前医生接收视频到权限");
+                               }
+                           }
+                           else if (rong.getCode()==-1){
+                               Log.e("当前用户信息无法查询到","mainActivity:当前用户没有在任何医院注册，请通知去注册");
+                           }
+                       }
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        CheckPri();//检查是否有权限去接听视频，有权限的链接融云
         showInformationFragment();
-        RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken);
+    }
+    //检查当前用户是否有权限接受视频，语音，聊天
+    private void CheckPri() {
+        Map<String,String>mp=new HashMap<>();
+        mp.put("telephone",UserInfo.UserName);
+        okhttp.getCall(Ip.URL+Ip.interface_CheckPri,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                han.sendEmptyMessage(0);
+            }
 
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resStr=response.body().string();
+                Log.i("聊天权限检查---",resStr);
+                han.sendEmptyMessage(1);
+            }
+        });
     }
 
 
@@ -320,7 +395,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.commit();
 
     }
-
 
     //点击资讯文字图片变化
     public void clickInformationBtnChangeTvColor() {

@@ -98,7 +98,7 @@ public class My_registration_Activity extends MyActivity {
                                 Toast.makeText(con, "请退出登陆后重试", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            toast.toast_gsonEmpty(con);
+//                            toast.toast_gsonEmpty(con);
                         }
                     } catch (Exception e) {
                         toast.toast_gsonFaild(con);
