@@ -24,12 +24,12 @@ public class MyReceiver extends BroadcastReceiver{
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
             Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
             //send the Registration Id to your server...
-            Toast.makeText(context,"注册的jpId=="+regId,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"注册的jpId=="+regId,Toast.LENGTH_SHORT).show();
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             String msg=bundle.getString(JPushInterface.EXTRA_MESSAGE);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + msg);
-            Toast.makeText(context,"接收到推送消息=="+msg,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"接收到推送消息=="+msg,Toast.LENGTH_SHORT).show();
         }
         else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction()))
         {
@@ -65,7 +65,7 @@ public class MyReceiver extends BroadcastReceiver{
 //            i.putExtras(bundle);
 //            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
 //            context.startActivity(i);
-            Toast.makeText(context,"用户点开了通知",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"用户点开了通知",Toast.LENGTH_SHORT).show();
 
             //通知附加字段的json字符串（通过解析附加字段可以判断通知的类型（与后台约定）然后做相应处理）
 //            String msg=bundle.getString(JPushInterface.EXTRA_EXTRA);     //通知的标题

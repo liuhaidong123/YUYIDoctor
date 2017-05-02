@@ -2,9 +2,5 @@
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/androidTest/debug/raw/voip_outgoing_ring.mp3",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/bundles/debug/res/raw/voip_outgoing_ring.mp3"
-    },
-    {
-        "merged": "/Users/hcq/Desktop/YUYIDoctor/CallKit/build/intermediates/res/merged/androidTest/debug/raw/voip_outgoing_ring.mp3",
-        "source": "/Users/hcq/Desktop/YUYIDoctor/CallKit/build/intermediates/bundles/debug/res/raw/voip_outgoing_ring.mp3"
     }
 ]
