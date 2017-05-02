@@ -105,7 +105,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 }
             } else if (msg.what == 100) {
                 mRefreshLayout.setRefreshing(false);
-                ToastUtils.myToast(getActivity(), "广告数据错误");
             } else if (msg.what == 3) {//今日推荐,最新，热门
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.TodayRecommendBean.Root) {
@@ -134,7 +133,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 MyDialog.stopDia();
                 mBar.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setRefreshing(false);
-                ToastUtils.myToast(getActivity(), "今日数据错误");
             }
         }
     };
