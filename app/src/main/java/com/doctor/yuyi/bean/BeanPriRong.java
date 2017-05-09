@@ -1,10 +1,9 @@
 package com.doctor.yuyi.bean;
-
 /**
- * Created by liuhaidong on 2017/5/2.
+ * Created by wanyu on 2017/4/27.
  */
-
 public class BeanPriRong {
+
     /**
      * code : 0
      * PermissionInfo : true
