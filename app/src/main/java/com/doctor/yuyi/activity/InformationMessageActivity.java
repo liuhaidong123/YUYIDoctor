@@ -64,7 +64,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     image.compressStyle = UMImage.CompressStyle.SCALE;
                     content = mRoot.getContent();
                     title=mRoot.getTitle();
-                    umWeb=new UMWeb("http://www.baidu.com");
+                    umWeb=new UMWeb("http://59.110.169.148:8080/static/html/sharejump.html");
                     umWeb.setTitle(title);//标题
                     umWeb.setThumb(thumb);  //缩略图
                     umWeb.setDescription(content);//描述

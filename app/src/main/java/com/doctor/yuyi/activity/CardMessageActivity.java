@@ -88,7 +88,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                             image.compressStyle = UMImage.CompressStyle.SCALE;
                             title = root.getResult().getTitle();
                             content = root.getResult().getContent();
-                            umWeb=new UMWeb("http://www.baidu.com");
+                            umWeb=new UMWeb("http://59.110.169.148:8080/static/html/sharejump.html");
                             umWeb.setTitle(title);
                             umWeb.setThumb(thumb);
                             umWeb.setDescription(content);

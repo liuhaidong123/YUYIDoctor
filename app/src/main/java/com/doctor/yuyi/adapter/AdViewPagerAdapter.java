@@ -3,6 +3,7 @@ package com.doctor.yuyi.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class AdViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mList.size() == 1 ? 1 : Integer.MAX_VALUE;
+        // return mList.size() == 1 ? 1 : Integer.MAX_VALUE;
+        return mList.size() == 1 ? 1 : mList.size();
     }
 
     @Override
@@ -50,21 +52,21 @@ public class AdViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.ad_viewpager, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.img_ad);
-
-            Picasso.with(mContext).load(UrlTools.BASE + mList.get(InformationFragment.mSelectPosition).getPicture()).error(R.mipmap.error_small).into(imageView);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mList!=null&&mList.size()>0){
-                        Intent intent = new Intent(mContext, InformationMessageActivity.class);
-                        intent.putExtra("id", mList.get(InformationFragment.mSelectPosition).getId());
-                        mContext.startActivity(intent);
-                    }
+        Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_small).into(imageView);
+        Log.e("下标是：position", position + "");
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mList != null && mList.size() > 0) {
+                    Intent intent = new Intent(mContext, InformationMessageActivity.class);
+                    intent.putExtra("id", mList.get(position).getId());
+                    mContext.startActivity(intent);
                 }
-            });
+            }
+        });
 
         container.addView(view);
         return view;

@@ -61,27 +61,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private ImageView[] mArrImageView;//存放广告小圆点的数组
     private ImageView mCircleImg;//广告小圆点
     private ViewGroup mGroup;//存放小圆点容器
-    private Handler mAdHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
-            if (mAdHandler.hasMessages(1)) {
-                mAdHandler.removeMessages(1);
-            }
-            if (msg.what == 1) {
-                if (mAdList.size()>1){
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                    if (isLoop){
-                        mAdHandler.sendEmptyMessageDelayed(1, 3000);
-                    }
-                }
-
-            }
-        }
-    };
-
 
     private Handler mHttpHandler = new Handler() {
         @Override
@@ -92,14 +71,17 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
                     if (root.getCode().equals("0")) {
-                        mAdList.clear();
-                        mGroup.removeAllViews();
-                        mRefreshLayout.setRefreshing(false);
-                        mAdList = root.getResult();
-                        mImgAapter.setmList(mAdList);
-                        mViewPager.setAdapter(mImgAapter);
-                        mImgAapter.notifyDataSetChanged();
-                        setADCircleImg();
+                        if (root.getResult().size()!=0){
+                            mAdList.clear();
+                            mGroup.removeAllViews();
+                            mRefreshLayout.setRefreshing(false);
+                            mAdList = root.getResult();
+                            mImgAapter.setmList(mAdList);
+                            mViewPager.setAdapter(mImgAapter);
+                            mImgAapter.notifyDataSetChanged();
+                            setADCircleImg();
+                        }
+
                     }
 
                 }
@@ -142,7 +124,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private int mLimit = 10;
     private int mFlag = 0;
 
-    public static int mSelectPosition;
     public boolean isLoop = true;
     public InformationFragment() {
 
@@ -208,7 +189,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 showTodayLine();//刷新的时候回到今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
 
-                mSelectPosition = 0;
                 mViewPager.clearOnPageChangeListeners();
                 mHttptools.getADMessage(mHttpHandler);//获取广告数据
             }
@@ -336,9 +316,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     //选定某一页时
     @Override
     public void onPageSelected(int position) {
-        setImageBackground(position % mAdList.size());
-        mSelectPosition = position % mAdList.size();
-        Log.e("当前广告下标---", position % mAdList.size() + "");
+        setImageBackground(position);
+        Log.e("当前position---",position + "");
     }
 
     //滑动状态改变
@@ -346,15 +325,12 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     public void onPageScrollStateChanged(int state) {
         //手指开始滑动
         if (state == mViewPager.SCROLL_STATE_DRAGGING) {
-            mAdHandler.removeMessages(1);
             mRefreshLayout.setEnabled(false);
             //手指松开后自动滑动
         } else if (state == mViewPager.SCROLL_STATE_SETTLING) {
-            mAdHandler.removeMessages(1);
             mRefreshLayout.setEnabled(true);
             //停在某一页
         } else {
-            mAdHandler.sendEmptyMessageDelayed(1, 3000);
             mRefreshLayout.setEnabled(true);
         }
     }
@@ -391,7 +367,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             }
             if (mAdList.size() > 1) {
                 mViewPager.addOnPageChangeListener(this);
-                mAdHandler.sendEmptyMessageDelayed(1, 3000);
             }
         }
 
