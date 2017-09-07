@@ -5,6 +5,7 @@ package com.doctor.yuyi.bean.TodayRecommendBean;
  */
 
 public class Result {
+    private int commentNum;
     private long id;
 
     private String picture;
@@ -38,5 +39,13 @@ public class Result {
     }
     public String getContent(){
         return this.content;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 }

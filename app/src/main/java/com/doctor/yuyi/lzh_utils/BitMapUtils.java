@@ -69,7 +69,6 @@ public class BitMapUtils {
     //获取真实的url
     public static Uri getRealUri(Context context, String uri){
         String pth="";
-        String[] proj = { MediaStore.Images.Media.DATA};
             Uri u=Uri.parse(uri);
             if (u.getScheme()==null){
                 u=Uri.fromFile(new File(u.getPath()));

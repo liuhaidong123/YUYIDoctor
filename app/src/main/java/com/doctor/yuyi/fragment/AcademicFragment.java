@@ -43,7 +43,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
     private TextView mHot_tv, mSelect_tv, mNew_tv;//热门，精选，最新
     private View mHot_line, mSelect_line, mNew_line;//线
-    private String mColorSelect = "#25f368";
+    private String mColorSelect = "#1ebeec";
     private String mNoSelectColor = "#6a6a6a";
 
     private SwipeRefreshLayout mRefresh;
@@ -190,6 +190,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mFlag = 0;
             mStart = 0;
             mHttptools.circleHot(mHandler, mStart, mLimit, UserInfo.UserToken);
+            Log.e("token",UserInfo.UserToken);
             showHotLine();
             mList.clear();
             mMany_Box.setVisibility(View.GONE);

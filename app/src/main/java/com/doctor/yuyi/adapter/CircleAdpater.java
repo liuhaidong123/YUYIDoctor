@@ -107,21 +107,23 @@ public class CircleAdpater extends BaseAdapter {
             circleHolder.time = (TextView) convertView.findViewById(R.id.forumpost_listitem_time);
             circleHolder.img = (ImageView) convertView.findViewById(R.id.img_head);
             circleHolder.praise_img = (ImageView) convertView.findViewById(R.id.forumposts_listview_item_postImage);//点赞
+            circleHolder.trueName = (TextView) convertView.findViewById(R.id.name_tv);
+            circleHolder.head_img = (ImageView) convertView.findViewById(R.id.head_img);
             convertView.setTag(circleHolder);
         } else {
             circleHolder = (CircleHolder) convertView.getTag();
         }
-
-
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(circleHolder.head_img);
+        circleHolder.trueName.setText(list.get(position).getTrueName());
         circleHolder.title.setText(list.get(position).getTitle());
         circleHolder.content_tv.setText(list.get(position).getContent());
         circleHolder.time.setText(TimeUtils.getTime(list.get(position).getCreateTimeString()));
         //设置图片
-        if (list.get(position).getPicture().equals("")||list.get(position).getPicture()==null) {
+        if (list.get(position).getPicture().equals("") || list.get(position).getPicture() == null) {
             circleHolder.img.setVisibility(View.GONE);
         } else {
             circleHolder.img.setVisibility(View.VISIBLE);
-            String [] str=list.get(position).getPicture().split(";");
+            String[] str = list.get(position).getPicture().split(";");
             Picasso.with(mContext).load(UrlTools.BASE + str[0]).error(R.mipmap.error_small).into(circleHolder.img);
         }
         //点赞设值
@@ -181,5 +183,7 @@ public class CircleAdpater extends BaseAdapter {
         TextView praise_num;
         TextView comment_num;
         TextView time;
+        TextView trueName;
+        ImageView head_img;
     }
 }

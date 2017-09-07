@@ -64,9 +64,12 @@
             android:launchMode="singleTop" />
         <activity android:name=".activity.NetWorkError_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activity.InformationMessageActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.My_setting_about_Activity"

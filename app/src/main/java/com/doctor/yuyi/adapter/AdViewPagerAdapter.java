@@ -42,7 +42,6 @@ public class AdViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        // return mList.size() == 1 ? 1 : Integer.MAX_VALUE;
         return mList.size() == 1 ? 1 : mList.size();
     }
 

@@ -27,6 +27,34 @@ public class Result {
 
     private long id;
 
+    private String avatar;
+
+    private String trueName;
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getTrueName() {
+        return trueName;
+    }
+
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
+    }
+
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;
     }

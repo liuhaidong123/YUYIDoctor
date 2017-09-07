@@ -10,7 +10,37 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <RelativeLayout
+            android:id="@+id/head_and_name_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.doctor.yuyi.myview.RoundImageView
+                android:id="@+id/head_img"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_centerVertical="true">
+
+            </com.doctor.yuyi.myview.RoundImageView>
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/head_img"
+                android:ellipsize="end"
+                android:maxLength="6"
+                android:text="111111"
+                android:textSize="12sp"
+                android:textColor="@color/color_drumall" />
+        </RelativeLayout>
+
+
         <TextView
+            android:layout_marginTop="15dp"
             android:id="@+id/forumpost_listitem_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="7dp"
-                    android:src="@mipmap/comment" />
+                    android:src="@mipmap/comment2" />
 
                 <TextView
                     android:id="@+id/forumposts_listview_item_msgNum"

@@ -28,19 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_fragment_btn"
+        android:background="@color/navigate_color"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_cancel" />
 
         <LinearLayout
             android:id="@+id/firstpage_btn_ll_all"
             android:layout_width="match_parent"
-            android:layout_height="69dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -48,7 +43,7 @@
             <LinearLayout
                 android:id="@+id/information_btn_ll"
                 android:layout_width="0dp"
-                android:layout_height="69dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -66,13 +61,13 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/information_tv"
-                    android:textColor="@color/color_press_tv" />
+                    android:textColor="@color/navigate_tv_color" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/academic_btn_ll"
                 android:layout_width="0dp"
-                android:layout_height="69dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -90,13 +85,13 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/academic_circle_tv"
-                    android:textColor="@color/color_press" />
+                    android:textColor="@color/navigate_tv_color_no" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/patient_btn_ll"
                 android:layout_width="0dp"
-                android:layout_height="69dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -114,13 +109,13 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/patient_tv"
-                    android:textColor="@color/color_press" />
+                    android:textColor="@color/navigate_tv_color_no" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/my_btn_ll"
                 android:layout_width="0dp"
-                android:layout_height="69dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -138,7 +133,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/my_tv"
-                    android:textColor="@color/color_press" />
+                    android:textColor="@color/navigate_tv_color_no" />
             </LinearLayout>
 
         </LinearLayout>

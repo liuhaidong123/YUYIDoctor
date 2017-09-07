@@ -106,6 +106,8 @@ public class CircleSelectAda extends BaseAdapter {
             circleHolder.time = (TextView) convertView.findViewById(R.id.forumpost_listitem_time);
             circleHolder.img = (ImageView) convertView.findViewById(R.id.img_head);
             circleHolder.praise_img = (ImageView) convertView.findViewById(R.id.forumposts_listview_item_postImage);//点赞
+            circleHolder.trueName = (TextView) convertView.findViewById(R.id.name_tv);
+            circleHolder.head_img = (ImageView) convertView.findViewById(R.id.head_img);
             convertView.setTag(circleHolder);
         } else {
             circleHolder = (SelectHolder) convertView.getTag();
@@ -113,6 +115,8 @@ public class CircleSelectAda extends BaseAdapter {
         circleHolder.title.setText(list.get(position).getTitle());
         circleHolder.content_tv.setText(list.get(position).getContent());
         circleHolder.time.setText(TimeUtils.getTime(list.get(position).getCreateTimeString()));
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(circleHolder.head_img);
+        circleHolder.trueName.setText(list.get(position).getTrueName());
         //设置图片
         if (list.get(position).getPicture().equals("")){
             circleHolder.img.setVisibility(View.GONE);
@@ -173,5 +177,7 @@ public class CircleSelectAda extends BaseAdapter {
         TextView praise_num;
         TextView comment_num;
         TextView time;
+        TextView trueName;
+        ImageView head_img;
     }
 }

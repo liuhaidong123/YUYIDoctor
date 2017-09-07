@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -47,6 +48,8 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     private CommentAdapter mAdapter;
     private List<Result> mList = new ArrayList<>();
     private EditText mEdit;
+    private RelativeLayout mComment_img_rl;
+    private TextView mSend_btn;
 
     private TextView mComment_num;
     private TextView mShare_num;
@@ -119,19 +122,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                     umWeb.setThumb(thumb);
                     umWeb.setTitle(title);
                     umWeb.setDescription(content);
-
-                    mTitle.setText(root.getTitle());
-                    if (root.getShareNum() == null) {//分享设值
-                        mShare_num.setText("0");
-                    } else {
-                        mShare_num.setText(root.getShareNum() + "");
-                    }
-
-                    if (root.getLikeNum() == null) {//点赞设值
-                        mPraise_num.setText("0");
-                    } else {
-                        mPraise_num.setText(root.getLikeNum() + "");
-                    }
+                    mTitle.setText(content);
 
                     if (root.getCommentNum() == null) {//评论设值
                         mComment_num.setText("0");
@@ -139,59 +130,11 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         mComment_num.setText(root.getCommentNum() + "");
                     }
 
-                    if (root.isState()) {
-                        mPraise_img.setImageResource(R.mipmap.like_selected);
-                        mPraise_img.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mHttptools.informationPraise(mHandler, mid, UserInfo.UserToken);
-                            }
-                        });
-                    } else {
-                        mPraise_img.setImageResource(R.mipmap.like);
-                        mPraise_img.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mHttptools.informationPraise(mHandler, mid, UserInfo.UserToken);
-                            }
-                        });
-                    }
                 }
             } else if (msg.what == 101) {
                 ToastUtils.myToast(CommentInformationActivity.this, "数据错误");
-            } else if (msg.what == 6) {//点赞
-                Object o = msg.obj;
-                if (o != null && o instanceof com.doctor.yuyi.bean.InformationPraise.Root) {
-                    com.doctor.yuyi.bean.InformationPraise.Root root = (com.doctor.yuyi.bean.InformationPraise.Root) o;
-                    if (root.getCode().equals("0")) {
-                        if (root.getResult().equals("点赞成功")) {
-                            mPraise_img.setImageResource(R.mipmap.like_selected);
-                            mPraise_num.setText(Integer.valueOf(mPraise_num.getText().toString()) + 1 + "");
-
-                        } else if (root.getResult().equals("撤销点赞成功")) {
-                            mPraise_img.setImageResource(R.mipmap.like);
-                            mPraise_num.setText(Integer.valueOf(mPraise_num.getText().toString()) - 1 + "");
-                        }
-                    } else {
-                        ToastUtils.myToast(CommentInformationActivity.this, "点赞失败");
-                    }
-                }
-            } else if (msg.what == 105) {
-                ToastUtils.myToast(CommentInformationActivity.this, "数据错误");
-            } else if (msg.what == 16) {//分享接口
-                Object o = msg.obj;
-                if (o != null && o instanceof com.doctor.yuyi.bean.ShareBean.Root) {
-                    com.doctor.yuyi.bean.ShareBean.Root root = (com.doctor.yuyi.bean.ShareBean.Root) o;
-                    if (root.getCode().equals("0")) {
-                        // mShare_num.setText(Integer.valueOf(mShare_num.getText().toString())+1+"");
-                    } else {
-
-                    }
-                }
-
-            } else if (msg.what == 116) {
-                ToastUtils.myToast(CommentInformationActivity.this, "数据错误");
             }
+
         }
     };
 
@@ -216,13 +159,14 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getCommendList(mHandler, mid, mStart, mLimit);//获取评论列表
 
+        mComment_img_rl = (RelativeLayout) findViewById(R.id.comment_rl);
+        mSend_btn = (TextView) findViewById(R.id.send_msg);
+        mSend_btn.setOnClickListener(this);
         mComment_num = (TextView) findViewById(R.id.comment_num_tv);
-        mShare_num = (TextView) findViewById(R.id.share_num_tv);
         mShare_img = (ImageView) findViewById(R.id.share_img);
         mShare_img.setOnClickListener(this);
-        mPraise_num = (TextView) findViewById(R.id.praise_num_tv);
         mTitle = (TextView) findViewById(R.id.title_tv);
-        mPraise_img = (ImageView) findViewById(R.id.praise);
+
 
         //返回
         mBack = (ImageView) findViewById(R.id.comment_back);
@@ -232,7 +176,15 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
         mAdapter = new CommentAdapter(this, mList);
         mListview.setAdapter(mAdapter);
         //输入评论框
-        mEdit = (EditText) findViewById(R.id.edit);
+        mEdit = (EditText) findViewById(R.id.my_comment_edit);
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mComment_img_rl.setVisibility(View.GONE);
+                mShare_img.setVisibility(View.GONE);
+                mSend_btn.setVisibility(View.VISIBLE);
+            }
+        });
         //发送按钮
         mEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -242,11 +194,17 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                         ToastUtils.myToast(CommentInformationActivity.this, "请输入评论内容");
                     } else {
 
-                        mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
-                        //隐藏软键盘
-                        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-
+                        if (!"".equals(UserInfo.UserName)) {
+                            mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
+                            mEdit.setText("");
+                            //隐藏软键盘
+                            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            mComment_img_rl.setVisibility(View.VISIBLE);
+                            mShare_img.setVisibility(View.VISIBLE);
+                            mSend_btn.setVisibility(View.GONE);
+                        } else {
+                            ToastUtils.myToast(getApplicationContext(), "请登录您的账号");
+                        }
                     }
                     return true;
                 }
@@ -278,6 +236,24 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
             mHttptools.getCommendList(mHandler, mid, mStart, mLimit);//获取评论列表
         } else if (id == mShare_img.getId()) {
             init();
+        } else if (id == mSend_btn.getId()) {//发送
+            if (getEditContent().equals("")) {
+                ToastUtils.myToast(getApplicationContext(), "请输入评论内容");
+            } else {
+
+                if (!"".equals(UserInfo.UserName)) {
+                    mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
+                    mEdit.setText("");
+                    //隐藏软键盘
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    mComment_img_rl.setVisibility(View.VISIBLE);
+                    mShare_img.setVisibility(View.VISIBLE);
+                    mSend_btn.setVisibility(View.GONE);
+                } else {
+                    ToastUtils.myToast(getApplicationContext(), "请登录您的账号");
+                }
+            }
+
         }
     }
 
@@ -320,15 +296,15 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
-                if (image != null && content != null&&umWeb!=null) {
+                if (image != null && content != null && umWeb != null) {
                     ShareUtils.share(this, this, umWeb);
                 }
 
             }
             //版本小于23时，不需要判断敏感权限，执行业务逻辑
         } else {
-            if (image != null && content != null&&umWeb!=null) {
-                ShareUtils.share(this, this,umWeb);
+            if (image != null && content != null && umWeb != null) {
+                ShareUtils.share(this, this, umWeb);
             }
 
         }
@@ -343,7 +319,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                 //点击了允许，授权成功
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    if (image != null && content != null&&umWeb!=null) {
+                    if (image != null && content != null && umWeb != null) {
                         ShareUtils.share(this, this, umWeb);
                     }
                     //点击了拒绝，授权失败
@@ -364,11 +340,11 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     @Override
     public void onResult(SHARE_MEDIA share_media) {
         if (share_media.toString().equals("SINA")) {//微博
-            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 2);
+            // mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 2);
         } else if (share_media.toString().equals("WEIXIN_CIRCLE")) {//微信朋友圈
-            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 1);
+            // mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 1);
         } else if (share_media.toString().equals("QZONE")) {
-            mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 3);
+            // mHttptools.shareInformation(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken, 3);
         }
 
         ToastUtils.myToast(CommentInformationActivity.this, "分享成功");

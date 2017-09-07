@@ -2,6 +2,8 @@ package com.doctor.yuyi.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +40,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InformationFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, ViewPager.OnPageChangeListener {
+public class InformationFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+    private LinearLayout mRecommend_ll,mNew_LL,mHot_ll;
+
     private TextView mToday_tv;
     private TextView mNew_tv;
     private TextView mHot_tv;
@@ -55,39 +59,13 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     private RelativeLayout mRefreshBox;
     private ProgressBar mBar;
 
-    private ViewPager mViewPager;
-    private AdViewPagerAdapter mImgAapter;
-    private List<Result> mAdList = new ArrayList<>();
-    private ImageView[] mArrImageView;//存放广告小圆点的数组
-    private ImageView mCircleImg;//广告小圆点
-    private ViewGroup mGroup;//存放小圆点容器
-
     private Handler mHttpHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 1) {//广告数据
-                Object o = msg.obj;
-                if (o != null && o instanceof Root) {
-                    Root root = (Root) o;
-                    if (root.getCode().equals("0")) {
-                        if (root.getResult().size()!=0){
-                            mAdList.clear();
-                            mGroup.removeAllViews();
-                            mRefreshLayout.setRefreshing(false);
-                            mAdList = root.getResult();
-                            mImgAapter.setmList(mAdList);
-                            mViewPager.setAdapter(mImgAapter);
-                            mImgAapter.notifyDataSetChanged();
-                            setADCircleImg();
-                        }
 
-                    }
 
-                }
-            } else if (msg.what == 100) {
-                mRefreshLayout.setRefreshing(false);
-            } else if (msg.what == 3) {//今日推荐,最新，热门
+           if (msg.what == 3) {//今日推荐,最新，热门
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.TodayRecommendBean.Root) {
                     com.doctor.yuyi.bean.TodayRecommendBean.Root root = (com.doctor.yuyi.bean.TodayRecommendBean.Root) o;
@@ -142,16 +120,17 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     public void init(View view) {
 
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getADMessage(mHttpHandler);//获取广告数据
+       // mHttptools.getADMessage(mHttpHandler);//获取广告数据
         mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
-        //广告
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager_title);
-        mImgAapter = new AdViewPagerAdapter(mAdList, getContext());
-        mViewPager.setCurrentItem(0);
-        //初始化存放小圆点的容器
-        mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
 
         //今日推荐，最新，热门
+        mRecommend_ll= (LinearLayout) view.findViewById(R.id.recommend_ll);
+        mNew_LL= (LinearLayout) view.findViewById(R.id.new_ll);
+        mHot_ll= (LinearLayout) view.findViewById(R.id.hot_ll);
+        mRecommend_ll.setOnClickListener(this);
+        mNew_LL.setOnClickListener(this);
+        mHot_ll.setOnClickListener(this);
+
         mToday_tv = (TextView) view.findViewById(R.id.today_tv);
         mNew_tv = (TextView) view.findViewById(R.id.new_tv);
         mHot_tv = (TextView) view.findViewById(R.id.hot_tv);
@@ -159,9 +138,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mNew_line = view.findViewById(R.id.new_line);
         mHot_line = view.findViewById(R.id.hot_line);
         showTodayLine();
-        mToday_tv.setOnClickListener(this);
-        mNew_tv.setOnClickListener(this);
-        mHot_tv.setOnClickListener(this);
+
         //加载更多
         mRefreshBox = (RelativeLayout) view.findViewById(R.id.more_relative);
         mRefreshBox.setOnClickListener(this);
@@ -188,8 +165,6 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
                 mList.clear();
                 showTodayLine();//刷新的时候回到今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
-
-                mViewPager.clearOnPageChangeListeners();
                 mHttptools.getADMessage(mHttpHandler);//获取广告数据
             }
         });
@@ -207,7 +182,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == mToday_tv.getId()) {//今日推荐
+        if (id == mRecommend_ll.getId()) {//今日推荐
             mFlag = 0;
             mStart = 0;
             showTodayLine();
@@ -217,7 +192,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
             mRefreshBox.setVisibility(View.GONE);
-        } else if (id == mNew_tv.getId()) {//最新
+        } else if (id == mNew_LL.getId()) {//最新
             mFlag = 1;
             mStart = 0;
             showNewLine();
@@ -227,7 +202,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
             mRefreshBox.setVisibility(View.GONE);
-        } else if (id == mHot_tv.getId()) {//热门
+        } else if (id == mHot_ll.getId()) {//热门
             mFlag = 2;
             mStart = 0;
             MyDialog.showDialog(this.getActivity());
@@ -264,9 +239,17 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.GONE);
         mNew_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_username));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_normal));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.color_normal));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.navigate_color));
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
+        mToday_tv.setTypeface(font);
+
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.navigate_color));
+        Typeface font2 = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mNew_tv.setTypeface(font2);
+
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.navigate_color));
+        Typeface font3 = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mHot_tv.setTypeface(font3);
     }
 
     //显示最新
@@ -283,9 +266,17 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mHot_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mToday_tv.setTypeface(font);
+
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font2 = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
+        mNew_tv.setTypeface(font2);
+
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font3 = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mHot_tv.setTypeface(font3);
     }
 
     //显示热门
@@ -302,91 +293,19 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mNew_line.setVisibility(View.GONE);
         mToday_line.setVisibility(View.GONE);
 
-        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
-        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_normal));
-        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.color_username));
-    }
+        mToday_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mToday_tv.setTypeface(font);
 
-    //轮播图监听
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    //选定某一页时
-    @Override
-    public void onPageSelected(int position) {
-        setImageBackground(position);
-        Log.e("当前position---",position + "");
-    }
-
-    //滑动状态改变
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        //手指开始滑动
-        if (state == mViewPager.SCROLL_STATE_DRAGGING) {
-            mRefreshLayout.setEnabled(false);
-            //手指松开后自动滑动
-        } else if (state == mViewPager.SCROLL_STATE_SETTLING) {
-            mRefreshLayout.setEnabled(true);
-            //停在某一页
-        } else {
-            mRefreshLayout.setEnabled(true);
-        }
-    }
-
-    /**
-     * 初始化广告轮播图的小图标，
-     */
-    public void setADCircleImg() {
-        //只有轮播的图片张数不为0时，才执行下面内容
-        if (mAdList.size() != 0) {
-            //将小圆点根据条件添加到容器中
-            mArrImageView = new ImageView[mAdList.size()];
-            for (int i = 0; i < mAdList.size(); i++) {
-                mCircleImg = new ImageView(this.getActivity());
-                //小圆点的布局
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMarginStart(14);
-                //给小圆点设置布局
-                mCircleImg.setLayoutParams(layoutParams);
-                //为存放小圆点的数组赋值
-                mArrImageView[i] = mCircleImg;
-                //当轮播的图片为一张时，不用设置小圆圈
-                if (mAdList.size() == 1) {
-                    break;
-                }
-                //默认第一页为白色的小圆圈(前提必须是轮播的图片大于1张)
-                if (i == 0) {
-                    mCircleImg.setBackgroundResource(R.mipmap.select_ad);
-                } else {
-                    mCircleImg.setBackgroundResource(R.mipmap.no_select_ad);
-                }
-                //将每一个小圆点添加到容器中
-                mGroup.addView(mCircleImg);
-            }
-            if (mAdList.size() > 1) {
-                mViewPager.addOnPageChangeListener(this);
-            }
-        }
-
+        mNew_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font2 = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
+        mNew_tv.setTypeface(font2);
+        mHot_tv.setTextColor(ContextCompat.getColor(this.getContext(), R.color.navigate_color));
+        Typeface font3 = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
+        mHot_tv.setTypeface(font3);
     }
 
 
-    /**
-     * 停在某一页时，变换小圆点
-     *
-     * @param selectItems
-     */
-    private void setImageBackground(int selectItems) {
-        for (int i = 0; i < mArrImageView.length; i++) {
-            if (i == selectItems) {
-                mArrImageView[i].setBackgroundResource(R.mipmap.select_ad);
-            } else {
-                mArrImageView[i].setBackgroundResource(R.mipmap.no_select_ad);
-            }
-        }
-    }
 
     @Override
     public void onDestroy() {

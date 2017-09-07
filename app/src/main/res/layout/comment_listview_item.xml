@@ -12,6 +12,7 @@
         android:layout_marginTop="20dp">
 
         <RelativeLayout
+            android:id="@+id/msg_person_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -22,19 +23,15 @@
                 android:scaleType="centerCrop"
                  />
 
-            <RelativeLayout
-                android:id="@+id/relative_time"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:layout_toRightOf="@id/comment_userhead">
-
                 <TextView
                     android:id="@+id/comment_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLength="5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/comment_userhead"
                     android:text=""
                     android:textColor="@color/color_drumall"
                     android:textSize="12sp" />
@@ -46,20 +43,23 @@
                     android:layout_below="@id/comment_username"
                     android:ellipsize="end"
                     android:maxLength="7"
+                    android:layout_toRightOf="@id/comment_username"
                     android:text=""
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/color_bg"
                     android:textSize="11sp" />
 
             </RelativeLayout>
 
             <TextView
+                android:layout_below="@id/msg_person_rl"
                 android:id="@+id/comment_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/relative_time"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
                 android:text="" />
         </RelativeLayout>
-    </RelativeLayout>
+
 </RelativeLayout>

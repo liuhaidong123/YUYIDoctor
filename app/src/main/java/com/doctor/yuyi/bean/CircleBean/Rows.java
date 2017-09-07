@@ -19,6 +19,10 @@ public class Rows {
 
     private String picture;
 
+    private String avatar;
+
+    private String trueName;
+
     private Integer likeNum;
 
     private Integer commentNum;
@@ -92,5 +96,29 @@ public class Rows {
     }
     public long getId(){
         return this.id;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getTrueName() {
+        return trueName;
+    }
+
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
     }
 }

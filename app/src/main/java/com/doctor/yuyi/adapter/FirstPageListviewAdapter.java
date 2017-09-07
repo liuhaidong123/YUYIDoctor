@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.HttpTools.UrlTools;
@@ -25,12 +26,12 @@ import java.util.List;
 public class FirstPageListviewAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List <Result> mList=new ArrayList<>();
+    private List<Result> mList = new ArrayList<>();
 
-    public FirstPageListviewAdapter(Context mContext, List <Result> mList) {
+    public FirstPageListviewAdapter(Context mContext, List<Result> mList) {
         this.mContext = mContext;
-        this.mList=mList;
-        this.mInflater=LayoutInflater.from(this.mContext);
+        this.mList = mList;
+        this.mInflater = LayoutInflater.from(this.mContext);
     }
 
     public void setmList(List<Result> mList) {
@@ -54,26 +55,46 @@ public class FirstPageListviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-        if (convertView==null){
-            convertView=mInflater.inflate(R.layout.first_page_listview_item,null);
-            viewHolder=new ViewHolder();
-            viewHolder.img= (ImageView) convertView.findViewById(R.id.img);
-            viewHolder.title= (TextView) convertView.findViewById(R.id.title);
-            viewHolder.content= (TextView) convertView.findViewById(R.id.message);
-            convertView.setTag(viewHolder);
-        }else {
-            viewHolder= (ViewHolder) convertView.getTag();
+
+        ViewHolder viewHolder = null;
+        FirstHeaderHolder firstHeaderHolder = null;
+
+        if (position == 0) {//资讯首页的头部
+            View firstView = mInflater.inflate(R.layout.first_header_layout, null);
+            firstHeaderHolder = new FirstHeaderHolder();
+            firstHeaderHolder.bg_rl = (RelativeLayout) firstView.findViewById(R.id.bg_rl);
+            firstHeaderHolder.imageView = (ImageView) firstView.findViewById(R.id.img_first);
+            firstHeaderHolder.title = (TextView) firstView.findViewById(R.id.first_title);
+
+            firstHeaderHolder.bg_rl.getBackground().setAlpha(55);
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_big).into(firstHeaderHolder.imageView);
+            firstHeaderHolder.title.setText(mList.get(position).getTitle().trim());
+            return firstView;
+        } else {
+            View viewAll = mInflater.inflate(R.layout.first_page_listview_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.img = (ImageView) viewAll.findViewById(R.id.img);
+            viewHolder.title = (TextView) viewAll.findViewById(R.id.title);
+            viewHolder.comment_num = (TextView) viewAll.findViewById(R.id.comment_num);
+
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
+            viewHolder.title.setText(mList.get(position).getTitle().trim());
+            viewHolder.comment_num.setText(mList.get(position).getCommentNum()+"评");
+            return viewAll;
         }
-        Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
-        viewHolder.title.setText(mList.get(position).getTitle());
-        viewHolder.content.setText(mList.get(position).getContent());
-        return convertView;
+
+
     }
 
-    class ViewHolder{
+    class ViewHolder {
         ImageView img;
         TextView title;
-        TextView content;
+        TextView comment_num;
+    }
+
+    class FirstHeaderHolder {
+        RelativeLayout bg_rl;
+        ImageView imageView;
+        TextView title;
     }
 }

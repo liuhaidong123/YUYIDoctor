@@ -27,7 +27,7 @@
                 android:layout_height="41dp"
                 android:gravity="center"
                 android:text="@string/hot_tv"
-                android:textColor="@color/color_username"
+                android:textColor="@color/navigate_tv_color"
                 android:textSize="17sp" />
 
             <View
@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="3dp"
                 android:layout_below="@id/circle_hot_tv"
-                android:background="@color/color_username" />
+                android:background="@color/navigate_tv_color" />
         </RelativeLayout>
 
 
@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="3dp"
                 android:layout_below="@id/circle_select_tv"
-                android:background="@color/color_username" />
+                android:background="@color/navigate_tv_color" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="3dp"
                 android:layout_below="@id/circle_new_tv"
-                android:background="@color/color_username" />
+                android:background="@color/navigate_tv_color" />
         </RelativeLayout>
 
         <ImageView
@@ -105,7 +105,7 @@
     <View
         android:id="@+id/equip_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="10dp"
         android:layout_below="@id/change_btn"
         android:background="@color/color_cancel" />
 
@@ -130,7 +130,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_white"
                     android:divider="@color/color_cancel"
-                    android:dividerHeight="1dp"
+                    android:dividerHeight="10dp"
                     android:scrollbars="none">
 
               </com.doctor.yuyi.myview.InformationListView>

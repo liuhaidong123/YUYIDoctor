@@ -218,6 +218,7 @@ public class PostActivity extends AppCompatActivity {
                 if (list!=null&&list.size()>0){
                     Log.i("----list.size----",""+list.size());
                     for (int i=0;i<list.size();i++){
+
                             Bitmap bt= BitMapUtils.resizeImage2(Uri.fromFile(new File(list.get(i))),1000,1000);
 //                            bt=BitMapUtils.imageZoom(bt,800);
                         File f=saveFile(bt,i+"");

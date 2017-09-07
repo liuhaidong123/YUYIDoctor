@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/comment_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
@@ -38,119 +38,13 @@
         android:layout_below="@id/equip_title"
         android:background="@color/color_cancel" />
 
-    <RelativeLayout
-        android:id="@+id/title_relative"
-        android:layout_width="match_parent"
-        android:layout_height="152dp"
-        android:layout_below="@id/equip_line"
-        android:background="@color/color_white">
-
-        <TextView
-            android:id="@+id/title_tv"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="2"
-            android:text=""
-            android:textColor="@color/color_normal"
-            android:textSize="15sp" />
-
-        <View
-            android:id="@+id/title_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/title_tv"
-            android:background="@color/color_cancel" />
-
-        <RelativeLayout
-            android:id="@+id/share_relative"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/title_line">
-
-            <ImageView
-                android:id="@+id/comment_img2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:src="@mipmap/comment" />
-
-            <TextView
-                android:id="@+id/comment_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="5dp"
-                android:layout_toRightOf="@id/comment_img2"
-                android:text=""
-                android:textColor="@color/color_ad"
-                android:textSize="12sp" />
-
-
-            <TextView
-                android:id="@+id/praise_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:text=""
-                android:textColor="@color/color_ad"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/praise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/praise_num_tv"
-                android:padding="5dp"
-               />
-
-            <TextView
-                android:id="@+id/share_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="25dp"
-                android:layout_toStartOf="@id/praise"
-                android:text=""
-                android:textColor="@color/color_ad"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/share_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/share_num_tv"
-                android:padding="5dp"
-                android:src="@mipmap/share" />
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/share_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/share_relative"
-            android:background="@color/color_cancel" />
-
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/card_comment_box"
-        android:layout_below="@id/title_relative"
-        android:layout_marginBottom="20dp"
+        android:layout_below="@id/equip_line"
+        android:layout_marginBottom="10dp"
         android:background="@color/color_white"
         android:scrollbars="none">
 
@@ -158,29 +52,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_normal"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/line_c"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/title_tv"
+                android:background="@color/color_bg" />
+
+            <TextView
+                android:id="@+id/pl_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line_c"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:text="评论"
+                android:textColor="@color/color_normal"
+                android:textSize="15sp" />
+
             <com.doctor.yuyi.myview.InformationListView
                 android:id="@+id/comment_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/pl_tv"
                 android:background="@color/color_white"
-                android:divider="@color/color_cancel"
-                android:dividerHeight="1dp"
+                android:divider="@color/color_white"
                 android:scrollbars="none">
 
             </com.doctor.yuyi.myview.InformationListView>
 
-            <View
-                android:id="@+id/box_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/comment_listview"
-                android:background="@color/color_cancel" />
 
             <RelativeLayout
                 android:id="@+id/many_relative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/box_line"
+                android:layout_below="@id/comment_listview"
                 android:visibility="gone">
 
                 <TextView
@@ -205,52 +122,101 @@
                     android:paddingTop="15dp"
                     android:visibility="invisible" />
 
-                <View
-                    android:id="@+id/box_line2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_cancel" />
             </RelativeLayout>
 
         </RelativeLayout>
 
     </ScrollView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@id/card_comment_box"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/comment_bg">
+        android:background="@color/color_cancel">
+
+        <RelativeLayout
+            android:id="@+id/comment_rl_box"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="6"
+            android:background="@drawable/comment_rl_bg">
+
+            <EditText
+                android:id="@+id/my_comment_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="left|center"
+                android:hint="@string/comment_hint_edit"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_normal"
+                android:textColorHint="@color/color_ad"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/comment_rl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/comment_rl_box"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/comment_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/comment" />
+
+            <TextView
+                android:id="@+id/comment_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/comment_img1"
+                android:background="@mipmap/tv_bg_red"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_white"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
 
         <ImageView
-            android:id="@+id/writing_img"
+            android:id="@+id/share_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/writing" />
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/share" />
 
-        <EditText
-            android:id="@+id/edit"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
+
+        <TextView
+            android:id="@+id/send_msg"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/writing_img"
-            android:background="@null"
-            android:hint="@string/comment_hint"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            android:maxLines="1"
-            android:maxLength="500"
-            android:textColor="@color/color_bg"
-            android:textSize="15sp" />
-    </RelativeLayout>
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/comment_rl_box"
+            android:layout_weight="1"
+            android:background="@color/navigate_tv_color"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="@color/color_white"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

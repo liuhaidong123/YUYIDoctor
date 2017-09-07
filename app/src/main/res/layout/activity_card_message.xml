@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/comment_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
@@ -238,6 +238,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
     </ScrollView>
 
     <RelativeLayout
@@ -271,7 +272,8 @@
             android:inputType="text"
             android:maxLines="1"
             android:maxLength="500"
-            android:textColor="@color/color_bg"
+            android:textColorHint="@color/color_bg"
+            android:textColor="@color/color_normal"
             android:textSize="15sp" />
     </RelativeLayout>
 

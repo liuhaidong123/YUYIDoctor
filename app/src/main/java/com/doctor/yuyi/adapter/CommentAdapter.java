@@ -74,13 +74,6 @@ public class CommentAdapter extends BaseAdapter {
         Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getAvatar()).error(R.mipmap.error_small).into(commendHolder.img);
         commendHolder.name.setText(mList.get(position).getTrueName());
 
-//        String str="";
-//        try {
-//            str =  URLDecoder.decode(mList.get(position).getContent(),"utf-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-      //  commendHolder.content.setText(str);
         commendHolder.content.setText(mList.get(position).getContent());
         commendHolder.time.setText(TimeUtils.getTime(mList.get(position).getCreateTimeString()));
         return convertView;
