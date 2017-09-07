@@ -8,7 +8,7 @@ public interface Ip {
 //    http://59.110.169.148:8080/
     public final static String URL="http://59.110.169.148:8080/";
     public final static String ImgPth="http://59.110.169.148:8080";
-
+    public final static String URLLocalHost="http://192.168.1.168:8082/yuyi/";
 
     //获取验证码接口http://192.168.1.55:8080/yuyi/physician/vcode.do?id=13717883006
     public final static String interface_SMSCode="physician/vcode.do?";
@@ -39,6 +39,8 @@ public interface Ip {
 
     //我的数据患者列表http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
     public final static String interface_MyPaintList="homeuser/findAllUserList.do?";
+    //获取患者的电子病例列表http://192.168.1.168:8082/yuyi/medical/findList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10
+    public final static String interface_PaintEleList="medical/homeuserMedicalTime.do?";
 
     //我的消息列表接口http://192.168.1.55:8080/yuyi/messagePhysician/findPage.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
     public final static String interface_MyMessageList="messagePhysician/findPage.do?";

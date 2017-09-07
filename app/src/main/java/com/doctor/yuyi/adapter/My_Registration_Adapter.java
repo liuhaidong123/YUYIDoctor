@@ -44,6 +44,7 @@ public class My_Registration_Adapter extends BaseAdapter{
         if (convertView==null){
             convertView= LayoutInflater.from(context).inflate(R.layout.my_registration_listview_item,null);
             hodler=new ViewHodler();
+            hodler.my_registration_list_KS= (TextView) convertView.findViewById(R.id.my_registration_list_KS);
             hodler.my_registration_list_name= (TextView) convertView.findViewById(R.id.my_registration_list_name);
             hodler.my_registration_list_time= (TextView) convertView.findViewById(R.id.my_registration_list_time);
                 convertView.setTag(hodler);
@@ -53,9 +54,10 @@ public class My_Registration_Adapter extends BaseAdapter{
         }
         hodler.my_registration_list_name.setText(lis.get(position).getTrueName());
         hodler.my_registration_list_time.setText(lis.get(position).getCreateTimeString());
+        hodler.my_registration_list_KS.setText(lis.get(position).getDepartmentName());
         return convertView;
     }
     class ViewHodler{
-TextView my_registration_list_name,my_registration_list_time;
+TextView my_registration_list_name,my_registration_list_time,my_registration_list_KS;
     }
 }

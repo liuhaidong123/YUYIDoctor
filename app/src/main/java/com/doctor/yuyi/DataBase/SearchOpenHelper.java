@@ -16,7 +16,7 @@ public class SearchOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql="create table paint( oid Integer primary key,content varchar(40))";
+        String sql="create table paint(oid Integer primary key,userId varchar(20) unique,content varchar(40),image varchar(200))";
         db.execSQL(sql);
     }
 

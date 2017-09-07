@@ -40,7 +40,7 @@ public class FragmentMyPatientListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return list.size();
+        return list==null?0:list.size();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FragmentMyPatientListAdapter extends BaseAdapter{
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
-
+//
         Picasso.with(context).load(UrlTools.BASE+list.get(position).getAvatar()).error(R.mipmap.error_small).into(hodler.frag_my_patientList_image);
         hodler.frag_my_patientList_textVname.setText(list.get(position).getTrueName());
         return convertView;

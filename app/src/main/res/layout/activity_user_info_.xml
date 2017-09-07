@@ -4,321 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_scroll_bg"
+    android:background="@color/color_white"
     tools:context="com.doctor.yuyi.activity.UserInfo_Activity">
-
-    <View
-        android:id="@+id/curr_line"
+    <include
+        android:id="@+id/titleinclude"
+        layout="@layout/activity_titleinclude"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/user_title"
-        android:background="@color/color_bg" />
-    <RelativeLayout
-        android:id="@+id/user_title"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/color_white"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-        <ImageView
-            android:id="@+id/editor_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:src="@mipmap/back" />
-
-        <TextView
-            android:id="@+id/user_editor_textV_submit"
-            android:onClick="Submit"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:background="@drawable/user_editor_submit"
-            android:text="@string/str_save"
-            android:textColor="@color/color_white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:text="@string/str_user_edi"
-            android:textColor="@color/color_normal"
-            android:textSize="17sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/par_layout"
+        android:layout_height="44dp">
+    </include>
+    <LinearLayout
+        android:layout_below="@+id/titleinclude"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/curr_line">
-        <RelativeLayout
-            android:clickable="true"
-            android:id="@+id/select_head"
+        android:orientation="vertical">
+        <View
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/color_white">
-
-
-            <com.doctor.yuyi.myview.RoundImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/usereditor_image_userphoto"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="25dp"
-                android:src="@mipmap/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:text="@string/str_head"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/user_name_rl"
+            android:layout_height="1dp"
+            android:background="#f2f2f2"></View>
+        <com.doctor.yuyi.lzh_utils.RoundImageView
+            android:id="@+id/UserInfo_Image"
+            android:layout_width="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/userdefault"
+            android:layout_height="100dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/user_nikname_rl"
-            android:layout_marginTop="1dp"
-            android:background="@color/color_white">
-
+            android:layout_height="wrap_content">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:text="@string/str_user_name"
-                android:textColor="@color/color_normal"
+                android:layout_gravity="center_vertical"
+                android:text="姓        名"
                 android:textSize="14sp"
-                android:id="@+id/textView5" />
-
-            <EditText
-                android:hint="用户名"
-                android:background="@null"
-                android:id="@+id/user_editor_userName"
+                android:textColor="#666666"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:gravity="right|center_vertical"
-                android:text=""
-                android:textColor="@color/color_press"
-                android:textSize="13sp"
-                android:layout_alignBaseline="@+id/textView5"
-                android:layout_alignBottom="@+id/textView5"
-                android:layout_alignParentEnd="true"
                 />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/user_age_rl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/user_sex_rl"
-            android:layout_marginTop="1dp"
-            android:background="@color/color_white">
-
             <TextView
-                android:id="@+id/age_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/str_user_age"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/age_edit"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:maxLength="3"
-                android:gravity="right|center_vertical"
-                android:layout_toEndOf="@id/age_tv"
-                android:inputType="number"
-                android:paddingEnd="20dp"
-                android:hint="输入年龄"
-                android:text=""
-                android:textColor="@color/color_press"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/user_place_rl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/color_white"
-            android:layout_below="@+id/user_id_rl"
-            android:layout_alignParentEnd="true">
-
-            <TextView
-                android:id="@+id/gj"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/str_user_place"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/jg_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/gj"
-                android:background="@null"
-                android:inputType="text"
-                android:gravity="end"
-                android:maxLines="1"
-                android:paddingEnd="20dp"
-                android:text="山西大同"
-                android:hint="输入籍贯"
-                android:textColor="@color/color_press"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_marginTop="1dp"
-            android:id="@+id/user_id_rl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/color_white"
-            android:layout_below="@+id/user_age_rl"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:id="@+id/tv_id_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/str_user_id"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/ad_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:inputType="text"
-                android:gravity="right|center_vertical"
-                android:maxLength="18"
-                android:maxLines="1"
-                android:paddingEnd="20dp"
-                android:text=""
-                android:hint="身份证号"
-                android:textColor="@color/color_press"
-                android:textSize="13sp"
-                android:layout_alignBaseline="@+id/tv_id_name"
-                android:layout_alignBottom="@+id/tv_id_name"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_marginTop="1dp"
-            android:id="@+id/user_sex_rl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/color_white"
-            android:layout_below="@+id/user_name_rl"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:text="@string/str_user_sex"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:text=""
-                android:id="@+id/user_editor_sex"
-                android:textColor="@color/color_press"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:id="@+id/user_nikname_rl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/color_white"
-            android:layout_below="@+id/select_head"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:id="@+id/nikname_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="昵称"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/nikname_edit"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="right|center_vertical"
-                android:inputType="text"
-                android:hint="输入昵称"
-                android:maxLength="15"
+                android:id="@+id/UserInfo_Name"
+                android:background="@drawable/textvbac"
+                android:layout_marginLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="@string/str_li"
-                android:textColor="@color/color_press"
-                android:textSize="13sp"
-                android:layout_alignBaseline="@+id/nikname_tv"
-                android:layout_alignBottom="@+id/nikname_tv"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-    </RelativeLayout>
+                android:paddingLeft="20dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="赵仲琳"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    <!--医院-->
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="在职医院"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/UserInfo_HospitalName"
+                android:background="@drawable/textvbac"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="涿州市中医院"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <!--keshi-->
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="科        室"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/UserInfo_KS"
+                android:background="@drawable/textvbac"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="检验科"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <!--zhicheng-->
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="职        称"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/UserInfo_ZC"
+                android:background="@drawable/textvbac"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="副主任医师"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
 
-
-
-
-
+        <!--shojihao-->
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="职        称"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/UserInfo_Phone"
+                android:background="@drawable/textvbac"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="17743516308"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

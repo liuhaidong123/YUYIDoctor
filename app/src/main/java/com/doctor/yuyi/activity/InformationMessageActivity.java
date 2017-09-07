@@ -201,7 +201,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
         } else if (id == mComment_img.getId()) {//评论
             if (mRoot != null) {
                 Intent intent = new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
-                intent.putExtra("id", getIntent().getLongExtra("id", -1));
+                intent.putExtra("id", getIntent().getLongExtra("id", -1L));
                startActivity(intent);
             }
 

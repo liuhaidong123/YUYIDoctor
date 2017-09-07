@@ -71,6 +71,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
                             start+=myPraise.getRows().size();
                             list.addAll(myPraise.getRows());
                             adapter.notifyDataSetChanged();
+                            my_praise_listview.setSelection(ListView.FOCUS_DOWN);
                             setListViewHeightBasedOnChildren(my_praise_listview);
                             if (myPraise.getRows().size()<limit){
                                 isEnd=true;
@@ -101,7 +102,6 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_praise_);
         initView();
-//        getPraiseData(start);
     }
 
     @Override
@@ -153,7 +153,6 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
     }
 
     public void getPraiseData(int star) {
-//        MyDialog.showDialog(My_praise_Activity.this);
         Log.i("start----",star+"");
         my_praise_loading_layout.setClickable(false);
         setLoading(0);
@@ -161,7 +160,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         m.put("token", UserInfo.UserToken);
         m.put("start",star+"");
         m.put("limit",limit+"");
-        okhttp.getCall(Ip.URL+Ip.interface_MyPraise,m,okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCall(Ip.URLLocalHost+Ip.interface_MyPraise,m,okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
@@ -190,14 +189,12 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
     }
 
     @Override
-    protected void onResume() {
+    protected void onStart() {
+        super.onStart();
         start=0;
         list.clear();
         getPraiseData(start);
-        super.onResume();
     }
-
-
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获取ListView对应的Adapter
@@ -215,7 +212,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
         //listView.getDividerHeight()获取子项间分隔符占用的高度
         //params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);
@@ -226,6 +223,7 @@ public class My_praise_Activity extends MyActivity implements My_PraiseAdapter.n
         start--;
         if (flag){//数据全部删除
             my_praise_listview.setEmpty();
+            my_praise_loading_layout.setVisibility(View.GONE);
         }
     }
 }

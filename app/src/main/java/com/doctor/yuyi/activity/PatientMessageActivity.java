@@ -1,5 +1,6 @@
 package com.doctor.yuyi.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -8,32 +9,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.HttpTools.UrlTools;
+import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
+import com.doctor.yuyi.adapter.ElectronicMessListViewAdapter;
 import com.doctor.yuyi.bean.PatientData.BloodpressureList;
 import com.doctor.yuyi.bean.PatientData.Root;
 import com.doctor.yuyi.bean.PatientData.TemperatureList;
+import com.doctor.yuyi.bean.bean_MedicalRecordList;
+import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.myview.BloodView;
+import com.doctor.yuyi.myview.MyListView;
 import com.doctor.yuyi.myview.RoundImageView;
 import com.doctor.yuyi.myview.TemView;
+import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PatientMessageActivity extends AppCompatActivity implements View.OnClickListener {
-        private ImageView mBack;
+    MyListView myListView;//电子病例的listView
+    ElectronicMessListViewAdapter adapter;//适配器
+    bean_MedicalRecordList bean;//电子病例的数据源
+
+    private ImageView mBack;
 
     private TextView mEle_btn;//电子病历按钮
     private TextView mPatient_btn;//患者数据按钮
@@ -74,9 +92,10 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
 
 // 电子病历
     private RoundImageView mHead_img;
-    private TextView mName,mSex,mAge,mDate,mMessage;
-
+    private TextView mName,mAge;
+    ImageView imageSex;//性别
     private HttpTools mHttptools;
+    String resStr;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -99,14 +118,14 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
                     }
                     if (root.getResult().getGender()!=null){
                         if (root.getResult().getGender()==0){//0：女
-                            mSex.setText("性别:女");
+                            imageSex.setSelected(false);
                         }
                         else if (root.getResult().getGender()==1){
-                            mSex.setText("性别:男");
+                            imageSex.setSelected(true);
                         }
                     }
                     else {
-                        mSex.setText("性别:");
+                        imageSex.setSelected(false);//默认女
                     }
 
                     if (root.getResult().getAge()!=null){
@@ -173,9 +192,7 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
                             String date = month + "月" + day + "日";
                             XTemdateNum.add(date);
                             temData.add(temlist.get(i).getTemperaturet());//体温
-
                         }
-
                     }
 
                     //填补体温日期
@@ -223,17 +240,26 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
                 }
             } else if (msg.what == 110) {
                 MyDialog.stopDia();
-            } else if (msg.what == 11) {//患者详情中的电子病历
-                Object o = msg.obj;
-                if (o != null && o instanceof com.doctor.yuyi.bean.PatientEle.Root) {
-                    com.doctor.yuyi.bean.PatientEle.Root root = (com.doctor.yuyi.bean.PatientEle.Root) o;
-                    if (root.getCode().equals("0")){
-                        MyDialog.stopDia();
+            }
+            else if (msg.what == 11) {//患者详情中的电子病历
+                try{
+                   bean=okhttp.gson.fromJson(resStr,bean_MedicalRecordList.class);
+                    if (bean!=null){
+                        if ("0".equals(bean.getCode())){
+                            List<bean_MedicalRecordList.ResultBean>li=bean.getResult();
+                            if (li!=null&&li.size()>0){
+                                adapter=new ElectronicMessListViewAdapter(PatientMessageActivity.this,li);
+                                myListView.setAdapter(adapter);
+                            }
 
-                        mDate.setText("病历采集日期:"+root.getResult().getCreateTimeString());
-                        mMessage.setText(root.getResult().getMedicalrecord());
-
+                        }
                     }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    myListView.setEmty("没有查询到数据！");
                 }
             }else if (msg.what==111){
                 MyDialog.stopDia();
@@ -249,19 +275,49 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
     }
 
     public void initView() {
+        myListView= (MyListView) findViewById(R.id.myListView);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (bean!=null&&bean.getResult()!=null&&bean.getResult().size()>0){
+                    Intent intent=new Intent(PatientMessageActivity.this,PaintEleMessageActivity.class);
+                    intent.putExtra("type","0");
+                    intent.putExtra("id",bean.getResult().get(position));
+                    startActivity(intent);
+                }
+            }
+        });
+
         mBack= (ImageView) findViewById(R.id.equip_back);
         mBack.setOnClickListener(this);
 
         mHttptools = HttpTools.getHttpToolsInstance();
         MyDialog.showDialog(this);
-        mHttptools.getPatientEle(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1L));
+//        mHttptools.getPatientEle(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1L));
+        Map<String,String> m=new HashMap<>();
+        m.put("id",getIntent().getLongExtra("humeuserId",-1L)+"");
+        okhttp.getCall(Ip.URL+Ip.interface_PaintEleList,m,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resStr=response.body().string();
+                Log.i("获取个人病例列表",resStr);
+                mHandler.sendEmptyMessage(11);
+            }
+        });
         mHttptools.getPatientData(mHandler, UserInfo.UserToken, getIntent().getLongExtra("humeuserId",-1L));
         //时间
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         mEle_btn = (TextView) findViewById(R.id.patient_ele_btn);//电子病历按钮
         mEle_btn.setOnClickListener(this);
+        mEle_btn.setSelected(true);
         mPatient_btn = (TextView) findViewById(R.id.patient_messdata_btn);//患者数据按钮
         mPatient_btn.setOnClickListener(this);
+        mPatient_btn.setSelected(false);
 
         mEle_relative = (RelativeLayout) findViewById(R.id.patient_ele_rl);//显示电子病历布局
         mPatient_relative = (RelativeLayout) findViewById(R.id.patient_data_rl);//显示患者数据布局
@@ -289,10 +345,8 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
         //电子病历
         mHead_img= (RoundImageView) findViewById(R.id.patient_head_img);
         mName= (TextView) findViewById(R.id.patient_name);
-        mSex= (TextView) findViewById(R.id.patient_sex);
+        imageSex= (ImageView) findViewById(R.id.imageSex);
         mAge= (TextView) findViewById(R.id.patient_age);
-        mDate= (TextView) findViewById(R.id.ele_date_tv);
-        mMessage= (TextView) findViewById(R.id.hostory_content);
     }
 
     @Override
@@ -300,8 +354,12 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
         int id = v.getId();
         if (id == mEle_btn.getId()) {//电子病历
             showEle();
+            mPatient_btn.setSelected(false);
+            mEle_btn.setSelected(true);
         } else if (id == mPatient_btn.getId()) {//患者数据
             showPatientData();
+            mPatient_btn.setSelected(true);
+            mEle_btn.setSelected(false);
         } else if (id == mBlood_relative_btn.getId()) {//点击血压
             showBloodRL();
         } else if (id == mTem_relative_btn.getId()) {//点击体温
@@ -336,10 +394,6 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
      * 点击显示电子病历
      */
     public void showEle() {
-        mEle_btn.setBackgroundResource(R.color.color_username);
-        mEle_btn.setTextColor(ContextCompat.getColor(this, R.color.color_white));
-        mPatient_btn.setBackgroundResource(R.color.color_white);
-        mPatient_btn.setTextColor(ContextCompat.getColor(this, R.color.color_normal));
         mEle_relative.setVisibility(View.VISIBLE);
         mPatient_relative.setVisibility(View.GONE);
     }
@@ -348,13 +402,8 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
      * 点击显示患者数据
      */
     public void showPatientData() {
-        mEle_btn.setBackgroundResource(R.color.color_white);
-        mEle_btn.setTextColor(ContextCompat.getColor(this, R.color.color_normal));
-        mPatient_btn.setBackgroundResource(R.color.color_username);
-        mPatient_btn.setTextColor(ContextCompat.getColor(this, R.color.color_white));
         mEle_relative.setVisibility(View.GONE);
         mPatient_relative.setVisibility(View.VISIBLE);
-
     }
 
     /**
@@ -437,8 +486,6 @@ public class PatientMessageActivity extends AppCompatActivity implements View.On
                 mTemPromptTv.setTextColor(Color.parseColor(mGayColor));
             }
         }
-
-
         mHeightBloodTv.setText(height + "");
         mLowBloodTv.setText(low + "");
         mTem.setText(tem + "°C");

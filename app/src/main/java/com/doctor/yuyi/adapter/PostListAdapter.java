@@ -1,12 +1,7 @@
 package com.doctor.yuyi.adapter;
 
-import android.content.ContentResolver;
+
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +10,11 @@ import android.widget.ImageView;
 
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.lzh_utils.BitMapUtils;
-import com.doctor.yuyi.lzh_utils.UriToPath;
 
-
-import java.io.File;
 import java.util.List;
 
-import io.rong.imkit.utils.BitmapUtil;
 import it.sephiroth.android.library.picasso.Picasso;
-import it.sephiroth.android.library.picasso.Target;
+
 
 /**
  * Created by wanyu on 2017/4/11.

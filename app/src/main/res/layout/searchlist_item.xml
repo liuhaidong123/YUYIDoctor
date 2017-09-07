@@ -2,13 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<TextView
-    android:id="@+id/searchlist_item_text"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="13sp"
-    android:text=""
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:textColor="#aaa9a9"/>
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="73dp">
+        <com.doctor.yuyi.lzh_utils.RoundImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/userdefault"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/my_patient_image"
+            />
+        <TextView
+            android:layout_toRightOf="@+id/my_patient_image"
+            android:id="@+id/searchlist_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="111111111111111111"
+            android:layout_centerVertical="true"
+            android:maxLength="15"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="#333333"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/many"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </LinearLayout>

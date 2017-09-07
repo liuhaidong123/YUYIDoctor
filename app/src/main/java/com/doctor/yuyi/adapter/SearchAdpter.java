@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.bean.BeanSearch;
+import com.doctor.yuyi.lzh_utils.RoundImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,16 +48,19 @@ public class SearchAdpter extends BaseAdapter{
             convertView= LayoutInflater.from(context).inflate(R.layout.searchlist_item,null);
             hodler=new ViewHodler();
             hodler.searchlist_item_text= (TextView) convertView.findViewById(R.id.searchlist_item_text);
+            hodler.my_patient_image= (RoundImageView) convertView.findViewById(R.id.my_patient_image);
             convertView.setTag(hodler);
         }
         else {
             hodler= (ViewHodler) convertView.getTag();
         }
         hodler.searchlist_item_text.setText(list.get(position).getTrueName());
+        Picasso.with(context).load(Ip.URL+list.get(position).getAvatar()).error(R.mipmap.userdefault).into(hodler.my_patient_image);
         return convertView;
     }
 
     class ViewHodler{
         TextView searchlist_item_text;
+        RoundImageView my_patient_image;
     }
 }

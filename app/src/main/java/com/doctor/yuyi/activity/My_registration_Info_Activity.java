@@ -29,6 +29,8 @@ import java.util.Map;
 //挂号信息详情
 public class My_registration_Info_Activity extends MyActivity {
     private final Context con = My_registration_Info_Activity.this;
+    TextView my_registrationInfo_textV_time,my_registrationInfo_textV_hospitalName;//就诊时间,医院
+
     private TextView my_registrationInfo_textV_bianhao, my_registrationInfo_textV_name, my_registrationInfo_textV_sex;//编号,名字，性别
     private TextView my_registrationInfo_textV_age, my_registrationInfo_textV_tel, my_registrationInfo_textV_address;//年龄，电话，地址
     private TextView my_registrationInfo_textV_keshi, my_registrationInfo_textV_docName, my_registrationInfo_textV_docAddress;//科室名称，医生名称，科室地址
@@ -65,8 +67,8 @@ public class My_registration_Info_Activity extends MyActivity {
                                     }
 
                                     my_registrationInfo_textV_sex.setText(sex);
-
-                                    my_registrationInfo_textV_age.setText((bean.getAge() == null ? 0 : (int) (bean.getAge())) + "");
+                                    my_registrationInfo_textV_bianhao.setText(bean.getId()+"");
+                                    my_registrationInfo_textV_age.setText((bean.getAge() == null ? 0 : bean.getAge()) + "");
 //                                    if (bean.getAge()==null){
 //                                        my_registrationInfo_textV_age.setText("用户未填写");
 //                                    }
@@ -74,9 +76,10 @@ public class My_registration_Info_Activity extends MyActivity {
                                     if (bean.getTelephone() == null) {
                                         my_registrationInfo_textV_tel.setText("用户未填写");
                                     }
-
+                                    my_registrationInfo_textV_hospitalName.setText(bean.getHospitalName());
+                                    my_registrationInfo_textV_time.setText(bean.getVisitTimeString());
 //                                    my_registrationInfo_textV_address.setText(bean.get);//地址
-                                    my_registrationInfo_textV_keshi.setTag(bean.getDepartmentName());
+                                    my_registrationInfo_textV_keshi.setText(bean.getClinicName());
                                     my_registrationInfo_textV_docName.setText(bean.getPhysicianTrueName());
                                     my_registrationInfo_textV_docAddress.setText(bean.getClinicName());//门诊
                                 } else {
@@ -115,8 +118,12 @@ public class My_registration_Info_Activity extends MyActivity {
     }
 
     private void initView() {
+
+
         titleTextView = (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("挂号单");
+        my_registrationInfo_textV_hospitalName= (TextView) findViewById(R.id.my_registrationInfo_textV_hospitalName);
+        my_registrationInfo_textV_time= (TextView) findViewById(R.id.my_registrationInfo_textV_time);
 
         my_registrationInfo_textV_bianhao = (TextView) findViewById(R.id.my_registrationInfo_textV_bianhao);
         my_registrationInfo_textV_name = (TextView) findViewById(R.id.my_registrationInfo_textV_name);

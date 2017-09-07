@@ -29,6 +29,17 @@
         <item name="android:windowEnterAnimation">@anim/pop3_in</item>
         <item name="android:windowExitAnimation">@anim/pop3_out</item>
     </style>
+    <!--弹窗样式:屏幕右边到左边-->
+    <style name="popup4_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop4in</item>
+        <item name="android:windowExitAnimation">@anim/pop4out</item>
+    </style>
+
+    <!--弹窗样式:底部向上-->
+    <style name="popup_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popin</item>
+        <item name="android:windowExitAnimation">@anim/popout</item>
+    </style>
     <declare-styleable name="MyEmptyListView">
         <attr name="bitmap" format="reference"></attr>
         <attr name="emptyText" format="string"></attr>

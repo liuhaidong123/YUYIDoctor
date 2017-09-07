@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#00ffeeaa"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 <LinearLayout
+    android:layout_marginTop="150dp"
+    android:layout_marginBottom="150dp"
     android:id="@+id/empty_layout"
     android:orientation="vertical"
     android:layout_width="wrap_content"
@@ -12,16 +16,16 @@
         android:id="@+id/empty_image"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/nomessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
     <TextView
         android:id="@+id/empty_text"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="你还没有消息哦"
+        android:text="你还没有消息哦！"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textColor="#b6b6b6"/>
+        android:textColor="@color/color_drumall"/>
 </LinearLayout>
 </RelativeLayout>

@@ -74,7 +74,6 @@ public class BitMapUtils {
             if (u.getScheme()==null){
                 u=Uri.fromFile(new File(u.getPath()));
             }
-
         return u;
     }
 

@@ -22,6 +22,7 @@ import com.doctor.yuyi.activity.CardMessageActivity;
 import com.doctor.yuyi.bean.Bean_MyPostData;
 import com.doctor.yuyi.bean.Bean_MyPostDataPriase;
 import com.doctor.yuyi.lzh_utils.DataUtils;
+import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.squareup.okhttp.Callback;
@@ -128,6 +129,8 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         if (convertView==null){
             hodler=new ViewHodler();
             convertView= LayoutInflater.from(context).inflate(R.layout.forumposts_listview_item,null);
+            hodler.forumpost_listitem_Image= (RoundImageView) convertView.findViewById(R.id.forumpost_listitem_Image);
+            hodler.forumpost_listitem_Name= (TextView) convertView.findViewById(R.id.forumpost_listitem_Name);
             hodler.forumpost_listitem_title= (TextView) convertView.findViewById(R.id.forumpost_listitem_title);
 
             hodler.forumpost_listitem_content= (TextView) convertView.findViewById(R.id.forumpost_listitem_content);
@@ -232,11 +235,15 @@ public class My_forumPosts_Adapter extends BaseAdapter{
         else {
             hodler.forumposts_listview_item_postImage.setSelected(false);
         }
-
+        Picasso.with(context).load(Ip.ImgPth+list.get(position).getAvatar()).error(R.mipmap.userdefault).into(hodler.forumpost_listitem_Image);
+        Log.i("头像:",Ip.ImgPth+list.get(position).getAvatar());
+        hodler.forumpost_listitem_Name.setText(list.get(position).getTrueName());
         return convertView;
     }
 
     class ViewHodler{
+        RoundImageView forumpost_listitem_Image;//头像
+        TextView forumpost_listitem_Name;//姓名
         TextView forumpost_listitem_title,forumpost_listitem_content,forumpost_listitem_time;//标题，内容，时间
         TextView forumposts_listview_item_msgNum,forumposts_listview_item_postNum;//评论代数量，点赞的数量
         ImageView forumposts_listview_item_postImage,forumposts_listview_item_msgImage;//点赞，评论的image

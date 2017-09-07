@@ -75,14 +75,14 @@ public class PostActivity extends AppCompatActivity {
                                 Toast.makeText(PostActivity.this,"帖子发布成功",Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
-                            else if ("-1".equals(postIn)){
+                            else if ("-1".equals(postIn.getCode())){
                                 Toast.makeText(PostActivity.this,"发帖失败：您没有发帖的权限",Toast.LENGTH_SHORT).show();
                             }
-                            else if ("10000".equals(postIn)){
+                            else if ("10000".equals(postIn.getCode())){
                                 Toast.makeText(PostActivity.this,"发帖失败，请重新登陆",Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Toast.makeText(PostActivity.this,"发帖失败："+postIn.getResult(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostActivity.this,"发帖失败："+postIn.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {

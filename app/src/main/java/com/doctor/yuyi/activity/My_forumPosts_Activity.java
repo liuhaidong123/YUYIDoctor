@@ -156,7 +156,7 @@ public class My_forumPosts_Activity extends MyActivity {
         mp.put("token", UserInfo.UserToken);
         mp.put("start", st + "");
         mp.put("limit", "" + limit);
-        okhttp.getCall(Ip.URL + Ip.interface_MyPostData, mp, okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCall(Ip.URLLocalHost + Ip.interface_MyPostData, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
@@ -201,7 +201,7 @@ public class My_forumPosts_Activity extends MyActivity {
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() ));
         //listView.getDividerHeight()获取子项间分隔符占用的高度
         //params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);

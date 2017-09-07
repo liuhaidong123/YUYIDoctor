@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f2f2f2"
     tools:context="com.doctor.yuyi.activity.My_patientDataList_Activity">
     <RelativeLayout
+        android:background="@color/color_white"
         android:id="@+id/ms_top_relayout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -31,22 +33,57 @@
             android:layout_centerInParent="true"
             android:textColor="@color/L_color_titleText"
             android:textSize="17sp"/>
-        <ImageView
-            android:id="@+id/my_patientList_search"
-            android:clickable="true"
-            android:onClick="Search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/search"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/my_patientList_search"-->
+            <!--android:clickable="true"-->
+            <!--android:onClick="Search"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/search"/>-->
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#eeeeee"/>
+        android:background="#e5e5e5"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color_white">
+            <RelativeLayout
+                android:clickable="true"
+                android:onClick="Search"
+                android:id="@+id/my_patientList_search"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bas">
+                <ImageView
+                    android:id="@+id/searchImage"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/search"/>
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#999999"
+                    android:text="搜索患者"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/searchImage"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -57,14 +94,20 @@
             android:layout_height="match_parent"
             >
             <com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew
-                android:dividerHeight="1dp"
-                android:divider="#eeeeee"
+                android:dividerHeight="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scrollbars="none"
+                android:layout_marginBottom="10dp"
+                android:divider="#f2f2f2"
                 android:id="@+id/my_patientList_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew>
             <RelativeLayout
-                android:background="#f2f2f2"
+                android:visibility="visible"
+                android:background="#ffffff"
                 android:id="@+id/my_paintlist_loading_laout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

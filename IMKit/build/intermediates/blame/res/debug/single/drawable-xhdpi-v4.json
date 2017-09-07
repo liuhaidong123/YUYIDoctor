@@ -84,12 +84,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_picture.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_leave_message_bg.png",
-        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_cs_leave_message_bg.png"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_yes.png",
         "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_ic_yes.png"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_leave_message_bg.png",
+        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_cs_leave_message_bg.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u261d.png",
@@ -116,16 +116,16 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_ed_pub_service_search_hover.9.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_conversation_list_empty.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_conversation_list_empty.png"
+        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f556.png",
+        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f556.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f44c.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f44c.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f556.png",
-        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f556.png"
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_conversation_list_empty.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/rc_conversation_list_empty.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f628.png",
@@ -144,12 +144,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u2615.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f62d.png",
-        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f62d.png"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f47b.png",
         "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f47b.png"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f62d.png",
+        "source": "/Users/hcq/Desktop/YUYIDoctor/IMKit/src/main/res/drawable-xhdpi/u1f62d.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYIDoctor/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f4a1.png",
