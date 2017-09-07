@@ -25,7 +25,7 @@ public class UrlTools {
     public static final String URL_CIRCLE_PRAISE = "/likes/LikeNum.do?";//id=1&token=820F140709A478E3358AB5DA911C91E6 学术圈点赞接口
 
     public static final String URL_PATIENT_DATA = "/homeuser/findOnePh.do?";//token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&humeuserId=1患者详情中的患者数据
-    public static final String URL_PATIENT_ELE = "/medical/findOnePh.do?";//token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&humeuserId=1患者详情中的电子病历
+    public static final String URL_PATIENT_ELE = "/homeuser/findMyUserList.do?";//token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&humeuserId=1患者详情中的电子病历
 
     public static final String URL_CIRCLE_COMMEND = "/comment/AddConment2.do?";//telephone=18782931355&content_id=1&Content=haha学术圈详情评论
     public static final String URL_CIRCLE_COMMEND_PRAISE = "/likes/CommentLike.do?";//id=1&token=CEDA9F4E7D5FEC556E1BB035FA18E54E 学术圈详情评论点赞

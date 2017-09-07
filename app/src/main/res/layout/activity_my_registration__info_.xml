@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f2f2f2"
     tools:context="com.doctor.yuyi.activity.My_registration_Info_Activity">
     <include android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,265 +18,353 @@
         <!--android:scrollbars="none"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
-    <LinearLayout
+    <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!--编号-->
-<RelativeLayout
-
-android:layout_width="match_parent"
-android:layout_height="40dp">
-<TextView
-    android:layout_centerVertical="true"
-    android:id="@+id/my_registrationInfo_bianhao"
-    android:layout_marginLeft="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="编号："
-    android:textSize="15sp"
-    android:textColor="#333333"
-    />
-<TextView
-    android:id="@+id/my_registrationInfo_textV_bianhao"
-    android:layout_centerVertical="true"
-    android:text=""
-    android:textSize="15sp"
-    android:textColor="#333333"
-    android:layout_toRightOf="@+id/my_registrationInfo_bianhao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:maxLines="1"/>
-<TextView
-    android:background="#eeeeee"
-    android:layout_width="match_parent"
-    android:layout_height="1dp" />
-</RelativeLayout>
-<!--姓名-->
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_centerVertical="true"
-                android:id="@+id/my_registrationInfo_name"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="姓名："
-                android:textSize="15sp"
-                android:textColor="#333333"
-                />
-            <TextView
-                android:id="@+id/my_registrationInfo_textV_name"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_toRightOf="@+id/my_registrationInfo_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-            <TextView
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </RelativeLayout>
-<!--性别-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_centerVertical="true"
-                android:id="@+id/my_registrationInfo_sex"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="性别："
-                android:textSize="15sp"
-                android:textColor="#333333"
-                />
-            <TextView
-                android:id="@+id/my_registrationInfo_textV_sex"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_toRightOf="@+id/my_registrationInfo_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-            <TextView
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </RelativeLayout>
-        <!--年龄-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_centerVertical="true"
-                android:id="@+id/my_registrationInfo_age"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="年龄："
-                android:textSize="15sp"
-                android:textColor="#333333"
-                />
-            <TextView
-                android:id="@+id/my_registrationInfo_textV_age"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_toRightOf="@+id/my_registrationInfo_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-            <TextView
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </RelativeLayout>
-        <!--电话-->
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_centerVertical="true"
-                android:id="@+id/my_registrationInfo_tel"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="电话："
-                android:textSize="15sp"
-                android:textColor="#333333"
-                />
-            <TextView
-                android:id="@+id/my_registrationInfo_textV_tel"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_toRightOf="@+id/my_registrationInfo_tel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-            <TextView
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </RelativeLayout>
-        <!--地址-->
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_centerVertical="true"
-                android:id="@+id/my_registrationInfo_address"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地址："
-                android:textSize="15sp"
-                android:textColor="#333333"
-                />
-            <TextView
-                android:id="@+id/my_registrationInfo_textV_address"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_toRightOf="@+id/my_registrationInfo_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-            <TextView
-                android:layout_alignParentBottom="true"
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </RelativeLayout>
+        >
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#e9e9e9">
-<!--科室-->
+            android:paddingBottom="94dp"
+            android:layout_margin="10dp"
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--就诊时间-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_time"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="就诊时间："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:paddingRight="10dp"
+                    android:id="@+id/my_registrationInfo_textV_time"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_time"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e5e5e5"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+            <!--编号-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_bianhao"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编号："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_bianhao"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:paddingRight="10dp"
+                    android:layout_toRightOf="@+id/my_registrationInfo_bianhao"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+            </RelativeLayout>
+            <!--姓名-->
             <RelativeLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="患者姓名："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_name"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_name"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--性别-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_sex"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_sex"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_sex"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:background="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--年龄-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_age"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年龄："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_age"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textColor="#666666"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/my_registrationInfo_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--电话-->
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_tel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电话："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_tel"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--地址-->
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_address"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_address"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--医院-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/my_registrationInfo_hospitalName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="就诊医院："
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    />
+                <TextView
+                    android:id="@+id/my_registrationInfo_textV_hospitalName"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_toRightOf="@+id/my_registrationInfo_hospitalName"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#e5e5e5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </RelativeLayout>
+            <!--科室-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
                 <TextView
                     android:layout_centerVertical="true"
                     android:id="@+id/my_registrationInfo_keshi"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="科室："
-                    android:textSize="15sp"
+                    android:text="就诊科室："
+                    android:textSize="14sp"
                     android:textColor="#333333"
                     />
                 <TextView
                     android:id="@+id/my_registrationInfo_textV_keshi"
                     android:layout_centerVertical="true"
                     android:text=""
-                    android:textSize="15sp"
-                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
                     android:layout_toRightOf="@+id/my_registrationInfo_keshi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:maxLines="1"/>
                 <TextView
                     android:layout_alignParentBottom="true"
-                    android:background="#cccccc"
+                    android:background="#e5e5e5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
             </RelativeLayout>
             <!--医生名字-->
             <RelativeLayout
-
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="47dp">
                 <TextView
                     android:layout_centerVertical="true"
                     android:id="@+id/my_registrationInfo_docName"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="医师："
-                    android:textSize="15sp"
+                    android:text="就诊医生："
+                    android:textSize="14sp"
                     android:textColor="#333333"
                     />
                 <TextView
                     android:id="@+id/my_registrationInfo_textV_docName"
                     android:layout_centerVertical="true"
                     android:text=""
-                    android:textSize="15sp"
-                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
                     android:layout_toRightOf="@+id/my_registrationInfo_docName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:maxLines="1"/>
                 <TextView
                     android:layout_alignParentBottom="true"
-                    android:background="#cccccc"
+                    android:background="#e5e5e5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
             </RelativeLayout>
-            <!--门诊地址-->
+            <!--门诊-->
             <RelativeLayout
-
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="47dp">
                 <TextView
                     android:layout_centerVertical="true"
                     android:id="@+id/my_registrationInfo_docAddress"
@@ -283,26 +372,27 @@ android:layout_height="40dp">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="门诊："
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#333333"
                     />
                 <TextView
                     android:id="@+id/my_registrationInfo_textV_docAddress"
                     android:layout_centerVertical="true"
                     android:text=""
-                    android:textSize="15sp"
-                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
                     android:layout_toRightOf="@+id/my_registrationInfo_docAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"/>
                 <TextView
                     android:layout_alignParentBottom="true"
-                    android:background="#cccccc"
+                    android:background="#e5e5e5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
     <!--</com.doctor.yuyi.myview.ElScrollowView>-->
 </LinearLayout>

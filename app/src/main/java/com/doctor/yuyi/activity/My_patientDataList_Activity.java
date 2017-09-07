@@ -75,13 +75,13 @@ public class My_patientDataList_Activity extends MyActivity {
                                 start += paintList.getRows().size();
                                 adapter.notifyDataSetChanged();
                             } else {
-                                toast.toast_gsonEmpty(con);
+//                                toast.toast_gsonEmpty(con);
                             }
                         } else {
-                            toast.toast_gsonEmpty(con);
+//                            toast.toast_gsonEmpty(con);
                         }
                     } catch (Exception e) {
-                        toast.toast_gsonFaild(con);
+//                        toast.toast_gsonFaild(con);
                     }
                     my_listview.setEmpty();
                     break;
@@ -141,7 +141,7 @@ public class My_patientDataList_Activity extends MyActivity {
         }
     }
 
-    //获取混着列表http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
+    //获取患者列表http://192.168.1.55:8080/yuyi/homeuser/findAllUserList.do?token=EA62E69E02FABA4E4C9A0FDC1C7CAE10&start=0&limit=5
     public void getDataList(int st, int lim) {
         MyDialog.showDialog(My_patientDataList_Activity.this);
         setLoading(0);

@@ -20,6 +20,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mrefresh"
+        android:background="#f2f2f2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -29,14 +30,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.doctor.yuyi.myview.InformationListView
-                    android:id="@+id/my_patient_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@null"
-                    android:scrollbars="none">
+                    <com.doctor.yuyi.myview.InformationListView
+                        android:listSelector="#00000000"
+                        android:id="@+id/my_patient_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:layout_marginTop="10dp"
+                        android:scrollbars="none">
+                    </com.doctor.yuyi.myview.InformationListView>
 
-                </com.doctor.yuyi.myview.InformationListView>
+
 
                 <RelativeLayout
                     android:visibility="gone"

@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="29dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/layoutba">
+            android:background="@drawable/textb">
             <TextView
                 android:id="@+id/my_registration_ks"
                 android:layout_centerVertical="true"
@@ -62,7 +62,32 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
+    <RelativeLayout
+        android:id="@+id/myRegistration_layout"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/color_white">
+        <TextView
+            android:textColor="#333333"
+            android:textSize="15sp"
+            android:text="7月28号下午"
+            android:layout_centerVertical="true"
+            android:id="@+id/myRegistration_textVTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/calendar"
+            android:padding="7dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
     <ScrollView
+        android:background="#f2f2f2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -74,11 +99,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/my_registration_listview"
-                android:dividerHeight="1dp"
-                android:divider="#eeeeee">
+                android:dividerHeight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:divider="#f2f2f2">
             </com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew>
             <RelativeLayout
-                android:background="#f2f2f2"
+                android:background="#ffffff"
                 android:id="@+id/my_registration_loadingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

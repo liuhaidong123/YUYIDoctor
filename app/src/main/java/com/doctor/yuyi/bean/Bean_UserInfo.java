@@ -1,11 +1,13 @@
 package com.doctor.yuyi.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by wanyu on 2017/4/6.
  */
 //获取个人信息接口
 
-public class Bean_UserInfo {
+public class Bean_UserInfo implements Serializable{
 
     /**
      * result : 55571124891717A9FFDD698F8B2824E9
@@ -51,7 +53,7 @@ public class Bean_UserInfo {
         this.physician = physician;
     }
 
-    public static class PhysicianBean {
+    public static class PhysicianBean implements Serializable{
         /**
          * clinicName :
          * departmentName :

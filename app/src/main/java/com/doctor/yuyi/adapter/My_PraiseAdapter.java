@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.doctor.yuyi.bean.Bean_DeleteMyPraise;
 import com.doctor.yuyi.bean.Bean_MyPostData;
 import com.doctor.yuyi.bean.Bean_MyPraise;
 import com.doctor.yuyi.lzh_utils.DataUtils;
+import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
 import com.squareup.okhttp.Callback;
@@ -114,6 +116,10 @@ public class My_PraiseAdapter extends BaseAdapter{
         if (convertView==null){
             hodler=new ViewHodler();
             convertView= LayoutInflater.from(context).inflate(R.layout.my_praise_item,null);
+            hodler.toplayout= (RelativeLayout) convertView.findViewById(R.id.toplayout);
+            hodler.forumpost_listitem_praise_Name= (TextView) convertView.findViewById(R.id.forumpost_listitem_praise_Name);
+            hodler.forumpost_listitem_praise_Image= (RoundImageView) convertView.findViewById(R.id.forumpost_listitem_praise_Image);
+
             hodler.forumpost_listitem_title_praise= (TextView) convertView.findViewById(R.id.forumpost_listitem_title_praise);
 
             hodler.forumpost_listitem_content_praise= (TextView) convertView.findViewById(R.id.forumpost_listitem_content_praise);
@@ -166,7 +172,7 @@ public class My_PraiseAdapter extends BaseAdapter{
             }
         }
         hodler.forumposts_listview_item_msgNum_praise.setText(""+(list.get(position).getCommentNum()==null?0:(list.get(position).getCommentNum())));
-        hodler.forumposts_listview_item_postNum_praise.setText(""+(list.get(position).getLikeNum()==null?0:(list.get(position).getLikeNum())));
+        hodler.forumposts_listview_item_postNum_praise.setText(""+list.get(position).getLikeNum());
         if (!"".equals(list.get(position).getPicture())&&!TextUtils.isEmpty(list.get(position).getPicture())){
             String url=list.get(position).getPicture();
             if (url.contains(";")){
@@ -215,9 +221,21 @@ public class My_PraiseAdapter extends BaseAdapter{
             }
         });
             hodler.forumposts_listview_item_postImage_praise.setSelected(true);
+            hodler.forumpost_listitem_praise_Name.setText(list.get(position).getTrueName());
+            Picasso.with(context).load(Ip.ImgPth+list.get(position).getAvatar()).error(R.mipmap.userdefault).into(hodler.forumpost_listitem_praise_Image);
+             Log.i("头像:",Ip.ImgPth+list.get(position).getAvatar());
+            if (list.get(position).getLikeType()==1L){//1L咨询，不显示头像
+                hodler.toplayout.setVisibility(View.GONE);
+            }
+        else {//2L
+                hodler.toplayout.setVisibility(View.VISIBLE);
+            }
         return convertView;
     }
     class ViewHodler{
+        RelativeLayout toplayout;//zixun
+        TextView forumpost_listitem_praise_Name;//用户姓名
+        RoundImageView forumpost_listitem_praise_Image;//用户头像
         TextView forumpost_listitem_title_praise,forumpost_listitem_content_praise,forumpost_listitem_time_praise;//标题，内容，时间
         TextView forumposts_listview_item_msgNum_praise,forumposts_listview_item_postNum_praise;//评论代数量，点赞的数量
         ImageView forumposts_listview_item_postImage_praise,forumposts_listview_item_msgImage_praise;//点赞，评论的image

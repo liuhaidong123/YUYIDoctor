@@ -68,8 +68,12 @@ public class PatientFragment extends Fragment {
                             mRefreshBox.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        ToastUtils.myToast(getActivity(), "对不起，您没有权限");
-                    }
+
+                        if (my_patient_listview.getHeaderViewsCount()==0){
+                            View vi=LayoutInflater.from(getActivity()).inflate(R.layout.emp,null);
+                            my_patient_listview.addHeaderView(vi);
+                        }
+                        }
                 }
             } else if (msg.what == 114) {
                 mRefreshBox.setVisibility(View.GONE);
@@ -80,8 +84,8 @@ public class PatientFragment extends Fragment {
     };
 
     public PatientFragment() {
-    }
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,12 +133,12 @@ public class PatientFragment extends Fragment {
         my_patient_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), PatientMessageActivity.class);
-                intent.putExtra("humeuserId", mList.get(position).getId());
-                startActivity(intent);
+                if (mList!=null&&mList.size()>0){
+                    Intent intent = new Intent(getActivity(), PatientMessageActivity.class);
+                    intent.putExtra("humeuserId", mList.get(position).getId());
+                    startActivity(intent);
+                }
             }
         });
     }
-
-
 }

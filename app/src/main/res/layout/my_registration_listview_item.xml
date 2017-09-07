@@ -3,20 +3,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 <RelativeLayout
-    android:paddingLeft="10dp"
     android:paddingRight="10dp"
+    android:background="@color/color_white"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="75dp">
     <TextView
-        android:textColor="#666666"
-        android:textSize="@dimen/textSize14"
-        android:text=""
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:text="11111"
         android:maxLines="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:padding="5dp"
+        android:gravity="center"
+        android:background="@drawable/myback"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_centerVertical="true"
         android:id="@+id/my_registration_list_name"/>
+    <TextView
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:text="1111111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_registration_list_KS"/>
     <LinearLayout
+        android:gravity="center_vertical"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,18 +38,27 @@
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
         <TextView
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="挂号时间："
+            android:text="就诊时间："
             android:textSize="@dimen/textSize12"
             android:textColor="#666666"
             />
         <TextView
-            android:textColor="#cccccc"
+            android:layout_gravity="center_vertical"
+            android:textColor="#999999"
+            android:textSize="12sp"
             android:id="@+id/my_registration_list_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="11111111"/>
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/many"/>
     </LinearLayout>
 </RelativeLayout>
 </LinearLayout>

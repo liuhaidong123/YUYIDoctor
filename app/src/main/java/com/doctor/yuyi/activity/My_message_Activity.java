@@ -20,6 +20,7 @@ import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.My_message_listViewAdapter;
 import com.doctor.yuyi.bean.Bean_MyMessage;
 import com.doctor.yuyi.bean.Bean_MyMessageRead;
+import com.doctor.yuyi.bean.CircleBean.Rows;
 import com.doctor.yuyi.lzh_utils.ListVIewUtils;
 import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.lzh_utils.MyEmptyListView;
@@ -38,6 +39,11 @@ import java.util.Map;
 
 public class My_message_Activity extends MyActivity {
     private final Context con = My_message_Activity.this;
+
+    RelativeLayout my_message_item;//公告的layout布局
+    TextView my_message_msg_item;//公告内容
+    TextView my_message_time_item;//公告时间
+
     private MyEmptyListView my_message_listview;
     private RoundImageView my_message_titleImage;//标题图
     private TextView my_message_notifi_time, my_message_notifi_name, my_message_notifi_msg;//标题时间,标题，标题内容
@@ -51,6 +57,7 @@ public class My_message_Activity extends MyActivity {
     private RelativeLayout my_message_loading_layout;
     private TextView my_message_loading_text;
     private ProgressBar my_message_loading_progress;
+    Bean_MyMessage.RowsBean rowsBean;
     //------
     private Handler handler = new Handler() {
         @Override
@@ -80,7 +87,21 @@ public class My_message_Activity extends MyActivity {
                                 } else {//服务器还有数据
                                     my_message_loading_layout.setVisibility(View.VISIBLE);
                                 }
-                                list.addAll(myMessage.getRows());
+                                List<Bean_MyMessage.RowsBean>lis=new ArrayList<>();
+                                for (int i=0;i<myMessage.getRows().size();i++){
+                                   if (myMessage.getRows().get(i).getMsgType()==1){//公告
+                                       if (rowsBean==null){
+                                           rowsBean=myMessage.getRows().get(i);
+                                           my_message_item.setVisibility(View.VISIBLE);
+                                           my_message_msg_item.setText(rowsBean.getContent());
+                                           my_message_time_item.setText(rowsBean.getContent());
+                                       }
+                                   }
+                                    else {
+                                       lis.add(myMessage.getRows().get(i));
+                                   }
+                                }
+                                list.addAll(lis);
                                 adapter.notifyDataSetChanged();
                                 ListVIewUtils.setListViewHeightBasedOnChildren(my_message_listview);
                             } else {
@@ -143,7 +164,7 @@ public class My_message_Activity extends MyActivity {
                 int msgType = list.get(position).getMsgType();
                 switch (msgType) {  //消息类型--1=宇医公告，2=挂号通知，3=点赞资讯，4=点赞帖子，5=点赞帖子评论
                     case 1://公告页面
-                        startActivity(new Intent(con, My_message_notification_Activity.class));
+//                        startActivity(new Intent(con, My_message_notification_Activity.class));
                         break;
                     case 2:
                         //不做处里
@@ -164,6 +185,17 @@ public class My_message_Activity extends MyActivity {
     }
 
     private void initView() {
+        my_message_item= (RelativeLayout) findViewById(R.id.my_message_item);
+        my_message_item.setVisibility(View.GONE);
+        my_message_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(con, My_message_notification_Activity.class));
+            }
+        });
+        my_message_msg_item= (TextView) findViewById(R.id.my_message_msg_item);
+        my_message_time_item= (TextView) findViewById(R.id.my_message_time_item);
+
         my_message_listview = (MyEmptyListView) findViewById(R.id.my_message_listview);
         titleTextView = (TextView) findViewById(R.id.titleinclude_textview);
         titleTextView.setText("消息");

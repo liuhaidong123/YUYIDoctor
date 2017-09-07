@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:paddingLeft="20dp"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:background="@color/color_white"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="73dp">
         <com.doctor.yuyi.lzh_utils.RoundImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/userdefault"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:id="@+id/my_patientList_image"
             />
         <TextView
-            android:layout_marginLeft="15dp"
-            android:text=""
+            android:text="LIM"
             android:textColor="#333333"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/my_patientList_image"

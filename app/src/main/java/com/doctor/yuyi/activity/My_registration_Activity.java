@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.MyUtils.MyDialog;
+import com.doctor.yuyi.MyUtils.WheelViewData;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.adapter.MyListAdapter;
@@ -33,20 +36,49 @@ import com.doctor.yuyi.lzh_utils.MyActivity;
 import com.doctor.yuyi.lzh_utils.MyNorEmptyListVIew;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
+import com.doctor.yuyi.wheelView.MyWheelAdapter;
+import com.doctor.yuyi.wheelView.MyWheelView;
+import com.doctor.yuyi.wheelView.OnWheelChangedListener;
+import com.doctor.yuyi.wheelView.WheelView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //挂号接收
 public class My_registration_Activity extends MyActivity {
+
     private final Context con = My_registration_Activity.this;
     private MyNorEmptyListVIew my_registration_listview;
+    TextView myRegistration_textVTime;//显示的挂号的时间
+    final int AM=1;//上午
+    final int PM=0;//下午
+    int isAm;//上下午的参数
+    String visitTime="";//挂号的时间2017-09-17
+    RelativeLayout myRegistration_layout;//显示时间的layout
+
+    //挂号时间筛选弹窗
+
+    int currentTime;
+    String currentDate;
+    String month="";
+    String year="";
+    PopupWindow pop;
+    MyWheelView pop_wheel_time;//上下午
+    MyWheelAdapter adapterTime;
+    List<String>listTime;
+
+    MyWheelView pop_wheel_date;//日期（某月的天）
+    MyWheelAdapter adapterdate;
+    List<String>listDate;
 
     private My_Registration_Adapter adapter;
     private TextView my_registration_ks;//科室名字
@@ -67,6 +99,7 @@ public class My_registration_Activity extends MyActivity {
 
     private Long prId;
     private Long chId;
+    int st=0;
     //----
     private Handler handler = new Handler() {
         @Override
@@ -95,13 +128,19 @@ public class My_registration_Activity extends MyActivity {
                             } else if ("-1".equals(ks.getCode())) {
                                 Toast.makeText(con, "没有挂号接收权限", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(con, "请退出登陆后重试", Toast.LENGTH_SHORT).show();
+                                if (st==0){
+                                    st=1;
+                                    getKSData();
+                                }
+                                else {
+                                    Toast.makeText(con, "请退出登陆后重试", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         } else {
 //                            toast.toast_gsonEmpty(con);
                         }
                     } catch (Exception e) {
-                        toast.toast_gsonFaild(con);
+//                        toast.toast_gsonFaild(con);
                         e.printStackTrace();
                     }
                     break;
@@ -124,17 +163,19 @@ public class My_registration_Activity extends MyActivity {
                                 }
 
                             } else {
-                                toast.toast_gsonEmpty(con);
+//                                toast.toast_gsonEmpty(con);
                             }
                         } else {
-                            toast.toast_gsonEmpty(con);
+//                            toast.toast_gsonEmpty(con);
                         }
                     } catch (Exception e) {
-                        toast.toast_gsonFaild(con);
+//                        toast.toast_gsonFaild(con);
                         e.printStackTrace();
                     }
+                    if (lis.size()==0){
+                        my_registration_listview.setEmpty();
+                    }
                     adapter.notifyDataSetChanged();
-                    my_registration_listview.setEmpty();
                     break;
                 case 3:
                     showWindowSelect();
@@ -162,6 +203,33 @@ public class My_registration_Activity extends MyActivity {
     }
 
     private void initView() {
+//         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+//        format.format(new Date());
+        Date date=new Date();
+        Calendar c=Calendar.getInstance();
+        c.setTime(date);
+        Log.e("shijian---","月份："+(c.get(Calendar.MONTH)+1)+"--日期:"+c.get(Calendar.DAY_OF_MONTH)+"--xiaoshi:"+ c.get(Calendar.HOUR_OF_DAY));
+        myRegistration_layout= (RelativeLayout) findViewById(R.id.myRegistration_layout);
+        myRegistration_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWindowTime();//日期选择
+            }
+        });
+        myRegistration_textVTime= (TextView) findViewById(R.id.myRegistration_textVTime);
+        String tim="上午";
+        if (date.getHours()>=0&&date.getHours()<12){
+            isAm=AM;
+            tim="上午";
+        }
+        else {
+            isAm=PM;
+            tim="下午";
+        }
+        month=(c.get(Calendar.MONTH)+1)+"";
+        year=c.get(Calendar.YEAR)+"";
+        visitTime=c.get(Calendar.YEAR)+"-"+(c.get(Calendar.MONTH)+1)+"-"+c.get(Calendar.DAY_OF_MONTH);
+        myRegistration_textVTime.setText((date.getMonth()+1)+"月"+date.getDate()+"日"+tim);
         //----
         my_registration_loadingLayout = (RelativeLayout) findViewById(R.id.my_registration_loadingLayout);
         my_registration_loadingprogress = (ProgressBar) findViewById(R.id.my_registration_loadingprogress);
@@ -204,6 +272,105 @@ public class My_registration_Activity extends MyActivity {
                     return;
                 }
                 showWindowSelect();
+            }
+        });
+    }
+
+    //选择日期
+    private void showWindowTime() {
+        if (listTime==null|listDate==null){
+            initList();
+        }
+        pop=new PopupWindow();
+        View vi=LayoutInflater.from(con).inflate(R.layout.timeselectlayout,null);
+        TextView PopTime_cancle= (TextView) vi.findViewById(R.id.PopTime_cancle);
+        TextView PopTime_submit= (TextView) vi.findViewById(R.id.PopTime_submit);
+        TextView PopTime_Month= (TextView) vi.findViewById(R.id.PopTime_Month);
+        PopTime_Month.setText(month+"月");
+        currentTime=AM;
+        currentDate=listDate.get(0);
+        MyWheelView pop_wheel_date= (MyWheelView) vi.findViewById(R.id.pop_wheel_date);//日期
+        MyWheelView pop_wheel_time= (MyWheelView) vi.findViewById(R.id.pop_wheel_time);//上下午
+        adapterTime=new MyWheelAdapter(con,listTime);
+        pop_wheel_time.setViewAdapter(adapterTime);
+        adapterdate=new MyWheelAdapter(con,listDate);
+        pop_wheel_date.setViewAdapter(adapterdate);
+        pop_wheel_date.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+                currentDate=listDate.get(newValue);
+            }
+        });
+
+        pop_wheel_time.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+                switch (newValue){
+                    case 0:
+                        currentTime=AM;
+                        break;
+                    case 1:
+                        currentTime=PM;
+                        break;
+                }
+            }
+        });
+        PopTime_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pop.dismiss();
+            }
+        });
+        PopTime_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isAm=currentTime;
+                String tim="上下午";
+                switch (isAm){
+                    case 0:
+                        tim="下午";
+                        break;
+                    case 1:
+                        tim="上午";
+                        break;
+                }
+                currentDate=currentDate.replace("日","");
+                myRegistration_textVTime.setText(month+"月"+currentDate+tim);
+                visitTime=year+"-"+month+"-"+currentDate;
+                Log.i("isAm=="+isAm,"visitTime=="+visitTime);
+                st=0;
+                lis.clear();
+                adapter.notifyDataSetChanged();
+                getRegsiterData(prId,chId,st,limit);
+                pop.dismiss();
+            }
+        });
+
+        LinearLayout parent = (LinearLayout) findViewById(R.id.activity_my_registration_);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = 0.6f;
+        getWindow().setAttributes(params);
+
+        pop.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        pop.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+
+        pop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        pop.setContentView(vi);
+        pop.setBackgroundDrawable(new ColorDrawable(Color.argb(000, 255, 255, 255)));
+        pop.setTouchable(true);
+        pop.setFocusable(true);
+        pop.setOutsideTouchable(true);
+
+        pop.setAnimationStyle(R.style.popup_anim);
+        pop.showAtLocation(parent, Gravity.BOTTOM,0,0);
+        pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
             }
         });
     }
@@ -268,7 +435,7 @@ public class My_registration_Activity extends MyActivity {
             popSucc.setOutsideTouchable(true);
 
 
-            popSucc.setAnimationStyle(R.style.popup2_anim);
+            popSucc.setAnimationStyle(R.style.popup4_anim);
             popSucc.showAsDropDown(parent, 0, 20);
             my_registration_image.setSelected(true);
             popSucc.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -340,13 +507,15 @@ public class My_registration_Activity extends MyActivity {
         mp.put("token", UserInfo.UserToken);
         mp.put("start", st + "");
         mp.put("limit", limit + "");
+        mp.put("isAm",isAm+"");
+        mp.put("visitTime",visitTime);
         Log.i("start---" + st, "limit---" + lim);
 
-        if (popSucc != null && popSucc.isShowing()) {
-
-        } else {
-            MyDialog.showDialog(My_registration_Activity.this);
-        }
+//        if (popSucc != null && popSucc.isShowing()) {
+//
+//        } else {
+//            MyDialog.showDialog(My_registration_Activity.this);
+//        }
         okhttp.getCall(Ip.URL + Ip.interface_MyRegisterGH, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -376,5 +545,13 @@ public class My_registration_Activity extends MyActivity {
                 my_registration_loadingtext.setText("正在加载。。。");
                 break;
         }
+    }
+
+    public void initList(){
+        listDate=new ArrayList<>();
+        listTime=new ArrayList<>();
+        listDate= WheelViewData.getInstance().getTimeList();
+        listTime.add("上午");
+        listTime.add("下午");
     }
 }

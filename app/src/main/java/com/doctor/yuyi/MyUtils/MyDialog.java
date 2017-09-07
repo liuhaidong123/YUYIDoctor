@@ -3,6 +3,7 @@ package com.doctor.yuyi.MyUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,5 +40,6 @@ public class MyDialog {
         if(dialog!=null&&dialog.isShowing()){
             dialog.dismiss();
         }
+
     }
 }

@@ -11,12 +11,14 @@ import android.util.Log;
  */
 
 public class DbUtils {
-    public static boolean insert(Context context,String content){
+    public static boolean insert(Context context,String userId,String content,String imageUrl){
         SearchOpenHelper dbHelper = new SearchOpenHelper(context,
                 "search",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put("content",content);
+        values.put("image",imageUrl);
+        values.put("userId",userId);
         try{
             Long l=db.insert("paint",null,values);
             if (l>-1){
@@ -36,8 +38,8 @@ public class DbUtils {
                 "search",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor=db.rawQuery("select *from paint where oid>? and oid<? order by oid desc",new String[]{(start)+"",(start+limit+1)+""});
-        Log.i("----",cursor.getCount()+"");
-        Log.i("-------"+start,"=--"+(start+limit));
+        Log.i("--selectAll-count-",cursor.getCount()+"");
+        Log.i("----selectAll--start-"+start,"=--"+(start+limit));
 //        while (cursor.moveToNext()){
 //            Log.e("cursor--oid-",""+cursor.getInt(cursor.getColumnIndex("oid")));
 //            Log.e("cursor--content-",""+cursor.getString(cursor.getColumnIndex("content")));

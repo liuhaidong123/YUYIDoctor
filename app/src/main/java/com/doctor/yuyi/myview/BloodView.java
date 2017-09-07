@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+
+import com.doctor.yuyi.R;
 
 import java.util.ArrayList;
 
@@ -65,12 +68,19 @@ public class BloodView extends View {
     }
 
     public void initPaint() {
+//        int colorX=0x22f3f6;
+//        int colorY=0x22f3f6;
+//        int colorSource=0x1dbeec;
+//        int colorOtherSource=0x7ed66b;
+//        int colorBackground=0x30323a;
+//        int firstTextColor=0xc81dbeec;
+//        int otherTextColor=0xc87ed66b;
         //屏幕信息类
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
 
         //x,y轴画笔
         mPaintXY = new Paint();
-        mPaintXY.setColor(Color.parseColor(paintColor));
+        mPaintXY.setColor(Color.parseColor("#22f3f6"));
         mPaintXY.setAntiAlias(true);
         mPaintXY.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaintXY.setTextSize(dip2px(10));
@@ -78,7 +88,7 @@ public class BloodView extends View {
         mPaintXY.setTextAlign(Paint.Align.CENTER);
         //折线
         mPaintBloodLine = new Paint();
-        mPaintBloodLine.setColor(Color.parseColor(lineColor));
+        mPaintBloodLine.setColor(Color.parseColor("#1dbeec"));
         mPaintBloodLine.setAntiAlias(true);
         mPaintBloodLine.setStyle(Paint.Style.STROKE);
 
@@ -86,14 +96,14 @@ public class BloodView extends View {
         mPaintSloidCircle = new Paint();
         mPaintSloidCircle.setStyle(Paint.Style.FILL);
         mPaintSloidCircle.setStrokeWidth(dip2px(2));
-        mPaintSloidCircle.setColor(Color.parseColor(lineColor));
+        mPaintSloidCircle.setColor(Color.parseColor("#1dbeec"));
         mPaintSloidCircle.setAntiAlias(true);
 
         //实心圆圈外边的圆圈
         mPaintStrokeCircle2 = new Paint();
         mPaintStrokeCircle2.setStyle(Paint.Style.STROKE);
         mPaintStrokeCircle2.setStrokeWidth(dip2px(1));
-        mPaintStrokeCircle2.setColor(Color.parseColor(lineColor));
+        mPaintStrokeCircle2.setColor(Color.parseColor("#1dbeec"));
         mPaintStrokeCircle2.setAntiAlias(true);
 
     }
@@ -138,29 +148,62 @@ public class BloodView extends View {
         for (int i = 0; i < mHeightBloodData.size(); i++) {
             //最后一个数据大圆套小圆
             if (i == mHeightBloodData.size() - 1) {
-
                 //低压
+                mPaintStrokeCircle2.setColor(Color.parseColor("#7ed66b"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
+                mPaintSloidCircle.setColor(Color.parseColor("#7ed66b"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
                 //高压
+                mPaintStrokeCircle2.setColor(Color.parseColor("#1dbeec"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
+                mPaintSloidCircle.setColor(Color.parseColor("#1dbeec"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
 
                 //否则都是小圈
             } else {
-
+                mPaintSloidCircle.setColor(Color.parseColor("#1dbeec"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                mPaintSloidCircle.setColor(Color.parseColor("#7ed66b"));
                 canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
-            }
+                    }
             //画折线
             try {
+                mPaintBloodLine.setColor(Color.parseColor("#1dbeec"));
                 canvas.drawLine(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i + 1)), mPaintBloodLine);
+                mPaintBloodLine.setColor(Color.parseColor("#7ed66b"));
                 canvas.drawLine(XScale + XScale * i, Ycode(mLowBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i + 1)), mPaintBloodLine);
-
-
             } catch (Exception e) {
             }
         }
+        String textHeigh="高压";
+        String textLow="低压";
+        Paint p=new Paint();
+        //高压
+        p.setColor(Color.parseColor("#1dbeec"));
+        p.setAntiAlias(true);
+        p.setTextSize(getResources().getDimension(R.dimen.textSize9));
+        Rect rectHeigh=new Rect();
+        p.getTextBounds(textHeigh,0,textHeigh.length(),rectHeigh);
+
+
+        canvas.drawText(textHeigh,canvas.getWidth()-rectHeigh.width()-10,rectHeigh.height()+10,p);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(4);
+        canvas.drawCircle(canvas.getWidth()-10-rectHeigh.width()-10-2,10+rectHeigh.height()/2.0f+1,8,p);
+        p.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth()-10-rectHeigh.width()-40-20,10+rectHeigh.height()/2.0f-2+1,canvas.getWidth()-10-rectHeigh.width()-20,10+rectHeigh.height()/2.0f+2+1,p);
+
+        Rect rectLow=new Rect();
+        p.setStyle(Paint.Style.FILL);
+        p.setColor(Color.parseColor("#7ed66b"));
+        p.getTextBounds(textLow,0,textLow.length(),rectLow);
+
+        canvas.drawText(textLow,canvas.getWidth()-rectLow.width()-10,rectHeigh.height()+10+10+rectLow.height(),p);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(4);
+        canvas.drawCircle(canvas.getWidth()-10-rectHeigh.width()-10-2,10+rectHeigh.height()/2.0f+1+rectHeigh.height()/2.0f+10+rectLow.height()/2.0f,8,p);
+        p.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth()-10-rectHeigh.width()-40-20,10+rectHeigh.height()/2.0f-2+1+rectHeigh.height()/2.0f+10+rectLow.height()/2.0f,canvas.getWidth()-10-rectHeigh.width()-20,10+rectHeigh.height()/2.0f+2+1+rectHeigh.height()/2.0f+10+rectLow.height()/2.0f,p);
     }
 
     /**

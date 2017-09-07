@@ -61,18 +61,13 @@ public class MyEmptyListView extends ListView{
         }
         else {
             View vi=LayoutInflater.from(con).inflate(R.layout.my_message_emptyview,null);
-            ViewGroup.LayoutParams params=this.getLayoutParams();
-            params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-            params.height= ViewGroup.LayoutParams.MATCH_PARENT;
-            setLayoutParams(params);
             TextView textView= (TextView) vi.findViewById(R.id.empty_text);
             ImageView imageView= (ImageView) vi.findViewById(R.id.empty_image);
-            imageView.setPadding(0,width/2,0,0);
             textView.setText(emptyText);
             imageView.setImageResource(ResId);
-                addHeaderView(vi);
-                vi.setOnClickListener(null);
-                invalidate();
+            vi.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            ((ViewGroup)getParent()).addView(vi);
+            setEmptyView(vi);
             }
     }
     //断网显示到view
@@ -81,41 +76,14 @@ public class MyEmptyListView extends ListView{
             return;
         }
         else {
-            ViewGroup.LayoutParams params=this.getLayoutParams();
-            params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-            params.height= ViewGroup.LayoutParams.MATCH_PARENT;
-            setLayoutParams(params);
-
             View vi=LayoutInflater.from(con).inflate(R.layout.activity_networkerror,null);
             ImageView imageView= (ImageView) vi.findViewById(R.id.newWorkError);
-            imageView.setPadding(0,width/2,0,0);
-            addHeaderView(vi);
+            vi.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            ((ViewGroup)getParent()).addView(vi);
+            setEmptyView(vi);
             vi.setOnClickListener(null);
-            invalidate();
         }
     }
-//    private static void setListViewHeightBasedOnChildren(ListView listView) {
-//        //获取ListView对应的Adapter
-//        ListAdapter listAdapter = listView.getAdapter();
-//        if (listAdapter == null) {
-//            // pre-condition
-//            return;
-//        }
-//
-//        int totalHeight = 0;
-//        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {   //listAdapter.getCount()返回数据项的数目
-//            View listItem = listAdapter.getView(i, null, listView);
-//            listItem.measure(0, 0);  //计算子项View 的宽高
-//            totalHeight += listItem.getMeasuredHeight();  //统计所有子项的总高度
-//        }
-//
-//        ViewGroup.LayoutParams params = listView.getLayoutParams();
-//        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-//        //listView.getDividerHeight()获取子项间分隔符占用的高度
-//        //params.height最后得到整个ListView完整显示需要的高度
-//        listView.setLayoutParams(params);
-//    }
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

@@ -657,7 +657,7 @@ public class HttpTools {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("onSuccess", "  患者电子病历" + s);
+                Log.e("获取电子病例列表成功", "  患者电子病历" + s);
                 try {
                     com.doctor.yuyi.bean.PatientEle.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.PatientEle.Root.class);
                     Message m = new Message();

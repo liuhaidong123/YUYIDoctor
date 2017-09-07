@@ -2,6 +2,7 @@ package com.doctor.yuyi.User;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.doctor.yuyi.RongCloudUtils.RongUserInfo;
 
@@ -29,6 +30,7 @@ public class UserInfo {
             if (!"0".equals(Name)&&!"0".equals(Token)){
                 UserName=Name;
                 UserToken=Token;
+                Log.e("token---",UserToken);
                 return true;
             }
                 return false;

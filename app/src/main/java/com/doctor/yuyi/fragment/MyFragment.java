@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.doctor.yuyi.activity.My_praise_Activity;
 import com.doctor.yuyi.activity.My_registration_Activity;
 import com.doctor.yuyi.activity.My_setting_Activity;
 import com.doctor.yuyi.activity.RongConversationList_Activity;
+import com.doctor.yuyi.activity.UserInfo_Activity;
 import com.doctor.yuyi.bean.Bean_UserInfo;
 import com.doctor.yuyi.lzh_utils.RoundImageView;
 import com.doctor.yuyi.lzh_utils.checkNotificationAllowed;
@@ -50,11 +52,11 @@ import java.util.Map;
 public class MyFragment extends Fragment implements View.OnClickListener{
     private ImageView my_image_setting,my_image_message;//设置，消息图标
     private RoundImageView my_image_photo;//头像
-
+    LinearLayout my_userLayout;//个人信息
     private TextView my_textV_docName,my_textV_zhicheng;//姓名，职称
 
     private TextView my_textV_hosName,my_textV_ksName;//医院，科室名称
-
+    Bean_UserInfo info;//用户信息的实体类
     //帖子，点赞，咨询，查看数据，挂号
     private RelativeLayout my_relative_tiezi,my_relative_dianzan,my_relative_zixun,my_relative_shuju,my_relative_guahao;
     public MyFragment() {
@@ -71,7 +73,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                     break;
                 case 1:
                     try{
-                        Bean_UserInfo info=okhttp.gson.fromJson(resStr,Bean_UserInfo.class);
+                        info=okhttp.gson.fromJson(resStr,Bean_UserInfo.class);
                         if (info!=null&&"0".equals(info.getCode())){
                             if (!"".equals(info.getPhysician().getTrueName())){
                                 my_textV_docName.setText(info.getPhysician().getTrueName());
@@ -100,7 +102,6 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                             else {
                                 my_textV_ksName.setText("科室名称");
                             }
-
                             Picasso.with(getActivity()).load(Ip.URL+info.getPhysician().getAvatar()).error(R.mipmap.doc).into(my_image_photo);
                         }
                         else if (info!=null&&"-1".equals(info.getCode())){
@@ -143,6 +144,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView(View view) {
+        my_userLayout= (LinearLayout) view.findViewById(R.id.my_userLayout);
+        my_userLayout.setOnClickListener(this);
+
         my_image_setting= (ImageView) view.findViewById(R.id.my_image_setting);
         my_image_setting.setOnClickListener(this);
 
@@ -150,7 +154,6 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         my_image_message.setOnClickListener(this);
 
         my_image_photo= (RoundImageView) view.findViewById(R.id.my_image_photo);
-        my_image_photo.setOnClickListener(this);
 
         my_textV_docName= (TextView) view.findViewById(R.id.my_textV_docName);
         my_textV_zhicheng= (TextView) view.findViewById(R.id.my_textV_zhicheng);
@@ -186,11 +189,6 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                     case R.id.my_image_message://消息
                             getActivity().startActivity(new Intent(getActivity(), My_message_Activity.class));
                         break;
-
-                    case R.id.my_image_photo://头像
-//                        startActivity(new Intent(getActivity(), UserInfo_Activity.class));
-                        break;
-
                     case R.id.my_relative_tiezi://帖子
                         startActivity(new Intent(getActivity(), My_forumPosts_Activity.class));
                         break;
@@ -209,6 +207,16 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
                     case R.id.my_relative_guahao://挂号
                         startActivity(new Intent(getActivity(), My_registration_Activity.class));
+                        break;
+                    case R.id.my_userLayout://个人信息
+                        if (info!=null&&"0".equals(info.getCode())){
+                            Intent intent=new Intent(getActivity(), UserInfo_Activity.class);
+                            intent.putExtra("data",info);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"无法加载用户信息",Toast.LENGTH_SHORT).show();
+                        }
                         break;
 
                 }

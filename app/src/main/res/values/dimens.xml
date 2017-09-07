@@ -3,8 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="textSize14">14sp</dimen>
+    <dimen name="textSize17">17sp</dimen>
     <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize9">9sp</dimen>
-
-
+    <dimen name="wheelViewHeight">40dp</dimen>
+    <dimen name="wheelViewTextSize">20sp</dimen>
+    <dimen name="wheelViewTextSizeLarge">23sp</dimen>
 </resources>

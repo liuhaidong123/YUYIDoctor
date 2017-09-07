@@ -10,7 +10,7 @@
         <com.doctor.yuyi.myview.MyImageView
             android:id="@+id/my_message_titleImage_item"
             android:layout_width="40dp"
-            android:src="@mipmap/inform"
+            android:src="@mipmap/informs"
             android:scaleType="fitCenter"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
@@ -26,7 +26,7 @@
                 android:id="@+id/fg_item"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#eeeeee"/>
+                android:background="#e5e5e5"/>
             <LinearLayout
                 android:id="@+id/my_message_notifi_layout_item"
                 android:layout_centerVertical="true"
@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_toLeftOf="@+id/my_message_notifi_time_item"
-                        android:text="宇医公告"
+                        android:text=""
                         android:layout_marginRight="15dp"
                         android:textSize="@dimen/textSize14"
                         android:textColor="@color/L_color_titleText"

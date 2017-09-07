@@ -7,7 +7,7 @@ package com.doctor.yuyi.bean;
 public class Bean_MyRegister_info {
 
     /**
-     * result : {"clinicName":"","departmentName":"","createTimeString":"2017-03-30 17:07:43","personalId":18511694068,"gender":null,"physicianTrueName":"","homeuserId":95,"isAm":true,"visitTimeString":"2017-03-16 00:00:00","telephone":null,"datenumberId":1,"trueName":"","physicianId":1,"id":24,"age":null}
+     * result : {"clinicName":"呼吸内科门诊","departmentName":"内科","createTimeString":"2017-08-24 11:46:13","personalId":17743516301,"gender":1,"physicianTrueName":"孙思邈","homeuserId":216,"isAm":false,"visitTimeString":"2017-08-24 00:00:00","telephone":17743516301,"hospitalName":"涿州市中医医院","datenumberId":2,"trueName":"刘","physicianId":2,"id":36,"age":27}
      * code : 0
      */
 
@@ -32,38 +32,40 @@ public class Bean_MyRegister_info {
 
     public static class ResultBean {
         /**
-         * clinicName :
-         * departmentName :
-         * createTimeString : 2017-03-30 17:07:43
-         * personalId : 18511694068
-         * gender : null
-         * physicianTrueName :
-         * homeuserId : 95
-         * isAm : true
-         * visitTimeString : 2017-03-16 00:00:00
-         * telephone : null
-         * datenumberId : 1
-         * trueName :
-         * physicianId : 1
-         * id : 24
-         * age : null
+         * clinicName : 呼吸内科门诊
+         * departmentName : 内科
+         * createTimeString : 2017-08-24 11:46:13
+         * personalId : 17743516301
+         * gender : 1
+         * physicianTrueName : 孙思邈
+         * homeuserId : 216
+         * isAm : false
+         * visitTimeString : 2017-08-24 00:00:00
+         * telephone : 17743516301
+         * hospitalName : 涿州市中医医院
+         * datenumberId : 2
+         * trueName : 刘
+         * physicianId : 2
+         * id : 36
+         * age : 27
          */
 
         private String clinicName;
         private String departmentName;
         private String createTimeString;
         private long personalId;
-        private Object gender;
+        private String gender;
         private String physicianTrueName;
         private int homeuserId;
         private boolean isAm;
         private String visitTimeString;
-        private Object telephone;
+        private String telephone;
+        private String hospitalName;
         private int datenumberId;
         private String trueName;
         private int physicianId;
         private int id;
-        private Integer age;
+        private String age;
 
         public String getClinicName() {
             return clinicName;
@@ -97,11 +99,11 @@ public class Bean_MyRegister_info {
             this.personalId = personalId;
         }
 
-        public Object getGender() {
+        public String getGender() {
             return gender;
         }
 
-        public void setGender(Object gender) {
+        public void setGender(String gender) {
             this.gender = gender;
         }
 
@@ -137,12 +139,20 @@ public class Bean_MyRegister_info {
             this.visitTimeString = visitTimeString;
         }
 
-        public Object getTelephone() {
+        public String getTelephone() {
             return telephone;
         }
 
-        public void setTelephone(Object telephone) {
+        public void setTelephone(String telephone) {
             this.telephone = telephone;
+        }
+
+        public String getHospitalName() {
+            return hospitalName;
+        }
+
+        public void setHospitalName(String hospitalName) {
+            this.hospitalName = hospitalName;
         }
 
         public int getDatenumberId() {
@@ -177,11 +187,11 @@ public class Bean_MyRegister_info {
             this.id = id;
         }
 
-        public Integer getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(Integer age) {
+        public void setAge(String age) {
             this.age = age;
         }
     }

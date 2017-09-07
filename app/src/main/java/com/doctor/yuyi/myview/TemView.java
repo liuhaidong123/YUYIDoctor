@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+
+import com.doctor.yuyi.R;
 
 import java.util.ArrayList;
 
@@ -63,12 +66,18 @@ public class TemView extends View {
 
     public void initData() {
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
-
+//        int colorX=0x22f3f6;
+//        int colorY=0x22f3f6;
+//        int colorSource=0x1dbeec;
+//        int colorOtherSource=0x7ed66b;
+//        int colorBackground=0x30323a;
+//        int firstTextColor=0xc81dbeec;
+//        int otherTextColor=0xc87ed66b;
 
         //y,x轴数据画笔
         YXpaint = new Paint();
         YXpaint.setAntiAlias(true);
-        YXpaint.setColor(Color.parseColor(myColor));
+        YXpaint.setColor(Color.parseColor("#22f3f6"));
         YXpaint.setTextSize(dip2px(10));
         YXpaint.setStrokeWidth(dip2px(0.3f));
         YXpaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -77,19 +86,19 @@ public class TemView extends View {
         //折线画笔
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
-        linePaint.setColor(Color.parseColor(paintColor));
+        linePaint.setColor(Color.parseColor("#7ed66b"));
         linePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         //实心圆圈画笔
         mSolidCirclePaint = new Paint();
         mSolidCirclePaint.setStyle(Paint.Style.FILL);
         mSolidCirclePaint.setStrokeWidth(dip2px(2));
-        mSolidCirclePaint.setColor(Color.parseColor(paintColor));
+        mSolidCirclePaint.setColor(Color.parseColor("#7ed66b"));
         mSolidCirclePaint.setAntiAlias(true);
 
         //实心圆圈外边的大圆画笔
         mStrokeCirclePaint = new Paint();
-        mStrokeCirclePaint.setColor(Color.parseColor(paintColor));
+        mStrokeCirclePaint.setColor(Color.parseColor("#7ed66b"));
         mStrokeCirclePaint.setAntiAlias(true);
         mStrokeCirclePaint.setStyle(Paint.Style.STROKE);
         mStrokeCirclePaint.setStrokeWidth(dip2px(1));
@@ -143,6 +152,16 @@ public class TemView extends View {
             } catch (Exception e) {
             }
         }
+        String text="体温";
+        Rect rect=new Rect();
+        linePaint.setTextSize(getResources().getDimension(R.dimen.textSize9));
+        linePaint.getTextBounds(text,0,text.length(),rect);
+        canvas.drawText(text,canvas.getWidth()-rect.width()-10,rect.height()+10,linePaint);
+        linePaint.setStyle(Paint.Style.STROKE);
+        linePaint.setStrokeWidth(4);
+        canvas.drawCircle(canvas.getWidth()-10-rect.width()-10-2,10+rect.height()/2.0f+1,8,linePaint);
+        linePaint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth()-10-rect.width()-40-20,10+rect.height()/2.0f-2+1,canvas.getWidth()-10-rect.width()-20,10+rect.height()/2.0f+2+1,linePaint);
     }
 
     /**

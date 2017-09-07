@@ -60,6 +60,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
     private TextView mName;
     private TextView mTime;
     private TextView mPraise_num;
+
     private TextView mTitle;
     private TextView mContent;
     private TextView mComment_allNum;

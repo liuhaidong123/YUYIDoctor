@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#eeeeee"
     tools:context="com.doctor.yuyi.activity.My_praise_Activity">
     <include android:layout_width="match_parent"
         android:id="@+id/title1"
@@ -22,19 +23,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
+                android:background="#eeeeee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <com.doctor.yuyi.lzh_utils.MyEmptyListView
-                    app:bitmap="@mipmap/nopraise"
+                    app:bitmap="@mipmap/nothings"
                     app:emptyText="你还没有点赞哦"
-                    android:dividerHeight="1dp"
+                    android:dividerHeight="10dp"
                     android:divider="#eeeeee"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/my_praise_listview">
                 </com.doctor.yuyi.lzh_utils.MyEmptyListView>
                 <RelativeLayout
-                    android:background="#f2f2f2"
+                    android:background="#ffffff"
                     android:layout_below="@+id/my_praise_listview"
                     android:id="@+id/my_praise_loading_layout"
                     android:layout_width="match_parent"
