@@ -45,7 +45,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:text="@string/post_tv"
-            android:textColor="@color/color_username"
+            android:textColor="@color/rc_main_theme"
             android:textSize="17sp" />
     </RelativeLayout>
 

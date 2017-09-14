@@ -194,8 +194,6 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
             if (mRoot != null) {
                 Intent intent = new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
                 intent.putExtra("id", getIntent().getLongExtra("id", -1));
-                startActivity(intent);
-                intent.putExtra("id", getIntent().getLongExtra("id", -1L));
                startActivity(intent);
             }
 
