@@ -295,7 +295,6 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
-
         if (mFlag == 0) {//学术圈热门
             mMany_Box.setVisibility(View.GONE);
             mList.clear();
