@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +38,6 @@ public class Login_Activity extends Activity {
 
     private int timeOut = 60;//计时器
     private TextView my_userlogin_getSMScode;//获取验证码按钮
-    private TextView my_userlogin_SMStimer;//显示计时器的view
     private EditText my_userlogin_edit_name, my_userlogin_edit_smdCode;//用户名与验证码输入框
     private String userName, userPsd;
     private String cookie;
@@ -102,8 +103,7 @@ public class Login_Activity extends Activity {
             super.handleMessage(msg);
             int what=msg.what;
             if (what>0){
-                my_userlogin_SMStimer.setText(what+ "S");
-                my_userlogin_SMStimer.setVisibility(View.VISIBLE);
+                my_userlogin_getSMScode.setText("剩余 "+what+ "s");
             }
             else if (what==0){
                 new Thread(new Runnable() {
@@ -117,11 +117,11 @@ public class Login_Activity extends Activity {
                         }
                     }
                 }).start();
-                my_userlogin_SMStimer.setVisibility(View.GONE);
+                my_userlogin_getSMScode.setText("发送验证码");
             }
             else if(msg.what==-2){
                 my_userlogin_getSMScode.setClickable(true);
-                my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_smscode);
+                my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_loginbutton);
             }
         }
     };
@@ -131,6 +131,9 @@ public class Login_Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.activity_login_);
         Intent intent = getIntent();
         String scheme = intent.getScheme();
@@ -153,17 +156,12 @@ public class Login_Activity extends Activity {
         initView();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+
 
     private void initView() {
-        my_userlogin_getSMScode = (TextView) findViewById(R.id.my_userlogin_getSMScode);
-        my_userlogin_SMStimer = (TextView) findViewById(R.id.my_userlogin_SMStimer);
-        my_userlogin_SMStimer.setVisibility(View.INVISIBLE);
         my_userlogin_edit_name = (EditText) findViewById(R.id.my_userlogin_edit_name);
         my_userlogin_edit_smdCode = (EditText) findViewById(R.id.my_userlogin_edit_smdCode);
+        my_userlogin_getSMScode= (TextView) findViewById(R.id.my_userlogin_getSMScode);
         my_userlogin_getSMScode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,9 +179,6 @@ public class Login_Activity extends Activity {
                 }
             }
         });
-        my_userlogin_SMStimer.setVisibility(View.GONE);
-        my_userlogin_getSMScode.setClickable(true);
-        my_userlogin_getSMScode.setBackgroundResource(R.drawable.my_userlogin_smscode);
     }
 
     //获取验证码

@@ -1,187 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login_"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:background="#1ebeec"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context="com.doctor.yuyi.activity.Login_Activity">
-<!--<include android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--layout="@layout/activity_titleinclude"></include>-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="#cccccc"/>-->
-
-
-    <RelativeLayout
-        android:id="@+id/activity_my_user_login_"
+    <TextView
+        android:id="@+id/logintitle"
+        android:textColor="#333333"
+        android:textSize="17sp"
+        android:text="登录"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eeeeee"
-       >
-        <com.doctor.yuyi.myview.XCRoundRectImageView
-            android:id="@+id/my_userlogin_imageview"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="130dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/logo" />
+        android:layout_height="44dp" />
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/logintitle"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/loginpicture">
 
-        <RelativeLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/my_userlogin_imageview"
-            android:layout_centerHorizontal="true">
+            <com.doctor.yuyi.myview.XCRoundRectImageView
+                android:id="@+id/my_userlogin_imageview"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
 
-            <RelativeLayout
-                android:id="@+id/my_userlogin_rela_name"
+                android:layout_marginTop="30dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/loginrela"
                 android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_alignParentTop="true">
-
-                <TextView
-                    android:id="@+id/my_userlogin_fg1"
-                    android:layout_width="250dp"
-                    android:layout_height="1dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="60dp"
-                    android:background="#cccccc" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/my_userlogin_imageview"
+                android:layout_centerHorizontal="true">
 
                 <RelativeLayout
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/my_userlogin_rela_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/my_userlogin_fg1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="7.5dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
 
-                    <ImageView
-                        android:id="@+id/my_userlogin_imageUserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:src="@mipmap/login_phone_icon_" />
-
-                    <EditText
-                        android:id="@+id/my_userlogin_edit_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/my_userlogin_imageUserName"
-                        android:background="@null"
-                        android:gravity="bottom"
-                        android:includeFontPadding="false"
-                        android:inputType="number"
-                        android:maxLength="11"
-                        android:paddingBottom="0dp"
-                        android:text=""
-                        android:textColor="#999999"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/my_userlogin_rela_psd"
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:layout_below="@+id/my_userlogin_rela_name">
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/my_userlogin_fg2"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="7.5dp">
-
-                    <ImageView
-                        android:id="@+id/my_userlogin_imageUserPsd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:src="@mipmap/login_lock_icon_" />
-
-                    <RelativeLayout
-                        android:id="@+id/my_userlogin_rela_SMScode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/my_userlogin_imageUserPsd">
+                        <TextView
+                            android:textSize="@dimen/textSize14"
+                            android:textColor="#333333"
+                            android:text="手机号"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/my_userlogin_imageUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/login_phone_icon_" />
 
                         <EditText
-                            android:id="@+id/my_userlogin_edit_smdCode"
+                            android:layout_toRightOf="@+id/my_userlogin_imageUserName"
+                            android:id="@+id/my_userlogin_edit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="输入11位手机号"
+                            android:includeFontPadding="false"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:paddingBottom="0dp"
+                            android:text=""
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                android:background="#e5e5e5"/>
+                <RelativeLayout
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/my_userlogin_rela_psd"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                  >
+                        <TextView
+                            android:id="@+id/my_userlogin_imageUserPsd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="验证码"
+                            android:textSize="14sp"
+                            android:textColor="#333333"
+                             />
+
+                        <RelativeLayout
+                            android:layout_marginLeft="20dp"
+                            android:id="@+id/my_userlogin_rela_SMScode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:inputType="numberDecimal"
-                            android:maxLength="6"
-                            android:paddingBottom="0dp"
-                            android:text=""
-                            android:textColor="#999999"
-                            android:textSize="12sp" />
+                            android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/my_userlogin_imageUserPsd">
 
-                        <RelativeLayout
-                            android:id="@+id/layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true">
-
-                            <TextView
-                                android:id="@+id/my_userlogin_SMStimer"
-                                android:layout_width="25dp"
-                                android:layout_height="wrap_content"
+                            <EditText
+                                android:id="@+id/my_userlogin_edit_smdCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="输入验证码"
                                 android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="5dp"
-                                android:paddingBottom="3dp"
-                                android:text="59S"
-                                android:textColor="#f21121"
-                                android:textSize="12sp" />
+                                android:layout_alignParentLeft="true"
+                                android:background="@null"
+                                android:inputType="numberDecimal"
+                                android:maxLength="6"
+                                android:text=""
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@+id/my_userlogin_getSMScode"
+                                android:textColor="#333333"
+                                android:textSize="14sp" />
+                                <TextView
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:id="@+id/my_userlogin_getSMScode"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:background="@drawable/my_userlogin_loginbutton"
+                                    android:gravity="center"
+                                    android:text="发送验证码"
+                                    android:textColor="#ffffff"
+                                    android:textSize="13sp" />
 
-                            <TextView
-                                android:id="@+id/my_userlogin_getSMScode"
-                                android:layout_width="60dp"
-                                android:layout_height="25dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_toLeftOf="@+id/my_userlogin_SMStimer"
-                                android:background="@drawable/my_userlogin_smscode"
-                                android:gravity="center"
-                                android:text="获取验证码"
-                                android:textColor="#f9f9f9"
-                                android:textSize="9sp" />
-
-                        </RelativeLayout>
 
                     </RelativeLayout>
-
-
                 </RelativeLayout>
 
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:id="@+id/rela_secrect"
+                android:layout_below="@+id/login_rela"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp">
+                <ImageView
+                    android:id="@+id/login_imageSelect"
+                    android:src="@mipmap/selecteds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
                 <TextView
-                    android:id="@+id/my_userlogin_fg2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:background="#cccccc" />
+                    android:layout_toRightOf="@+id/login_imageSelect"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#333333"
+                    android:text="我已确认阅读并同意《使用条款和隐私协议》"/>
             </RelativeLayout>
-
             <TextView
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
                 android:id="@+id/my_userlogin_logninButton"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
                 android:layout_below="@+id/my_userlogin_rela_psd"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/my_userlogin_loginbutton"
                 android:clickable="true"
                 android:gravity="center"
@@ -189,8 +187,7 @@
                 android:text="登录"
                 android:textColor="#ffffff"
                 android:textSize="16sp" />
-        </RelativeLayout>
-    </RelativeLayout>
+        </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
