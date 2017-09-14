@@ -99,7 +99,7 @@
             <com.doctor.yuyi.lzh_utils.MyEmptyListView
                 android:layout_below="@+id/my_message_item"
                 app:bitmap="@mipmap/nomessage"
-                app:emptyText="您还有没有消息哦"
+                app:emptyText="您还没有消息哦"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="#ffffff"

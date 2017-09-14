@@ -455,7 +455,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mMy_tv.setTextColor(Color.parseColor(pressColor));
         mMy_img.setImageResource(R.mipmap.my_selected);
-
     }
 
     @Override
