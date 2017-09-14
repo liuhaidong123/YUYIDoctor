@@ -94,7 +94,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     }
                 }
 
-            }else if (msg.what == 5) {//提交评论返回结果
+            } else if (msg.what == 5) {//提交评论返回结果
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.SubmitComment.Root) {
                     com.doctor.yuyi.bean.SubmitComment.Root rootSubmit = (com.doctor.yuyi.bean.SubmitComment.Root) o;
@@ -127,7 +127,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
 
     public void initView() {
         mHttpTools = HttpTools.getHttpToolsInstance();
-        mComment_img_rl= (RelativeLayout) findViewById(R.id.comment_rl);
+        mComment_img_rl = (RelativeLayout) findViewById(R.id.comment_rl);
         mEdit = (EditText) findViewById(R.id.my_comment_edit);
         mSend_btn = (TextView) findViewById(R.id.send_msg);
         mSend_btn.setOnClickListener(this);
@@ -153,15 +153,15 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                         ToastUtils.myToast(InformationMessageActivity.this, "请输入评论内容");
                     } else {
 
-                        if (!"".equals(UserInfo.UserName)){
-                            mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName),getIntent().getLongExtra("id", -1), getEditContent());
+                        if (!"".equals(UserInfo.UserName)) {
+                            mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), getEditContent());
                             mEdit.setText("");
                             //隐藏软键盘
                             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             mComment_img_rl.setVisibility(View.VISIBLE);
                             mShare_img.setVisibility(View.VISIBLE);
                             mSend_btn.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             ToastUtils.myToast(getApplicationContext(), "请登录您的账号");
                         }
 
@@ -195,8 +195,6 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 Intent intent = new Intent(InformationMessageActivity.this, CommentInformationActivity.class);
                 intent.putExtra("id", getIntent().getLongExtra("id", -1));
                 startActivity(intent);
-                intent.putExtra("id", getIntent().getLongExtra("id", -1L));
-               startActivity(intent);
             }
 
 
@@ -204,21 +202,21 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
             if (mRoot != null) {
                 init();
             }
-        }else if (id==mSend_btn.getId()){//发送
+        } else if (id == mSend_btn.getId()) {//发送
             if (getEditContent().equals("")) {
                 ToastUtils.myToast(InformationMessageActivity.this, "请输入评论内容");
             } else {
-               if (!"".equals(UserInfo.UserName)){
-                   mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName),getIntent().getLongExtra("id", -1), getEditContent());
-                   mEdit.setText("");
-                   //隐藏软键盘
-                   ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                   mComment_img_rl.setVisibility(View.VISIBLE);
-                   mShare_img.setVisibility(View.VISIBLE);
-                   mSend_btn.setVisibility(View.GONE);
-               }else {
-                   ToastUtils.myToast(getApplicationContext(), "请登录您的账号");
-               }
+                if (!"".equals(UserInfo.UserName)) {
+                    mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), getEditContent());
+                    mEdit.setText("");
+                    //隐藏软键盘
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    mComment_img_rl.setVisibility(View.VISIBLE);
+                    mShare_img.setVisibility(View.VISIBLE);
+                    mSend_btn.setVisibility(View.GONE);
+                } else {
+                    ToastUtils.myToast(getApplicationContext(), "请登录您的账号");
+                }
 
 
             }

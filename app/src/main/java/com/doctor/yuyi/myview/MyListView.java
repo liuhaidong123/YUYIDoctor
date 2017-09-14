@@ -77,7 +77,9 @@ public class MyListView extends ListView implements AbsListView.OnScrollListener
                 // 判断滚动到底部
                 if (view!=null){
                     if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-                        listener.onScrollBottom();
+                        if (listener!=null){
+                            listener.onScrollBottom();
+                        }
                     }
                 }
                 break;
