@@ -1,6 +1,7 @@
 package com.doctor.yuyi.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class FirstPageListviewAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Result> mList = new ArrayList<>();
-
+    private int a=0;
     public FirstPageListviewAdapter(Context mContext, List<Result> mList) {
         this.mContext = mContext;
         this.mList = mList;
@@ -55,7 +56,8 @@ public class FirstPageListviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        a++;
+        Log.e("资讯a=",a+"");
         ViewHolder viewHolder = null;
         FirstHeaderHolder firstHeaderHolder = null;
 
@@ -67,7 +69,7 @@ public class FirstPageListviewAdapter extends BaseAdapter {
             firstHeaderHolder.title = (TextView) firstView.findViewById(R.id.first_title);
 
             firstHeaderHolder.bg_rl.getBackground().setAlpha(55);
-            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_big).into(firstHeaderHolder.imageView);
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.errorpicture).into(firstHeaderHolder.imageView);
             firstHeaderHolder.title.setText(mList.get(position).getTitle().trim());
             return firstView;
         } else {
@@ -77,7 +79,7 @@ public class FirstPageListviewAdapter extends BaseAdapter {
             viewHolder.title = (TextView) viewAll.findViewById(R.id.title);
             viewHolder.comment_num = (TextView) viewAll.findViewById(R.id.comment_num);
 
-            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.errorpicture).into(viewHolder.img);
             viewHolder.title.setText(mList.get(position).getTitle().trim());
             viewHolder.comment_num.setText(mList.get(position).getCommentNum()+"评");
             return viewAll;

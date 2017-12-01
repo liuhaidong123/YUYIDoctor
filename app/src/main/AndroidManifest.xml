@@ -62,91 +62,78 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.NetWorkError_Activity"
+        <activity
+            android:name=".activity.NetWorkError_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InformationMessageActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.My_setting_about_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.My_setting_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.My_setting_feadus_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.My_setting_contactus_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_message_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_message_notification_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_forumPosts_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_praise_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_patientDataList_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_registration_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.My_registration_Info_Activity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.Login_Activity"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
-        <activity android:name=".activity.PaintEleMessageActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_message_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_message_notification_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_forumPosts_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_praise_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_patientDataList_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_registration_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.My_registration_Info_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Login_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PaintEleMessageActivity"
             android:launchMode="singleTop"
-            ></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserInfo_Activity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Post_SelectPhotoActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PostActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CommentInformationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.CardMessageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-<!--融云相关-->
+        <!-- 融云相关 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.doctor.yuyi.FileProvider"
@@ -157,12 +144,10 @@
                 android:resource="@xml/rc_file_path" />
         </provider>
 
-
         <activity
             android:name=".activity.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -177,25 +162,14 @@
         <!-- 微博分享Activity -->
 
         <activity
-            android:name=".WBShareActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
-        <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" >
-        </activity>
-        <service android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false">
-        </service>
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false" />
 
         <!-- 微信分享Activity -->
         <activity
@@ -229,18 +203,17 @@
         <!-- 友盟appkey -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58de0afeae1bf87e27001806"></meta-data>
+            android:value="58de0afeae1bf87e27001806" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng">
-        </meta-data>
+            android:value="Umeng" />
 
-        <!--网络变化-->
-        <!--<receiver android:name=".broadcast.BroadCastYUYI">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- 网络变化 -->
+        <!-- <receiver android:name=".broadcast.BroadCastYUYI"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
         <activity android:name=".activity.PatientMessageActivity" />
 
@@ -253,9 +226,10 @@
                 <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
                 <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
             </intent-filter>
-
         </receiver>
-        <activity android:name=".activity.RongConversationList_Activity"
+
+        <activity
+            android:name=".activity.RongConversationList_Activity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -268,10 +242,9 @@
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
-           </activity>
+        </activity>
 
-
-        <!--极光推送-->
+        <!-- 极光推送 -->
         <!-- ／／／／／／／／／激光推送／／／／／／／／ -->
         <!-- Required SDK 核 功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -382,19 +355,21 @@
             android:value="24f200820ea2a1751ea81490" />
         <!-- ／／／／／／／／／／／激光推送／／／／／／／／／ -->
 
-        <!--极光推送-->
-        <!--网络改变监听-->
+
+        <!-- 极光推送 -->
+        <!-- 网络改变监听 -->
         <receiver android:name=".mApplication.NetWorkBroadCast">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <!-- 网络改变监听 -->
-        <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="adjustPan"
+        <activity
+            android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
-            >
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.TestWXPayActivity" />
+        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
     </application>
 
 </manifest>

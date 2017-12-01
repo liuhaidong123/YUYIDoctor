@@ -15,8 +15,8 @@ android {
         applicationId "com.doctor.yuyi"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         sourceSets {
             main {
@@ -63,4 +63,5 @@ dependencies {
     compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
     compile 'com.android.support:support-v4:25.3.0'
     testCompile 'junit:junit:4.12'
+    compile files('libs/libammsdk.jar')
 }

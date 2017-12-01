@@ -59,7 +59,7 @@
     <string name="tv_mess5">高热: 39.1~41°C</string>
     <string name="tv_mess6">超高热: 41°以上</string>
     <string name="now_hostory">现病史</string>
-
+    <string name="no_patient_msg">无患者信息<font color="#00bfff">点击刷新</font></string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_settings_aboutOurs_msg">宇医app，希望通过网上医疗的形式能够解决用户的一些医疗的基本需求，包括：测量监控自己及家人的健康数据；足不出户解决购药问题；提前预约专家挂号问题；在家与医生面对面交流，解决一些简单的问诊等</string>

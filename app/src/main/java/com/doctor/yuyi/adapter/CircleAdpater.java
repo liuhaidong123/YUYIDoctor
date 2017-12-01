@@ -35,6 +35,7 @@ public class CircleAdpater extends BaseAdapter {
     private LayoutInflater mInflater;
     private CircleHolder circleHolder;
     private int mPosition;
+    int c = 0;
     private List<Rows> list = new ArrayList<>();
     private Handler handler = new Handler() {
         @Override
@@ -113,7 +114,7 @@ public class CircleAdpater extends BaseAdapter {
         } else {
             circleHolder = (CircleHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(circleHolder.head_img);
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.userdefault).into(circleHolder.head_img);
         circleHolder.trueName.setText(list.get(position).getTrueName());
         circleHolder.title.setText(list.get(position).getTitle());
         circleHolder.content_tv.setText(list.get(position).getContent());
@@ -124,7 +125,7 @@ public class CircleAdpater extends BaseAdapter {
         } else {
             circleHolder.img.setVisibility(View.VISIBLE);
             String[] str = list.get(position).getPicture().split(";");
-            Picasso.with(mContext).load(UrlTools.BASE + str[0]).error(R.mipmap.error_small).into(circleHolder.img);
+            Picasso.with(mContext).load(UrlTools.BASE + str[0]).error(R.mipmap.errorpicture).into(circleHolder.img);
         }
         //点赞设值
         if (list.get(position).getLikeNum() == null) {
@@ -148,30 +149,7 @@ public class CircleAdpater extends BaseAdapter {
         } else {
             circleHolder.praise_img.setImageResource(R.mipmap.like);
         }
-        //点赞
-        circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPosition = position;
-                finalConvertView.setFocusable(false);
-                //请求点赞接口
-                httpTools.circlePraise(handler, list.get(position).getId(), UserInfo.UserToken);
-                Log.e("IsLike-mPosition", position + "");
-            }
-        });
-        convertView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                circleHolder.praise_img.setFocusable(false);
-                Intent intent = new Intent(mContext, CardMessageActivity.class);
-                intent.putExtra("id", list.get(position).getId());
-                Log.e("mPosition", position + "");
-                Log.e("id", list.get(position).getId() + "");
-                mContext.startActivity(intent);
-            }
-        });
+        Log.e("c==", "" + c++);
         return convertView;
     }
 

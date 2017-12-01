@@ -129,94 +129,94 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@id/card_comment_box"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_cancel">
+    android:id="@id/card_comment_box"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:background="@color/color_cancel">
 
-        <RelativeLayout
-            android:id="@+id/comment_rl_box"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="6"
-            android:background="@drawable/comment_rl_bg">
+    <RelativeLayout
+        android:id="@+id/comment_rl_box"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="6"
+        android:background="@drawable/comment_rl_bg">
 
-            <EditText
-                android:id="@+id/my_comment_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="left|center"
-                android:hint="@string/comment_hint_edit"
-                android:imeOptions="actionSend"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:textColor="@color/color_normal"
-                android:textColorHint="@color/color_ad"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/comment_rl"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/my_comment_edit"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/comment_rl_box"
-            android:layout_weight="1">
+            android:background="@null"
+            android:gravity="left|center"
+            android:hint="@string/comment_hint_edit"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:textColor="@color/color_normal"
+            android:textColorHint="@color/color_ad"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/comment_img1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/comment" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/comment_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-10dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/comment_img1"
-                android:background="@mipmap/tv_bg_red"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/color_white"
-                android:textSize="10sp" />
-        </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/comment_rl"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/comment_rl_box"
+        android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/share_img"
+            android:id="@+id/comment_img1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/share" />
-
+            android:layout_centerVertical="true"
+            android:src="@mipmap/comment" />
 
         <TextView
-            android:id="@+id/send_msg"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@id/comment_rl_box"
-            android:layout_weight="1"
-            android:background="@color/navigate_tv_color"
+            android:id="@+id/comment_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/comment_img1"
+            android:background="@mipmap/tv_bg_red"
             android:gravity="center"
-            android:text="发送"
+            android:text="0"
             android:textColor="@color/color_white"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/share_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/share" />
+
+
+    <TextView
+        android:id="@+id/send_msg"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/comment_rl_box"
+        android:layout_weight="1"
+        android:background="@color/navigate_tv_color"
+        android:gravity="center"
+        android:text="发送"
+        android:textColor="@color/color_white"
+        android:visibility="gone" />
+</LinearLayout>
 
 </RelativeLayout>

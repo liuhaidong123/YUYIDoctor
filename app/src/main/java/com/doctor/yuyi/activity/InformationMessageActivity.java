@@ -62,17 +62,23 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     Root root = (Root) o;
                     mRoot = root;
                     //分享时需要的图片和内容
-                    image = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置要分享的图片
-                    thumb = new UMImage(InformationMessageActivity.this, UrlTools.BASE + mRoot.getPicture());//设置分享图片的缩略图
+                    if ("".equals(root.getPicture())) {
+                        image = new UMImage(InformationMessageActivity.this, R.mipmap.hospital_img);//设置要分享的图片
+                        thumb = new UMImage(InformationMessageActivity.this, R.mipmap.hospital_img);//设置分享图片的缩略图
+                    } else {
+                        String[] strings = root.getPicture().split(";");
+                        image = new UMImage(InformationMessageActivity.this, UrlTools.BASE + strings[0]);//设置要分享的图片
+                        thumb = new UMImage(InformationMessageActivity.this, UrlTools.BASE + strings[0]);//设置分享图片的缩略图
+                    }
                     image.setThumb(thumb);//图片设置缩略图
                     image.compressStyle = UMImage.CompressStyle.SCALE;
                     content = mRoot.getContent();
                     title = mRoot.getTitle();
-                    umWeb = new UMWeb("http://59.110.169.148:8080/static/html/sharejump.html");
+                    umWeb = new UMWeb("http://www.zzzyy.cn/index.do");
                     umWeb.setTitle(title);//标题
                     umWeb.setThumb(thumb);  //缩略图
                     umWeb.setDescription(content);//描述
-                    Picasso.with(InformationMessageActivity.this).load(UrlTools.BASE + root.getPicture()).error(R.mipmap.error_big).into(mImg);
+                    Picasso.with(InformationMessageActivity.this).load(UrlTools.BASE + root.getPicture()).error(R.mipmap.errorpicture).into(mImg);
                     mTitle.setText(root.getTitle());
                     mContent.setText(root.getContent());
 
@@ -196,7 +202,6 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 intent.putExtra("id", getIntent().getLongExtra("id", -1));
                 startActivity(intent);
             }
-
 
         } else if (id == mShare_img.getId()) {  //分享
             if (mRoot != null) {

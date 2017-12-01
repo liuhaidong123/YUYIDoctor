@@ -19,7 +19,6 @@
                 android:id="@+id/head_img"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_centerVertical="true">
 
             </com.doctor.yuyi.myview.RoundImageView>
@@ -33,7 +32,7 @@
                 android:layout_toRightOf="@id/head_img"
                 android:ellipsize="end"
                 android:maxLength="6"
-                android:text="111111"
+                android:text=""
                 android:textSize="12sp"
                 android:textColor="@color/color_drumall" />
         </RelativeLayout>

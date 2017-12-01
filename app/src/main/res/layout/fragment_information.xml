@@ -100,7 +100,6 @@
         android:layout_below="@id/equip_title"
         android:background="@color/color_cancel" />
 
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/first_page_swiperefesh"
         android:layout_width="match_parent"
@@ -108,80 +107,42 @@
         android:layout_below="@id/equip_line"
         android:focusable="false">
 
-        <ScrollView
+        <ListView
+            android:id="@+id/information_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_below="@id/viewpager_relative"
+            android:background="@color/color_white"
+            android:divider="@null">
 
-            <RelativeLayout
-                android:id="@+id/scroll_relative"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <com.doctor.yuyi.myview.InformationListView
-                    android:id="@+id/information_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/viewpager_relative"
-                    android:background="@color/color_white"
-                    android:divider="@null"
-                    >
-
-                </com.doctor.yuyi.myview.InformationListView>
-
-                <RelativeLayout
-                    android:id="@+id/more_relative"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/information_listview"
-                    android:background="@color/color_white"
-                    android:visibility="gone">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentTop="true"
-                        android:background="@color/color_cancel"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/footer_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:paddingBottom="15dp"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="20dp"
-                        android:paddingTop="15dp"
-                        android:text="加载更多"
-                        android:textColor="@color/color_normal"
-                        android:textSize="13sp" />
-
-                    <ProgressBar
-                        android:id="@+id/pbLocate"
-                        style="?android:attr/progressBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/footer_tv"
-                        android:paddingTop="15dp"
-                        android:visibility="invisible" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/color_cancel"
-
-                        />
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-        </ScrollView>
-
+        </ListView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <!--没有数据页面-->
+    <RelativeLayout
+        android:id="@+id/nodata_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/equip_line"
+        android:background="@color/color_white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/login_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_img"
+            android:layout_centerHorizontal="true"
+            android:text="数据走丢了"
+            android:textColor="@color/color_dd"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 </RelativeLayout>

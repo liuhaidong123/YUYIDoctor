@@ -52,10 +52,7 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
     private TextView mSend_btn;
 
     private TextView mComment_num;
-    private TextView mShare_num;
-    private TextView mPraise_num;
     private TextView mTitle;
-    private ImageView mPraise_img;
     private ImageView mShare_img;
     private RelativeLayout mMany_box;
     private ProgressBar mBar;
@@ -106,19 +103,24 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                 }
             } else if (msg.what == 104) {
                 ToastUtils.myToast(CommentInformationActivity.this, "提交失败");
-            }
-            if (msg.what == 2) {//广告，今日推荐，最新，热门资讯详情
+            } else if (msg.what == 2) {//广告，今日推荐，最新，热门资讯详情
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
                     //分享时需要的图片和内容
-                    image = new UMImage(CommentInformationActivity.this, UrlTools.BASE + root.getPicture());//设置要分享的图片
-                    thumb = new UMImage(CommentInformationActivity.this, UrlTools.BASE + root.getPicture());//设置分享图片的缩略图
+                    if ("".equals(root.getPicture())) {
+                        image = new UMImage(CommentInformationActivity.this, R.mipmap.hospital_img);//设置要分享的图片
+                        thumb = new UMImage(CommentInformationActivity.this, R.mipmap.hospital_img);//设置分享图片的缩略图
+                    } else {
+                        String[] strings = root.getPicture().split(";");
+                        image = new UMImage(CommentInformationActivity.this, UrlTools.BASE + strings[0]);//设置要分享的图片
+                        thumb = new UMImage(CommentInformationActivity.this, UrlTools.BASE + strings[0]);//设置分享图片的缩略图
+                    }
                     image.setThumb(thumb);//图片设置缩略图
                     image.compressStyle = UMImage.CompressStyle.SCALE;
                     title = root.getTitle();
                     content = root.getContent();
-                    umWeb = new UMWeb("http://www.baidu.com");
+                    umWeb = new UMWeb("http://www.zzzyy.cn/index.do");
                     umWeb.setThumb(thumb);
                     umWeb.setTitle(title);
                     umWeb.setDescription(content);

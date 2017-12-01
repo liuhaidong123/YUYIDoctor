@@ -305,7 +305,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     //显示患者页面
     public void showPatientFragment() {
         clickPatientBtnChangeTvColor();

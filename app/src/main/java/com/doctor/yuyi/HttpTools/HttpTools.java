@@ -534,7 +534,7 @@ public class HttpTools {
                 try {
                     com.doctor.yuyi.bean.CircleMessageBean.Root root = mGson.fromJson(s, com.doctor.yuyi.bean.CircleMessageBean.Root.class);
                     Message m = new Message();
-                    m.what = 8;
+                    m.what = 1012;
                     m.obj = root;
                     handler.sendMessage(m);
 

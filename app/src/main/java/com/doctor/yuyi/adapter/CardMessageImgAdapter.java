@@ -57,7 +57,7 @@ public class CardMessageImgAdapter extends BaseAdapter {
         } else {
             holder = (ImgHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE + str[position]).error(R.mipmap.error_big).into(holder.img);
+        Picasso.with(mContext).load(UrlTools.BASE + str[position]).error(R.mipmap.errorpicture).into(holder.img);
         return convertView;
     }
 

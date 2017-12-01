@@ -24,11 +24,12 @@ public class MyDialog {
             View v = inflater.inflate(R.layout.window, null);
             ImageView imageView= (ImageView) v.findViewById(R.id.dialogimg);
             imageView.setBackgroundResource(R.drawable.animt);
-            AnimationDrawable animationDrawable = (AnimationDrawable)
-                    imageView.getBackground();
+            AnimationDrawable animationDrawable = (AnimationDrawable) imageView.getBackground();
+
             animationDrawable.start();
             dialog = new ProgressDialog(context, R.style.dialog);
             dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             dialog.setContentView(v, new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,71 +39,69 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A资讯
  */
 public class InformationFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-    private LinearLayout mRecommend_ll,mNew_LL,mHot_ll;
-
+    private LinearLayout mRecommend_ll, mNew_LL, mHot_ll;
     private TextView mToday_tv;
     private TextView mNew_tv;
     private TextView mHot_tv;
     private View mToday_line;
     private View mNew_line;
     private View mHot_line;
-
     private FirstPageListviewAdapter mFirstPageAdapter;
-    private InformationListView mMyListview;
-    private RelativeLayout mScrollRelative;
+    private ListView mMyListview;
+    private View footer;
+    private ProgressBar footerBar;
     private List<com.doctor.yuyi.bean.TodayRecommendBean.Result> mList = new ArrayList<>();
     private SwipeRefreshLayout mRefreshLayout;
-
-    private RelativeLayout mRefreshBox;
-    private ProgressBar mBar;
-
     private Handler mHttpHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
-
-           if (msg.what == 3) {//今日推荐,最新，热门
+            if (msg.what == 3) {//今日推荐,最新，热门
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.TodayRecommendBean.Root) {
                     com.doctor.yuyi.bean.TodayRecommendBean.Root root = (com.doctor.yuyi.bean.TodayRecommendBean.Root) o;
                     if (root.getCode().equals("0")) {
                         MyDialog.stopDia();
                         mRefreshLayout.setRefreshing(false);
-                        mBar.setVisibility(View.INVISIBLE);
+                        mMyListview.removeFooterView(footer);
+                        footerBar.setVisibility(View.INVISIBLE);
                         List<com.doctor.yuyi.bean.TodayRecommendBean.Result> list = new ArrayList<>();
                         list = root.getResult();
                         mList.addAll(list);
-                        mFirstPageAdapter.setmList(mList);
                         mFirstPageAdapter.notifyDataSetChanged();
-                        if (list.size() < 10) {//隐藏加载更多
-                            mRefreshBox.setVisibility(View.GONE);
+                        if (list.size() != 10) {//隐藏加载更多
+                            mMyListview.removeFooterView(footer);
                         } else {
-                            mRefreshBox.setVisibility(View.VISIBLE);
+                            mMyListview.addFooterView(footer);
+                        }
+                        if (mList.size() == 0) {
+                            nodata_rl.setVisibility(View.VISIBLE);
+                        } else {
+                            nodata_rl.setVisibility(View.GONE);
                         }
                     }
                 }
 
             } else if (msg.what == 102) {
-                mRefreshBox.setVisibility(View.GONE);
+                mMyListview.removeFooterView(footer);
                 mFirstPageAdapter.setmList(mList);
                 mFirstPageAdapter.notifyDataSetChanged();
                 MyDialog.stopDia();
-                mBar.setVisibility(View.INVISIBLE);
+                footerBar.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setRefreshing(false);
             }
         }
     };
-
     private HttpTools mHttptools;
     private int mStart = 0;
     private int mLimit = 10;
     private int mFlag = 0;
-
     public boolean isLoop = true;
+    private RelativeLayout nodata_rl;
+
     public InformationFragment() {
 
     }
@@ -118,15 +117,14 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     //初始化数据
     public void init(View view) {
-
+        nodata_rl = (RelativeLayout) view.findViewById(R.id.nodata_rl);
+        nodata_rl.setOnClickListener(this);
         mHttptools = HttpTools.getHttpToolsInstance();
-       // mHttptools.getADMessage(mHttpHandler);//获取广告数据
         mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
-
         //今日推荐，最新，热门
-        mRecommend_ll= (LinearLayout) view.findViewById(R.id.recommend_ll);
-        mNew_LL= (LinearLayout) view.findViewById(R.id.new_ll);
-        mHot_ll= (LinearLayout) view.findViewById(R.id.hot_ll);
+        mRecommend_ll = (LinearLayout) view.findViewById(R.id.recommend_ll);
+        mNew_LL = (LinearLayout) view.findViewById(R.id.new_ll);
+        mHot_ll = (LinearLayout) view.findViewById(R.id.hot_ll);
         mRecommend_ll.setOnClickListener(this);
         mNew_LL.setOnClickListener(this);
         mHot_ll.setOnClickListener(this);
@@ -138,22 +136,12 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
         mNew_line = view.findViewById(R.id.new_line);
         mHot_line = view.findViewById(R.id.hot_line);
         showTodayLine();
-
-        //加载更多
-        mRefreshBox = (RelativeLayout) view.findViewById(R.id.more_relative);
-        mRefreshBox.setOnClickListener(this);
-        mBar = (ProgressBar) view.findViewById(R.id.pbLocate);
-        //listview
-        mMyListview = (InformationListView) view.findViewById(R.id.information_listview);
+        mMyListview = (ListView) view.findViewById(R.id.information_listview);
+        footer = LayoutInflater.from(getActivity()).inflate(R.layout.circle_listview_footer, null);
+        footerBar = (ProgressBar) footer.findViewById(R.id.pbLocate);
         mFirstPageAdapter = new FirstPageListviewAdapter(getContext(), mList);
         mMyListview.setAdapter(mFirstPageAdapter);
-        //
         mMyListview.setOnItemClickListener(this);
-        mScrollRelative = (RelativeLayout) view.findViewById(R.id.scroll_relative);
-        //将资讯页面定位到顶部
-        mScrollRelative.setFocusable(true);
-        mScrollRelative.setFocusableInTouchMode(true);
-        mScrollRelative.requestFocus();
         //刷新
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
         mRefreshLayout.setColorSchemeResources(R.color.color_delete, R.color.color_username);
@@ -163,6 +151,7 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             public void onRefresh() {
                 mStart = 0;
                 mList.clear();
+                mFirstPageAdapter.notifyDataSetChanged();
                 showTodayLine();//刷新的时候回到今日推荐
                 mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
                 mHttptools.getADMessage(mHttpHandler);//获取广告数据
@@ -173,10 +162,21 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), InformationMessageActivity.class);
-        intent.putExtra("id", mList.get(position).getId());
-        startActivity(intent);
-
+        if (position == mList.size()) {//加载更多
+            footerBar.setVisibility(View.VISIBLE);
+            mStart += 10;
+            if (mFlag == 0) {//加载的是今日推荐
+                mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
+            } else if (mFlag == 1) {//加载的是最新
+                mHttptools.getNew(mHttpHandler, mStart, mLimit);
+            } else if (mFlag == 2) {//加载的是热门
+                mHttptools.getHot(mHttpHandler, mStart, mLimit);
+            }
+        } else {
+            Intent intent = new Intent(getActivity(), InformationMessageActivity.class);
+            intent.putExtra("id", mList.get(position).getId());
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -189,9 +189,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             MyDialog.showDialog(this.getActivity());
             mList.clear();
             mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);
-            mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
-            mRefreshBox.setVisibility(View.GONE);
+            mMyListview.removeFooterView(footer);
         } else if (id == mNew_LL.getId()) {//最新
             mFlag = 1;
             mStart = 0;
@@ -199,9 +198,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             MyDialog.showDialog(this.getActivity());
             mList.clear();
             mHttptools.getNew(mHttpHandler, mStart, mLimit);
-            mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
-            mRefreshBox.setVisibility(View.GONE);
+            mMyListview.removeFooterView(footer);
         } else if (id == mHot_ll.getId()) {//热门
             mFlag = 2;
             mStart = 0;
@@ -209,20 +207,8 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
             mList.clear();
             mHttptools.getHot(mHttpHandler, mStart, mLimit);
             showHotLine();
-            mFirstPageAdapter.setmList(mList);
             mFirstPageAdapter.notifyDataSetChanged();
-            mRefreshBox.setVisibility(View.GONE);
-        } else if (id == mRefreshBox.getId()) {//加载更多
-            mBar.setVisibility(View.VISIBLE);
-            mStart += 10;
-            if (mFlag == 0) {//加载的是今日推荐
-                mHttptools.getTodayRecommend(mHttpHandler, mStart, mLimit);//今日推荐
-            } else if (mFlag == 1) {//加载的是最新
-                mHttptools.getNew(mHttpHandler, mStart, mLimit);
-            } else if (mFlag == 2) {//加载的是热门
-                mHttptools.getHot(mHttpHandler, mStart, mLimit);
-            }
-
+            mMyListview.removeFooterView(footer);
         }
     }
 
@@ -306,10 +292,9 @@ public class InformationFragment extends Fragment implements AdapterView.OnItemC
     }
 
 
-
     @Override
     public void onDestroy() {
-        isLoop=false;
+        isLoop = false;
         super.onDestroy();
     }
 }

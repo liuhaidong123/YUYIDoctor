@@ -45,63 +45,64 @@ import com.umeng.socialize.media.UMWeb;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener ,UMShareListener{
+public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
 
     private InformationListView mImgListView, mCommentListView;
     private CardMessageImgAdapter mImgAdapter;
     private String[] mStrImg = new String[0];
-
     private CardMessageCommentAdapter mCommentAdapter;
-    private List<CommentList> mList=new ArrayList<>();
+    private List<CommentList> mList = new ArrayList<>();
     private RelativeLayout mScrollRl;
     private ImageView mback;
-
     private RoundImageView mHead_img;
     private TextView mName;
     private TextView mTime;
     private TextView mPraise_num;
-
     private TextView mTitle;
     private TextView mContent;
     private TextView mComment_allNum;
     private ImageView mPraise_img;
     private ImageView mShare_img;
-
-    private long id=-1;
+    private long id = -1;
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            if (msg.what == 8) {
+            if (msg.what == 1012) {
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
                     if (root.getCode().equals("0")) {
 
-                        if (isFlag){//头部一些信息只加载一次
-
+                        if (isFlag) {//头部一些信息只加载一次
                             //分享时需要的图片和内容
-                            image = new UMImage(CardMessageActivity.this, UrlTools.BASE + root.getResult().getPicture());//设置要分享的图片
-                            thumb = new UMImage(CardMessageActivity.this, UrlTools.BASE + root.getResult().getPicture());//设置分享图片的缩略图
+                            if ("".equals(root.getResult().getPicture())) {
+                                image = new UMImage(CardMessageActivity.this, R.mipmap.hospital_img);//设置要分享的图片
+                                thumb = new UMImage(CardMessageActivity.this, R.mipmap.hospital_img);//设置分享图片的缩略图
+                            } else {
+                                String[] strings = root.getResult().getPicture().split(";");
+                                image = new UMImage(CardMessageActivity.this, UrlTools.BASE + strings[0]);//设置要分享的图片
+                                thumb = new UMImage(CardMessageActivity.this, UrlTools.BASE + strings[0]);//设置分享图片的缩略图
+                            }
                             image.setThumb(thumb);//图片设置缩略图
                             image.compressStyle = UMImage.CompressStyle.SCALE;
                             title = root.getResult().getTitle();
                             content = root.getResult().getContent();
-                            umWeb=new UMWeb("http://59.110.169.148:8080/static/html/sharejump.html");
+                            umWeb = new UMWeb("http://www.zzzyy.cn/index.do");
                             umWeb.setTitle(title);
                             umWeb.setThumb(thumb);
                             umWeb.setDescription(content);
-                            Log.e("=====","头部一些信息只加载一次");
-                            Picasso.with(CardMessageActivity.this).load(UrlTools.BASE + root.getResult().getAvatar()).error(R.mipmap.error_small).into(mHead_img);
+                            Log.e("=====", "头部一些信息只加载一次");
+                            Picasso.with(CardMessageActivity.this).load(UrlTools.BASE + root.getResult().getAvatar()).error(R.mipmap.userdefault).into(mHead_img);
                             mName.setText(root.getResult().getTrueName());
                             mTime.setText(TimeUtils.getTime(root.getResult().getCreateTimeString()));
                             mContent.setText(root.getResult().getContent());
                             mTitle.setText(root.getResult().getTitle());
                             mPraise_num.setText(root.getResult().getLikeNum() + "");
 
-                            id=root.getResult().getId();
+                            id = root.getResult().getId();
 
                             //点赞设值
                             if (root.getResult().getLikeNum() == null) {
@@ -110,12 +111,11 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                                 mPraise_num.setText(root.getResult().getLikeNum() + "");
                             }
 
-                            if (root.getResult().getIsLike()){
+                            if (root.getResult().getIsLike()) {
                                 mPraise_img.setImageResource(R.mipmap.like_selected);
-                            }else {
+                            } else {
                                 mPraise_img.setImageResource(R.mipmap.like);
                             }
-
 
 
                             String strImg = root.getResult().getPicture();
@@ -126,7 +126,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                             mImgAdapter.notifyDataSetChanged();
                         }
 
-                        isFlag=false;
+                        isFlag = false;
 
                         //评论设值
                         if (root.getResult().getCommentNum() == null) {
@@ -135,12 +135,12 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                             mComment_allNum.setText(root.getResult().getCommentNum() + "");
                         }
                         mBar.setVisibility(View.INVISIBLE);
-                        List<CommentList> list=new ArrayList<>();
-                        list=root.getResult().getCommentList();
+                        List<CommentList> list = new ArrayList<>();
+                        list = root.getResult().getCommentList();
                         mList.addAll(list);
                         mCommentAdapter.setList(mList);
                         mCommentAdapter.notifyDataSetChanged();
-
+                        mData_rl.setVisibility(View.VISIBLE);//显示数据
                         if (list.size() != 10) {
                             mMany_Box.setVisibility(View.GONE);
                         } else {
@@ -150,24 +150,27 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             } else if (msg.what == 108) {
-                ToastUtils.myToast(CardMessageActivity.this, "数据错误");
-            } else  if (msg.what == 9) {//学术圈详情点赞接口
+                mNodata_Rl.setVisibility(View.VISIBLE);
+                mNoMsg_tv.setText("账号异常,请重新登录");
+                mShare_img.setClickable(false);
+                ToastUtils.myToast(CardMessageActivity.this, "请重新登录");
+            } else if (msg.what == 9) {//学术圈详情点赞接口
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.InformationPraise.Root) {
                     com.doctor.yuyi.bean.InformationPraise.Root root = (com.doctor.yuyi.bean.InformationPraise.Root) o;
                     if (root.getCode().equals("0")) {
                         if (root.getResult().equals("点赞成功")) {
                             mPraise_img.setImageResource(R.mipmap.like_selected);
-                            mPraise_num.setText( Integer.valueOf(mPraise_num.getText().toString())+1+"");
+                            mPraise_num.setText(Integer.valueOf(mPraise_num.getText().toString()) + 1 + "");
                         } else {
                             mPraise_img.setImageResource(R.mipmap.like);
-                            mPraise_num.setText( Integer.valueOf(mPraise_num.getText().toString())-1+"");
+                            mPraise_num.setText(Integer.valueOf(mPraise_num.getText().toString()) - 1 + "");
                         }
                     }
                 }
             } else if (msg.what == 109) {
                 ToastUtils.myToast(CardMessageActivity.this, "点赞失败");
-            }else if (msg.what==12){//学术圈提交评论
+            } else if (msg.what == 12) {//学术圈提交评论
                 Object o = msg.obj;
                 if (o != null && o instanceof com.doctor.yuyi.bean.SubmitComment.Root) {
                     com.doctor.yuyi.bean.SubmitComment.Root rootSubmit = (com.doctor.yuyi.bean.SubmitComment.Root) o;
@@ -192,17 +195,17 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
     private int mLimit = 10;
     private RelativeLayout mMany_Box;//加载更多
     private ProgressBar mBar;
-
-    private boolean isFlag=true;
-
     //评论框
     private EditText mEdit;
-
+    private boolean isFlag = true;
     private UMImage image;
     private UMImage thumb;
     private String title;
     private String content;
     private UMWeb umWeb;
+    private RelativeLayout mNodata_Rl,mData_rl;
+    private TextView mNoMsg_tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,6 +214,10 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
+        mData_rl= (RelativeLayout) findViewById(R.id.data_rl);
+        mNodata_Rl = (RelativeLayout) findViewById(R.id.nodata_rl);
+        mNodata_Rl.setOnClickListener(this);
+        mNoMsg_tv = (TextView) findViewById(R.id.no_msg);
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getHotSelectNewMessage(mHandler, UserInfo.UserToken, mStart, mLimit, getIntent().getLongExtra("id", -1));
 
@@ -235,7 +242,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         mImgListView.setAdapter(mImgAdapter);
         //帖子详情页面的评论listview
         mCommentListView = (InformationListView) findViewById(R.id.card_comment_listview);
-        mCommentAdapter = new CardMessageCommentAdapter(this,mList);
+        mCommentAdapter = new CardMessageCommentAdapter(this, mList);
         mCommentListView.setAdapter(mCommentAdapter);
         //将scrollView定位到顶部
         mScrollRl = (RelativeLayout) findViewById(R.id.scroll_relative);
@@ -243,12 +250,12 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         mScrollRl.setFocusableInTouchMode(true);
         mScrollRl.requestFocus();
         //加载更多
-        mMany_Box = (RelativeLayout)findViewById(R.id.more_relative);
+        mMany_Box = (RelativeLayout) findViewById(R.id.more_relative);
         mMany_Box.setOnClickListener(this);
-        mBar = (ProgressBar)findViewById(R.id.pbLocate);
+        mBar = (ProgressBar) findViewById(R.id.pbLocate);
 
         //评论框
-        mEdit= (EditText) findViewById(R.id.circle_edit);
+        mEdit = (EditText) findViewById(R.id.circle_edit);
         mEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -256,11 +263,11 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                     if (getEditContent().equals("")) {
                         ToastUtils.myToast(CardMessageActivity.this, "请输入评论内容");
                     } else {
-                        if (id!=-1){
+                        if (id != -1) {
                             mHttptools.submitCircleComment(mHandler, Long.valueOf(UserInfo.UserName), id, getEditContent());
                             //隐藏软键盘
                             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                        }else {
+                        } else {
                             ToastUtils.myToast(CardMessageActivity.this, "评论数据错误");
                         }
 
@@ -278,16 +285,17 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         int id = v.getId();
         if (id == mback.getId()) {
             finish();
-        }else if (id==mPraise_img.getId()){//点赞
-            mHttptools.circlePraise(mHandler,getIntent().getLongExtra("id", -1),UserInfo.UserToken);
-        }else if (id == mMany_Box.getId()) {//加载更多
+        } else if (id == mPraise_img.getId()) {//点赞
+            mHttptools.circlePraise(mHandler, getIntent().getLongExtra("id", -1), UserInfo.UserToken);
+        } else if (id == mMany_Box.getId()) {//加载更多
             mStart += 10;
             mHttptools.getHotSelectNewMessage(mHandler, UserInfo.UserToken, mStart, mLimit, getIntent().getLongExtra("id", -1));
             mBar.setVisibility(View.VISIBLE);
-        }else if (id==mShare_img.getId()){
+        } else if (id == mShare_img.getId()) {
             init();
         }
     }
+
     //分享回调方法
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -314,14 +322,14 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
-                if ( content != null&&title!=null && umWeb!=null) {
+                if (content != null && title != null && umWeb != null) {
                     ShareUtils.share(this, this, umWeb);
                 }
 
             }
             //版本小于23时，不需要判断敏感权限，执行业务逻辑
         } else {
-            if (content != null&&title!=null && umWeb!=null) {
+            if (content != null && title != null && umWeb != null) {
                 ShareUtils.share(this, this, umWeb);
             }
 
@@ -337,7 +345,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                 //点击了允许，授权成功
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    if ( content != null&&title!=null && umWeb!=null) {
+                    if (content != null && title != null && umWeb != null) {
                         ShareUtils.share(this, this, umWeb);
                     }
                     //点击了拒绝，授权失败
@@ -349,6 +357,7 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
     /**
      * 获取输入框的内容
      *
@@ -361,9 +370,10 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
         }
         return content;
     }
+
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-        Log.e("分享开始", "==="+share_media.toString());
+        Log.e("分享开始", "===" + share_media.toString());
     }
 
     @Override
@@ -377,16 +387,16 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
 //            mHttptools.shareCard(mHandler, getIntent().getLongExtra("id", -1),UserInfo.UserToken,3);
 //        }
 
-        ToastUtils.myToast(CardMessageActivity.this,"分享成功");
+        ToastUtils.myToast(CardMessageActivity.this, "分享成功");
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-        Log.e("分享错误", "==="+share_media.toString());
+        Log.e("分享错误", "===" + share_media.toString());
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
-        Log.e("分享取消", "==="+share_media.toString());
+        Log.e("分享取消", "===" + share_media.toString());
     }
 }

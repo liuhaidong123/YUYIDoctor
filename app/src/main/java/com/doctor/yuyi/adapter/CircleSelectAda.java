@@ -115,7 +115,7 @@ public class CircleSelectAda extends BaseAdapter {
         circleHolder.title.setText(list.get(position).getTitle());
         circleHolder.content_tv.setText(list.get(position).getContent());
         circleHolder.time.setText(TimeUtils.getTime(list.get(position).getCreateTimeString()));
-        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(circleHolder.head_img);
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.userdefault).into(circleHolder.head_img);
         circleHolder.trueName.setText(list.get(position).getTrueName());
         //设置图片
         if (list.get(position).getPicture().equals("")){
@@ -145,27 +145,6 @@ public class CircleSelectAda extends BaseAdapter {
         } else {
             circleHolder.praise_img.setImageResource(R.mipmap.like);
         }
-
-        //点赞
-        circleHolder.praise_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPosition=position;
-                finalConvertView.setFocusable(false);
-                //请求点赞接口
-                httpTools.circlePraise(handler,list.get(position).getId(), UserInfo.UserToken);
-            }
-        });
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                circleHolder.praise_img.setFocusable(false);
-                Intent intent = new Intent(mContext, CardMessageActivity.class);
-                intent.putExtra("id",list.get(position).getId());
-                Log.e("id",list.get(position).getId()+"");
-                mContext.startActivity(intent);
-            }
-        });
         return convertView;
     }
 

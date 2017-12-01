@@ -71,7 +71,7 @@ public class CommentAdapter extends BaseAdapter {
             commendHolder= (CommendHolder) convertView.getTag();
         }
 
-        Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getAvatar()).error(R.mipmap.error_small).into(commendHolder.img);
+        Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getAvatar()).error(R.mipmap.userdefault).into(commendHolder.img);
         commendHolder.name.setText(mList.get(position).getTrueName());
 
         commendHolder.content.setText(mList.get(position).getContent());
