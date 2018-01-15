@@ -31,7 +31,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/head_img"
                 android:ellipsize="end"
-                android:maxLength="6"
+                android:maxLength="25"
+                android:maxLines="1"
                 android:text=""
                 android:textSize="12sp"
                 android:textColor="@color/color_drumall" />

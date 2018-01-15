@@ -113,7 +113,7 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     }
                 }
             } else if (msg.what == 104) {
-                ToastUtils.myToast(getApplicationContext(), "提交失败");
+                ToastUtils.myToast(getApplicationContext(), "账号异常,请重新登录");
             }
         }
     };

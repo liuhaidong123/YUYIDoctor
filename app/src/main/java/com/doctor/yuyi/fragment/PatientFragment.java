@@ -87,7 +87,7 @@ public class PatientFragment extends Fragment implements View.OnClickListener {
 
                     } else {
                         mNodata_rl.setVisibility(View.VISIBLE);
-                        mNoMsg_Tv.setText("账号异常,请重新登录");
+                        mNoMsg_Tv.setText("暂无查看数据患者数据权限");
                     }
                 }
             } else if (msg.what == 114) {

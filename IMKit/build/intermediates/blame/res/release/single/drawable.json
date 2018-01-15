@@ -160,12 +160,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable/rc_cs_group_ok_text_selector.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable/rc_switch_btn.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable/rc_switch_btn.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable/rc_an_voice_receive.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable/rc_an_voice_receive.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable/rc_switch_btn.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/src/main/res/drawable/rc_switch_btn.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/IMKit/build/intermediates/res/merged/release/drawable/rc_ac_btn_file_download_open_button.xml",

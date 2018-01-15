@@ -3,6 +3,8 @@ package com.doctor.yuyi.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doctor.yuyi.HttpTools.UrlTools;
 import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.MyUtils.MyDialog;
 import com.doctor.yuyi.R;
@@ -24,15 +28,19 @@ import com.doctor.yuyi.bean.Bean_Login;
 import com.doctor.yuyi.bean.Bean_SMSCode;
 import com.doctor.yuyi.lzh_utils.okhttp;
 import com.doctor.yuyi.lzh_utils.toast;
+import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.R.string.ok;
 
 public class Login_Activity extends Activity {
 
@@ -126,6 +134,9 @@ public class Login_Activity extends Activity {
         }
     };
 
+    private EditText mMyStatus_Num;
+    private ImageView mMyStatus_Img;
+    private long mCurrentMillis;
 
 
     @Override
@@ -179,6 +190,20 @@ public class Login_Activity extends Activity {
                 }
             }
         });
+
+        mCurrentMillis = System.currentTimeMillis();
+        mMyStatus_Num = (EditText) findViewById(R.id.my_status_num_edit);
+        mMyStatus_Img = (ImageView) findViewById(R.id.my_status_num_img);
+        //获取动态验证码
+        getDynamicNumAndCookie();
+        //重新获取动态验证码
+        mMyStatus_Img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCurrentMillis = System.currentTimeMillis();
+                getDynamicNumAndCookie();
+            }
+        });
     }
 
     //获取验证码
@@ -203,8 +228,10 @@ public class Login_Activity extends Activity {
             }
         }).start();
         Map<String,String> mp=new HashMap<>();
-        mp.put("id",userName);
-        okhttp.getCall(Ip.URL+Ip.interface_SMSCode,mp,okhttp.OK_GET).enqueue(new Callback() {
+        mp.put("id",my_userlogin_edit_name.getText().toString());
+        mp.put("ts",String.valueOf(mCurrentMillis));
+        mp.put("imgcode", mMyStatus_Num.getText().toString());
+        okhttp.getCallCookie(Ip.URL+Ip.interface_SMSCode,mp,cookie).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 hand.sendEmptyMessage(0);
@@ -213,11 +240,6 @@ public class Login_Activity extends Activity {
             @Override
             public void onResponse(Response response) throws IOException {
                 resStr=response.body().string();
-//                header=response.headers();
-//                for (String s:header.names()){
-//                    Log.i("name--"+s,"--"+header.get(s));
-//                }
-                cookie=response.headers().get("Set-Cookie");
                 Log.i("获取验证码---",resStr);
                 hand.sendEmptyMessage(1);
 
@@ -268,5 +290,44 @@ public class Login_Activity extends Activity {
                 }
             }
         }
+    }
+
+    /**
+     * 获取动态验证码以及cookie
+     */
+    public void getDynamicNumAndCookie() {
+
+        Call call = okhttp.getCall(UrlTools.BASE + UrlTools.URL_GET_DYNAMIC_NUM + "ts=" + mCurrentMillis, null, 0);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.e("获取动态验证码错误", e.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    cookie = response.headers().get("Set-Cookie");
+                    //Log.e("动态验证码myCooike=", myCooike);
+                    InputStream inputStream = response.body().byteStream();
+                    final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (bitmap!=null){
+                                mMyStatus_Img.setImageBitmap(bitmap);
+                            }else {
+                                mMyStatus_Img.setBackgroundResource(R.color.color_ad);
+                            }
+
+                        }
+                    });
+                } else {
+                    Log.e("onResponse--", "获取动态验证码错误");
+                }
+
+            }
+        });
     }
 }

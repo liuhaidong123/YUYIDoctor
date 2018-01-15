@@ -5,7 +5,7 @@ package com.doctor.yuyi.HttpTools;
  */
 
 public class UrlTools {
-    //  public static final String BASE="http://192.168.1.44:8080/yuyi";
+    //public static final String BASE="http://192.168.1.168:8082/yuyi";
     public static final String BASE = "http://59.110.169.148:8080";
     public static final String URL_AD = "/doctorlyinformation/getall.do";//广告数据
     public static final String URL_AD_MESSAGE = "/doctorlyinformation/get.do?";//广告,今日，最新，热门数据详情（需传id=,token）
@@ -34,4 +34,6 @@ public class UrlTools {
 
     public static final String URL_SHARE_INFORMATION = "/share/UpdateShar.do?";//id=1&shareType=1&token=0365866B04DA5283B29330178F625C64  资讯详情分享
 
+    //获取动态验证码
+    public static final String URL_GET_DYNAMIC_NUM = "/personal/imgcode.do?";//参数ts=1515636702185当前毫秒数
 }

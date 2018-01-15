@@ -115,74 +115,17 @@
         android:layout_height="match_parent"
         android:layout_below="@id/equip_line">
 
-        <!--<ScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scrollbars="none">-->
 
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
+        <ListView
+            android:id="@+id/circle_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:divider="@color/color_cancel"
+            android:dividerHeight="10dp"
+            android:scrollbars="none">
 
-                <ListView
-                    android:id="@+id/circle_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_white"
-                    android:divider="@color/color_cancel"
-                    android:dividerHeight="10dp"
-                    android:scrollbars="none">
-
-                </ListView>
-
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/more_relative"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_below="@id/circle_listview"-->
-                    <!--android:background="@color/color_white"-->
-                    <!--android:visibility="gone">-->
-
-                    <!--<View-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:background="@color/color_cancel"-->
-
-                        <!--/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/footer_tv"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:paddingBottom="15dp"-->
-                        <!--android:paddingEnd="20dp"-->
-                        <!--android:paddingStart="20dp"-->
-                        <!--android:paddingTop="15dp"-->
-                        <!--android:text="加载更多"-->
-                        <!--android:textColor="@color/color_normal"-->
-                        <!--android:textSize="13sp" />-->
-
-                    <!--<ProgressBar-->
-                        <!--android:id="@+id/pbLocate"-->
-                        <!--style="?android:attr/progressBarStyleSmall"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toEndOf="@+id/footer_tv"-->
-                        <!--android:paddingTop="15dp"-->
-                        <!--android:visibility="invisible" />-->
-
-                    <!--<View-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_alignParentBottom="true"-->
-                        <!--android:background="@color/color_cancel"-->
-
-                        <!--/>-->
-                <!--</RelativeLayout>-->
-            <!--</RelativeLayout>-->
-        <!--</ScrollView>-->
+        </ListView>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -196,7 +139,6 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:src="@mipmap/postamessage" />
-
 
     <!--没有数据页面-->
     <RelativeLayout
@@ -224,6 +166,17 @@
             android:textColor="@color/color_dd"
             android:textSize="17sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/no_post_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@mipmap/postamessage"
+            android:visibility="gone" />
     </RelativeLayout>
 
 

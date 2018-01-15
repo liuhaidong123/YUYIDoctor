@@ -220,12 +220,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable/rc_white_bg_shape.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/release/drawable/rc_ic_no_selector.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable/rc_ic_no_selector.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/release/drawable/rc_item_top_list_selector.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable/rc_item_top_list_selector.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/release/drawable/rc_ic_no_selector.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable/rc_ic_no_selector.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/release/drawable/rc_cs_group_checkbox_selector.xml",

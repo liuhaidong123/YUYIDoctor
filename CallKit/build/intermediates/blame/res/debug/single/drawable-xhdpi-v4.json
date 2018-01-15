@@ -1504,12 +1504,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable-xhdpi-v4/rc_img_camera.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ad_list_audio_icon.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ad_list_audio_icon.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f377.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable-xhdpi-v4/u1f377.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ad_list_audio_icon.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/exploded-aar/YUYIDoctor/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ad_list_audio_icon.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYIDoctor/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_selector_title_pic_back_press.9.png",

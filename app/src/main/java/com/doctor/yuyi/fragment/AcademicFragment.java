@@ -46,6 +46,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
 
     private RelativeLayout mNodata_Rl;
     private TextView mNoMsg_tv;
+    private ImageView mNo_Post_img;
     private ImageView mMessage_img;
     private TextView mHot_tv, mSelect_tv, mNew_tv;//热门，精选，最新
     private View mHot_line, mSelect_line, mNew_line;//线
@@ -91,9 +92,11 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                     if (mList.size() == 0) {
                         mNodata_Rl.setVisibility(View.VISIBLE);
                         mNoMsg_tv.setText("数据走丢了");
+                        mNo_Post_img.setVisibility(View.VISIBLE);
                     } else {
                         mNodata_Rl.setVisibility(View.GONE);
                         mNoMsg_tv.setText("");
+                        mNo_Post_img.setVisibility(View.GONE);
                     }
                 }
 
@@ -125,9 +128,11 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                         if (mSelectList.size() == 0) {
                             mNodata_Rl.setVisibility(View.VISIBLE);
                             mNoMsg_tv.setText("数据走丢了");
+                            mNo_Post_img.setVisibility(View.VISIBLE);
                         } else {
                             mNodata_Rl.setVisibility(View.GONE);
                             mNoMsg_tv.setText("");
+                            mNo_Post_img.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -136,6 +141,7 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
                 mListview.removeFooterView(footer);
                 mNodata_Rl.setVisibility(View.VISIBLE);
                 mNoMsg_tv.setText("账号异常,请重新登录");
+                mNo_Post_img.setVisibility(View.GONE);
             }
         }
     };
@@ -166,6 +172,8 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
         mNodata_Rl = (RelativeLayout) view.findViewById(R.id.nodata_rl);
         mNodata_Rl.setOnClickListener(this);
         mNoMsg_tv = (TextView) view.findViewById(R.id.no_msg);
+        mNo_Post_img = (ImageView) view.findViewById(R.id.no_post_img);
+        mNo_Post_img.setOnClickListener(this);
         mMessage_img = (ImageView) view.findViewById(R.id.information_img);
         mMessage_img.setOnClickListener(this);
         //头部热门，精选，最新
@@ -277,8 +285,10 @@ public class AcademicFragment extends Fragment implements View.OnClickListener {
             mListview.setAdapter(mAdapter);
         } else if (id == mPostImg.getId()) {//发帖
             startActivity(new Intent(getActivity(), PostActivity.class));
-        } else if (id == mMessage_img.getId()) {//发帖
+        } else if (id == mMessage_img.getId()) {//消息
             startActivity(new Intent(getActivity(), My_message_Activity.class));
+        } else if (id == mNo_Post_img.getId()) {//没有数据时，显示的发帖按钮发帖
+            startActivity(new Intent(getActivity(), PostActivity.class));
         }
     }
 

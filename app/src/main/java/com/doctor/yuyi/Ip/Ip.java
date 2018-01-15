@@ -10,9 +10,9 @@ public interface Ip {
     public final static String ImgPth="http://59.110.169.148:8080";
     public final static String URLLocalHost=" http://59.110.169.148:8080/";
 
-//    public final static String URL = "http://192.168.1.44:8080/yuyi/";
-//    public final static String ImgPth = "http://192.168.1.44:8080/yuyi/";
-//    public final static String URLLocalHost = "http://192.168.1.44:8080/yuyi/";
+//    public final static String URL = "http://192.168.1.168:8082/yuyi/";
+//    public final static String ImgPth = "http://192.168.1.168:8082/yuyi/";
+//    public final static String URLLocalHost = "http://192.168.1.168:8082/yuyi/";
 
 
     //获取验证码接口http://192.168.1.55:8080/yuyi/physician/vcode.do?id=13717883006
