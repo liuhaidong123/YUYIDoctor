@@ -308,10 +308,9 @@ public class Login_Activity extends Activity {
             public void onResponse(Response response) throws IOException {
                 if (response.isSuccessful()) {
                     cookie = response.headers().get("Set-Cookie");
-                    //Log.e("动态验证码myCooike=", myCooike);
+                   //Log.e("返回数据=", response.body().string());
                     InputStream inputStream = response.body().byteStream();
                     final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -323,6 +322,7 @@ public class Login_Activity extends Activity {
 
                         }
                     });
+
                 } else {
                     Log.e("onResponse--", "获取动态验证码错误");
                 }

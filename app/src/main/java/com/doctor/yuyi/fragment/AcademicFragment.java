@@ -21,19 +21,16 @@ import android.widget.TextView;
 
 import com.doctor.yuyi.HttpTools.HttpTools;
 import com.doctor.yuyi.MyUtils.MyDialog;
-import com.doctor.yuyi.MyUtils.ToastUtils;
 import com.doctor.yuyi.R;
 import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.activity.CardMessageActivity;
 import com.doctor.yuyi.activity.My_message_Activity;
 import com.doctor.yuyi.activity.PostActivity;
-import com.doctor.yuyi.activity.TestWXPayActivity;
 import com.doctor.yuyi.adapter.CircleAdpater;
 import com.doctor.yuyi.adapter.CircleSelectAda;
 import com.doctor.yuyi.bean.CircleBean.Root;
 import com.doctor.yuyi.bean.CircleBean.Rows;
 import com.doctor.yuyi.bean.CircleBean.SelectBean.Result;
-import com.doctor.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
 import java.util.List;

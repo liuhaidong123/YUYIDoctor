@@ -162,11 +162,15 @@
         <!-- 微博分享Activity -->
 
         <activity
-            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action
+                    android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" />
@@ -368,8 +372,7 @@
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.TestWXPayActivity" />
-        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
+
     </application>
 
 </manifest>

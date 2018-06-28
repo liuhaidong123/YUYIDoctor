@@ -9,45 +9,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.doctor.yuyi.Ip.Ip;
 import com.doctor.yuyi.R;
-import com.doctor.yuyi.lzh_utils.Notifi;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import org.json.JSONObject;
-
-import com.doctor.yuyi.UMShareImp.UmAuthListener;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareConfig;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.AnnotationNotFoundException;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
-import io.rong.message.ImageMessage;
-import io.rong.message.RichContentMessage;
-import io.rong.message.TextMessage;
-import io.rong.message.VoiceMessage;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by wanyu on 2017/3/29.
