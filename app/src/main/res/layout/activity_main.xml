@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/patient_tv"
+                    android:text="咨询"
                     android:textColor="@color/navigate_tv_color_no" />
             </LinearLayout>
 
@@ -147,4 +147,6 @@
         android:layout_above="@+id/all_ll_btn">
 
     </RelativeLayout>
+
+
 </RelativeLayout>

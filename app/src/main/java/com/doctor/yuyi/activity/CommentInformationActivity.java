@@ -40,7 +40,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommentInformationActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
     private ImageView mBack;
@@ -197,7 +199,10 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
                     } else {
 
                         if (!"".equals(UserInfo.UserName)) {
-                            mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
+                            Map<String,String> map=new HashMap<>();
+                            map.put("Content",getEditContent());
+
+                            mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, map);
                             mEdit.setText("");
                             //隐藏软键盘
                             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -244,7 +249,9 @@ public class CommentInformationActivity extends AppCompatActivity implements Vie
             } else {
 
                 if (!"".equals(UserInfo.UserName)) {
-                    mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, getEditContent());
+                    Map<String,String> map=new HashMap<>();
+                    map.put("Content",getEditContent());
+                    mHttptools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), mid, map);
                     mEdit.setText("");
                     //隐藏软键盘
                     ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);

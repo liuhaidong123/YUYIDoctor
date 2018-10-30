@@ -36,4 +36,6 @@ public class UrlTools {
 
     //获取动态验证码
     public static final String URL_GET_DYNAMIC_NUM = "/personal/imgcode.do?";//参数ts=1515636702185当前毫秒数
+
+    public static final String Url_CheckVersion="/aboutUs/getph.do";//检测版本号
 }

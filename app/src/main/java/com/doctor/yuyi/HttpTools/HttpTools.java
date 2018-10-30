@@ -5,12 +5,15 @@ import android.os.Message;
 import android.util.Log;
 
 import com.doctor.yuyi.bean.AdBean.Root;
+import com.doctor.yuyi.bean.VersionRoot;
 import com.google.gson.Gson;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
 import java.net.URL;
+import java.util.Map;
 
 /**
  * Created by liuhaidong on 2017/3/7.
@@ -308,10 +311,10 @@ public class HttpTools {
     /**
      * 提交评论
      */
-    public void submitCommentContent(final Handler handler, long telephone, long content_id, String content) {
-        String url = UrlTools.BASE + UrlTools.URL_COMMEND + "telephone="+telephone+"&content_id="+content_id+"&Content="+content;
+    public void submitCommentContent(final Handler handler, long telephone, long content_id, Map<String,String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_COMMEND + "telephone="+telephone+"&content_id="+content_id;
 
-        mFinalHttp.get(url, new AjaxCallBack<String>() {
+        mFinalHttp.post(url,new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -686,10 +689,10 @@ public class HttpTools {
     /**
      * 学术圈详情评论  telephone=18782931355&content_id=1&Content=haha
      */
-    public void submitCircleComment(final Handler handler,long telephone,long content_id,String Content) {
-        String url = UrlTools.BASE + UrlTools.URL_CIRCLE_COMMEND +"telephone="+telephone+"&content_id="+content_id+"&Content="+Content;
+    public void submitCircleComment(final Handler handler,long telephone,long content_id,Map<String ,String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_CIRCLE_COMMEND +"telephone="+telephone+"&content_id="+content_id;
 
-        mFinalHttp.get(url, new AjaxCallBack<String>() {
+        mFinalHttp.post(url,new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -896,6 +899,37 @@ public class HttpTools {
                 }
                 Log.e("onFailure", " 资讯详情分享接口" + strMsg.toString());
                 handler.sendEmptyMessage(116);
+            }
+        });
+    }
+
+    //检测版本
+    public void CheckVersion(final Handler handler) {
+
+        String url = UrlTools.BASE + UrlTools.Url_CheckVersion;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e(" 检测版本onStart", "-");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e(" 检测版本onSuccess", "-" + s);
+                VersionRoot root = mGson.fromJson(s, VersionRoot.class);
+                Message message = new Message();
+                message.obj = root;
+                message.what = 909;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e(" 检测版本onFailure", "-" + strMsg);
             }
         });
     }

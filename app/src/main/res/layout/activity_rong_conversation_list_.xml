@@ -14,8 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
         <ImageView
-            android:clickable="true"
-            android:onClick="reBack"
             android:id="@+id/imageReturn"
             android:layout_alignParentLeft="true"
             android:paddingStart="15dp"
@@ -28,7 +26,7 @@
             android:id="@+id/titextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="咨询"
+            android:text="患者"
             android:layout_centerInParent="true"
             android:textColor="@color/L_color_titleText"
             android:textSize="17sp"/>
@@ -38,9 +36,60 @@
             android:layout_width="match_parent"
             android:layout_height="1dp" />
     </RelativeLayout>
-    <fragment
-        android:id="@+id/conversationlist"
-        android:name="io.rong.imkit.fragment.ConversationListFragment"
+    <TextView
+        android:id="@+id/line_11"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="1dp"
+        android:layout_below="@+id/title"
+        android:background="#eeeeee" />
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line_11"
+        android:background="#f2f2f2">
+
+        <ListView
+            android:id="@+id/my_patient_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:divider="@null"
+            android:listSelector="#00000000"
+            android:scrollbars="none">
+
+        </ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--没有数据页面-->
+    <RelativeLayout
+        android:id="@+id/nodata_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line_11"
+        android:background="@color/color_white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/login_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothings" />
+
+        <TextView
+            android:id="@+id/nomsg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_img"
+            android:layout_centerHorizontal="true"
+            android:text=""
+            android:textColor="@color/color_dd"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -7,8 +7,8 @@ android {
         applicationId "com.doctor.yuyi"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 3
-        versionName "3.0"
+        versionCode 9
+        versionName "9.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         sourceSets {
             main {
@@ -40,12 +40,6 @@ dependencies {
     compile project(':CallLib')
     compile files('libs/jcore-android_v1.1.1.jar')
     compile files('libs/jpush-android_v3.0.3.jar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.okio:okio:1.5.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
-    testCompile 'junit:junit:4.12'
     compile files('libs/libammsdk.jar')
     compile files('libs/SocialSDK_QQ_Full.jar')
     compile files('libs/umeng_shareboard_widget.jar')
@@ -56,4 +50,11 @@ dependencies {
     compile files('libs/umeng_social_shareboard.jar')
     compile files('libs/SocialSDK_Sina_Full.jar')
     compile files('libs/weiboSDKCore_3.1.4.jar')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
+    compile 'com.android.support:support-v4:25.3.1'
+    testCompile 'junit:junit:4.12'
 }

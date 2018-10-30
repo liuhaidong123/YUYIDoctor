@@ -29,6 +29,7 @@ import com.doctor.yuyi.User.UserInfo;
 import com.doctor.yuyi.bean.BeanPriRong;
 import com.doctor.yuyi.broadcast.BroadCastYUYI;
 import com.doctor.yuyi.fragment.AcademicFragment;
+import com.doctor.yuyi.fragment.ChatFragment;
 import com.doctor.yuyi.fragment.ErrorFragment;
 import com.doctor.yuyi.fragment.InformationFragment;
 import com.doctor.yuyi.fragment.MyFragment;
@@ -76,41 +77,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private long time = 0;
 
     private String resStr;
-    private Handler han=new Handler(){
+    private Handler han = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     break;
                 case 1:
-                    try{
-                        BeanPriRong rong=okhttp.gson.fromJson(resStr,BeanPriRong.class);
-                       if (rong!=null){
-                           if (rong.getCode()==0){
-                               if (rong.isPermissionInfo()==true){
-                                   String name="医生";
-                                   String uri="http://img5.imgtn.bdimg.com/it/u=1482475142,4125104797&fm=23&gp=0.jpg";
-                                   if (rong.getTrueName()!=null&&!"".equals(rong.getTrueName())){
-                                    name=rong.getTrueName();
-                                   }
-                                   if (!"".equals(rong.getAvatar())&&!TextUtils.isEmpty(rong.getAvatar())){
-                                       uri=rong.getAvatar();
-                                   }
-                                   io.rong.imlib.model.UserInfo info=new io.rong.imlib.model.UserInfo(rong.getId()+"",name,Uri.parse(uri));
-                                   com.doctor.yuyi.User.UserInfo.RongToken=rong.getToken();
-                                   RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken,info);
-                               }
-                               else {
-                                   Log.e("当前医生无法接收到咨询xinxi ","mainActivity:医院未授予当前医生接收视频到权限");
-                               }
-                           }
-                           else if (rong.getCode()==-1){
-                               Log.e("当前用户信息无法查询到","mainActivity:当前用户没有在任何医院注册，请通知去注册");
-                           }
-                       }
-                    }
-                    catch (Exception e){
+                    try {
+                        BeanPriRong rong = okhttp.gson.fromJson(resStr, BeanPriRong.class);
+                        if (rong != null) {
+                            if (rong.getCode() == 0) {
+                                if (rong.isPermissionInfo() == true) {
+                                    String name = "医生";
+                                    String uri = "http://img5.imgtn.bdimg.com/it/u=1482475142,4125104797&fm=23&gp=0.jpg";
+                                    if (rong.getTrueName() != null && !"".equals(rong.getTrueName())) {
+                                        name = rong.getTrueName();
+                                    }
+                                    if (!"".equals(rong.getAvatar()) && !TextUtils.isEmpty(rong.getAvatar())) {
+                                        uri = rong.getAvatar();
+                                    }
+                                    io.rong.imlib.model.UserInfo info = new io.rong.imlib.model.UserInfo(rong.getId() + "", name, Uri.parse(uri));
+                                    com.doctor.yuyi.User.UserInfo.RongToken = rong.getToken();
+                                    RongConnection.connRong(MainActivity.this, com.doctor.yuyi.User.UserInfo.RongToken, info);
+                                } else {
+                                    Log.e("当前医生无法接收到咨询xinxi ", "mainActivity:医院未授予当前医生接收视频到权限");
+                                }
+                            } else if (rong.getCode() == -1) {
+                                Log.e("当前用户信息无法查询到", "mainActivity:当前用户没有在任何医院注册，请通知去注册");
+                            }
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
@@ -126,11 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CheckPri();//检查是否有权限去接听视频，有权限的链接融云
         showInformationFragment();
     }
+
     //检查当前用户是否有权限接受视频，语音，聊天
     private void CheckPri() {
-        Map<String,String>mp=new HashMap<>();
-        mp.put("telephone",UserInfo.UserName);
-        okhttp.getCall(Ip.URL+Ip.interface_CheckPri,mp,okhttp.OK_GET).enqueue(new Callback() {
+        Map<String, String> mp = new HashMap<>();
+        mp.put("telephone", UserInfo.UserName);
+        okhttp.getCall(Ip.URL + Ip.interface_CheckPri, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 han.sendEmptyMessage(0);
@@ -138,8 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onResponse(Response response) throws IOException {
-                resStr=response.body().string();
-                Log.i("聊天权限检查---",resStr);
+                resStr = response.body().string();
+                Log.i("聊天权限检查---", resStr);
                 han.sendEmptyMessage(1);
             }
         });
@@ -195,10 +194,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         InformationFragment informationFragment = (InformationFragment) mFragmentManager.findFragmentByTag(informationTag);
         AcademicFragment academicFragment = (AcademicFragment) mFragmentManager.findFragmentByTag(academicTag);
-        PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        // PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        ChatFragment patientFragment = (ChatFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
-            if (isNetworkConnected(this)) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (informationFragment != null) {//显示资讯
                 fragmentTransaction.show(informationFragment);
@@ -253,7 +253,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         InformationFragment informationFragment = (InformationFragment) mFragmentManager.findFragmentByTag(informationTag);
         AcademicFragment academicFragment = (AcademicFragment) mFragmentManager.findFragmentByTag(academicTag);
-        PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        // PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        ChatFragment patientFragment = (ChatFragment) mFragmentManager.findFragmentByTag(patientTag);
+
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
         if (isNetworkConnected(this)) {
@@ -311,7 +313,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         InformationFragment informationFragment = (InformationFragment) mFragmentManager.findFragmentByTag(informationTag);
         AcademicFragment academicFragment = (AcademicFragment) mFragmentManager.findFragmentByTag(academicTag);
-        PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        // PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        ChatFragment patientFragment = (ChatFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
         if (isNetworkConnected(this)) {
@@ -319,7 +322,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (patientFragment != null) {//显示患者
                 fragmentTransaction.show(patientFragment);
             } else {
-                PatientFragment patientF = new PatientFragment();
+                //  PatientFragment patientF = new PatientFragment();
+                ChatFragment patientF = new ChatFragment();
                 fragmentTransaction.add(mFragment_rl.getId(), patientF, patientTag);
             }
             if (informationFragment != null) {//隐藏资讯
@@ -369,7 +373,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         InformationFragment informationFragment = (InformationFragment) mFragmentManager.findFragmentByTag(informationTag);
         AcademicFragment academicFragment = (AcademicFragment) mFragmentManager.findFragmentByTag(academicTag);
-        PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        // PatientFragment patientFragment = (PatientFragment) mFragmentManager.findFragmentByTag(patientTag);
+        ChatFragment patientFragment = (ChatFragment) mFragmentManager.findFragmentByTag(patientTag);
         MyFragment myFragment = (MyFragment) mFragmentManager.findFragmentByTag(myTag);
         ErrorFragment errorFragment = (ErrorFragment) mFragmentManager.findFragmentByTag(errorTag);
         mtitle_rl.setVisibility(View.GONE);
@@ -487,6 +492,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 判断有没有网
+     *
      * @param context
      * @return
      */

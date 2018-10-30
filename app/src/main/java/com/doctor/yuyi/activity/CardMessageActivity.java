@@ -43,7 +43,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CardMessageActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
 
@@ -264,7 +266,9 @@ public class CardMessageActivity extends AppCompatActivity implements View.OnCli
                         ToastUtils.myToast(CardMessageActivity.this, "请输入评论内容");
                     } else {
                         if (id != -1) {
-                            mHttptools.submitCircleComment(mHandler, Long.valueOf(UserInfo.UserName), id, getEditContent());
+                            Map<String,String> map=new HashMap<>();
+                            map.put("Content",getEditContent());
+                            mHttptools.submitCircleComment(mHandler, Long.valueOf(UserInfo.UserName), id, map);
                             //隐藏软键盘
                             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                         } else {

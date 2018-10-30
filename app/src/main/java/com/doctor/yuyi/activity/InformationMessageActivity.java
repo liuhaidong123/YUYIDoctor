@@ -35,6 +35,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class InformationMessageActivity extends AppCompatActivity implements View.OnClickListener, UMShareListener {
     private ImageView mBack;
     private ImageView mComment_img;
@@ -160,7 +163,9 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                     } else {
 
                         if (!"".equals(UserInfo.UserName)) {
-                            mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), getEditContent());
+                            Map<String,String> map=new HashMap<>();
+                            map.put("Content",getEditContent());
+                            mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), map);
                             mEdit.setText("");
                             //隐藏软键盘
                             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -212,7 +217,9 @@ public class InformationMessageActivity extends AppCompatActivity implements Vie
                 ToastUtils.myToast(InformationMessageActivity.this, "请输入评论内容");
             } else {
                 if (!"".equals(UserInfo.UserName)) {
-                    mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), getEditContent());
+                    Map<String,String> map=new HashMap<>();
+                    map.put("Content",getEditContent());
+                    mHttpTools.submitCommentContent(mHandler, Long.valueOf(UserInfo.UserName), getIntent().getLongExtra("id", -1), map);
                     mEdit.setText("");
                     //隐藏软键盘
                     ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
